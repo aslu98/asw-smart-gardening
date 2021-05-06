@@ -1,0 +1,3 @@
+{"_id":{"$oid":"609417a716b7f0346c54a0fc"},"temperature":16,"humidity":40,"flagOn":false,"garden":"609412d316b7f0346c54a093"}
+{"_id":{"$oid":"6094182f16b7f0346c54a12f"},"temperature":16,"humidity":10,"flagOn":true,"garden":"609412d316b7f0346c54a093"}
+{"_id":{"$oid":"6094184016b7f0346c54a135"},"temperature":17,"humidity":60,"flagOn":false,"garden":"609412d316b7f0346c54a093"}
