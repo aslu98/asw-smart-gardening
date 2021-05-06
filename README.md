@@ -5,8 +5,7 @@
 npm install
 ```
 
-Create MongoDB database and import collections:
-Go inside mongodb/bin
+Create MongoDB database and import collections: go inside mongodb/bin, use json files from directory mongodb-collections
 
 ```
 mongoimport --collection Gardens --db smart-gardening ./path/to/gardens.json
