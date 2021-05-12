@@ -9,9 +9,10 @@
 </head>
 
 <body>
-<div id="movies-app" class="container-fluid">
-	<h1>Amazing Movies</h1>
-	<navbar></navbar>
+<div id="gardening-app" class="container-fluid">
+	<h1>Amazing Gardens</h1>
+	<router-link to="/gardens">Go to Gardens</router-link>
+	<router-link to="/">Go to Home</router-link>
 	<router-view></router-view>
 </div>
 
@@ -19,19 +20,16 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://npmcdn.com/vue-router/dist/vue-router.js"></script>
 <script src="/static/js/home.js"></script>
-<script src="/static/js/movies.js"></script>
+<script src="/static/js/gardens.js"></script>
 <script src="/static/js/404.js"></script>
 <script src="/static/js/navbar.js"></script>
 <script src="/static/js/router.js"></script>
 
 <script>
-  var app = new Vue({
+   var app = new Vue({
 		router,
-		el: "#movies-app",
-	  	components: {
-			'navbar': Navbar
-		}
-	});
+		el: "#gardening-app"
+   })
 </script>
 
 </body>

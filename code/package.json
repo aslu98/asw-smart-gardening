@@ -12,5 +12,8 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "mongoose": "^5.12.5"
+  },
+  "devDependencies": {
+    "bson": "^1.1.6"
   }
 }
