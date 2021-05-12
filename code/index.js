@@ -8,7 +8,7 @@ global.appRoot = path.resolve(__dirname);
 
 var PORT = 3000;
 
-mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/smart-gardening', { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true });
 
 app.use(cors())
 
@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use('/static', express.static(__dirname + '/public'));
 
-var routes = require('./src/routes/moviesRoutes');
+var routes = require('./src/routes/gardeningRoutes');
 routes(app);
 
 app.use(function(req, res) {
