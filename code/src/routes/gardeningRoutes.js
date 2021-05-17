@@ -13,6 +13,13 @@ module.exports = function(app) {
 	app.route('/api/maintenances')
 		.get(controller.list_maintenances)
 
+
+	app.route('/api/sensors/:id')
+		.get(controller.sensors_of_garden)
+
+	app.route('/api/maintenances/:id')
+		.get(controller.calender_of_garden)
+
 	app.use(controller.show_index);
 };
 

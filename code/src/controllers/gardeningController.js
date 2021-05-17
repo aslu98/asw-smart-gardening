@@ -40,6 +40,24 @@ exports.list_maintenances = function(req, res) {
 	});
 };
 
+exports.sensors_of_garden = function(req, res) {
+	Sensor.find({garden: req.params.id.toObjectId()}, function(err, sensor) {
+		if (err || sensor == null)
+			res.send(err);
+		console.log(sensor.length)
+		res.json(sensor);
+	});
+};
+
+exports.calendar_of_garden = function(req, res) {
+	Maintenance.find({garden: req.params.id.toObjectId()}, function(err, maint) {
+		if (err || maint == null)
+			res.send(err);
+		console.log(maint.length)
+		res.json(maint);
+	});
+};
+
 
 /*EXAMPLES from LAB
 exports.last_movie = function(req, res) {
