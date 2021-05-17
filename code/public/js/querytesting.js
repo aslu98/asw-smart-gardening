@@ -1,14 +1,14 @@
-const Sensors = {
+const Querytesting = {
 	//this template will be the one of the side info for the garden -> fare query con tutte le info necessarie (garden + sensori)
 	//there will be another component for the garden calendar (query on the maint.)
 	template: `
 	<div class="row">
 		<div class="col">
-			<div class="card" v-for="sensor in sensors">
+			<div class="card" v-for="t in test">
 				<div class="row no-gutters">
 					<div class="col-md-10">
 						<div class="card-body">
-							<h5 class="card-title">Temperature: {{ sensor.temperature }}</h5>
+							<h5 class="card-title"> {{t}} </h5>
 						</div>
 					</div>
 				</div>
@@ -18,14 +18,14 @@ const Sensors = {
 	`,
 	data() {
 		return {
-			sensors: [],
+			test: [],
 		}
 	},
 	methods: {
 		getSensors: function () {
-			axios.get("http://localhost:3000/api/sensors/609412d316b7f0346c54a093")
+			axios.get("http://localhost:3000/api/maintenances/609412d316b7f0346c54a093")
 			.then(response => {
-				this.sensors = response.data
+				this.test = response.data
 			})
 			.catch(error => (console.log(error)));
 

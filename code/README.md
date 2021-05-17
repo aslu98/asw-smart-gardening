@@ -11,5 +11,5 @@ Create MongoDB database and import collections: go inside mongodb/bin, use json 
 mongoimport --collection Gardens --db smart-gardening ./path/to/gardens.json
 mongoimport --collection Gardeners --db smart-gardening ./path/to/gardeners.json
 mongoimport --collection Maintenances --db smart-gardening ./path/to/maintenances.json
-mongoimport --collection Sensors --db smart-gardening ./path/to/sensors.json
+mongoimport --collection Querytesting --db smart-gardening ./path/to/sensors.json
 ```

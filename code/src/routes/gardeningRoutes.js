@@ -18,7 +18,7 @@ module.exports = function(app) {
 		.get(controller.sensors_of_garden)
 
 	app.route('/api/maintenances/:id')
-		.get(controller.calender_of_garden)
+		.get(controller.calendar_of_garden)
 
 	app.use(controller.show_index);
 };
