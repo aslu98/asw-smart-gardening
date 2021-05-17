@@ -67,6 +67,23 @@ exports.calendar_of_garden = function(req, res) {
 	});
 };
 
+exports.maintenance_done = function(req, res) {
+	Maintenance.findOneAndUpdate({_id: req.params.id}, {done:true}, {new: true}, function(err, maint) {
+		if (err)
+			res.send(err);
+		else{
+			if(maint==null){
+				res.status(404).send({
+					description: 'Maintenance not found'
+				});
+			}
+			else{
+				res.json(maint);
+			}
+		}
+	});
+};
+
 
 /*EXAMPLES from LAB
 exports.last_movie = function(req, res) {

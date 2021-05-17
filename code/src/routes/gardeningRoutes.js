@@ -13,15 +13,20 @@ module.exports = function(app) {
 	app.route('/api/maintenances')
 		.get(controller.list_maintenances)
 
-
-	app.route('/api/sensors/:id')
+	app.route('/api/sensors/garden/:id')
 		.get(controller.sensors_of_garden)
 
-	app.route('/api/maintenances/:id')
+	app.route('/api/maintenances/garden/:id')
 		.get(controller.calendar_of_garden)
 
-	app.route('/api/maintenances/next/:id')
+	app.route('/api/maintenances/garden/:id/next')
 		.get(controller.next_on_garden)
+
+	app.route('/api/maintenances/garden/:id')
+		.get(controller.calendar_of_garden)
+
+	app.route('/api/maintenances/:id/done')
+		.get(controller.maintenance_done)
 
 	app.use(controller.show_index);
 };
