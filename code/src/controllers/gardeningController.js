@@ -44,8 +44,18 @@ exports.sensors_of_garden = function(req, res) {
 	Sensor.find({garden: req.params.id.toObjectId()}, function(err, sensor) {
 		if (err || sensor == null)
 			res.send(err);
-		console.log(sensor.length)
 		res.json(sensor);
+	});
+};
+
+exports.next_on_garden = function(req, res) {
+	Maintenance.find({garden: req.params.id.toObjectId(), startTime: {$gte: new Date()}})
+		.sort({'startTime': 1})
+		.limit(2)
+		.exec( function(err, maint) {
+		if (err || maint == null)
+			res.send(err);
+		res.json(maint);
 	});
 };
 
@@ -53,7 +63,6 @@ exports.calendar_of_garden = function(req, res) {
 	Maintenance.find({garden: req.params.id.toObjectId()}, function(err, maint) {
 		if (err || maint == null)
 			res.send(err);
-		console.log(maint.length)
 		res.json(maint);
 	});
 };

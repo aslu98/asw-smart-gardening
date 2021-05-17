@@ -20,6 +20,9 @@ module.exports = function(app) {
 	app.route('/api/maintenances/:id')
 		.get(controller.calendar_of_garden)
 
+	app.route('/api/maintenances/next/:id')
+		.get(controller.next_on_garden)
+
 	app.use(controller.show_index);
 };
 

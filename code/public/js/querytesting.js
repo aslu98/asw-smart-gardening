@@ -23,7 +23,7 @@ const Querytesting = {
 	},
 	methods: {
 		getSensors: function () {
-			axios.get("http://localhost:3000/api/maintenances/609412d316b7f0346c54a093")
+			axios.get("http://localhost:3000/api/maintenances/next/609412d316b7f0346c54a093")
 			.then(response => {
 				this.test = response.data
 			})
