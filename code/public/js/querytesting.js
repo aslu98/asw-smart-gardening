@@ -22,13 +22,18 @@ const Querytesting = {
 		}
 	},
 	methods: {
-		getSensors: function () {
-			axios.get("http://localhost:3000/api/maintenances/garden/609412d316b7f0346c54a093/next")
+		getSensors:function () {
+			axios.post("http://localhost:3000/api/maintenances", {
+				garden: "609412d316b7f0346c54a093",
+				startTime: new Date("2021-05-30T17:00:00.000"),
+				duration: 60,
+				done: false,
+				gardener: "60944e8316b7f0346c54a49d"
+			})
 			.then(response => {
 				this.test = response.data
 			})
 			.catch(error => (console.log(error)));
-
 		},
 		init: function(){
 			this.getSensors();

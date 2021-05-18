@@ -85,71 +85,21 @@ exports.maintenance_done = function(req, res) {
 };
 
 
-/*EXAMPLES from LAB
-exports.last_movie = function(req, res) {
-	Movie.findOne({}, {}, {sort: {released: -1}}, function(err, movie) {
-		if (err || movie == null)
+exports.create_maintenance = function(req, res) {
+	var new_maintenance = new Maintenance(req.body);
+	new_maintenance.save(function(err, maint) {
+		if (err)
 			res.send(err);
-		res.json(movie);
+		res.status(201).json(maint);
 	});
 };
 
-exports.read_movie = function(req, res) {
-	Movie.findById(req.params.id, function(err, movie) {
-		if (err)
-			res.send(err);
-		else{
-			if(movie==null){
-				res.status(404).send({
-					description: 'Movie not found'
-				});
-			}
-			else{
-				res.json(movie);
-			}
-		}
-	});
-};
+/* EXAMPLE of post request for create_maintenance
+axios.post("http://localhost:3000/api/maintenances", {
+				garden: "609412d316b7f0346c54a093",
+				startTime: new Date("2021-05-30T17:00:00.000"),
+				duration: 60,
+				done: false,
+				gardener: "60944e8316b7f0346c54a49d"})
+*/
 
-exports.create_movie = function(req, res) {
-	var new_movie = new Movie(req.body);
-	new_movie.save(function(err, movie) {
-		if (err)
-			res.send(err);
-		res.status(201).json(movie);
-	});
-};
-
-exports.update_movie = function(req, res) {
-	Movie.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, movie) {
-		if (err)
-			res.send(err);
-		else{
-			if(movie==null){
-				res.status(404).send({
-					description: 'Movie not found'
-				});
-			}
-			else{
-				res.json(movie);
-			}
-		}
-	});
-};
-
-exports.delete_movie = function(req, res) {
-	Movie.deleteOne({_id: req.params.id}, function(err, result) {
-		if (err)
-			res.send(err);
-		else{
-			if(result.deletedCount==0){
-				res.status(404).send({
-					description: 'Movie not found'
-				});
-			}
-			else{
-				res.json({ message: 'Task successfully deleted' });
-			}
-		}
-  });
-};*/

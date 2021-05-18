@@ -12,6 +12,7 @@ module.exports = function(app) {
 
 	app.route('/api/maintenances')
 		.get(controller.list_maintenances)
+		.post(controller.create_maintenance);
 
 	app.route('/api/sensors/garden/:id')
 		.get(controller.sensors_of_garden)
