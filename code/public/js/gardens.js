@@ -11,6 +11,7 @@ const Gardens = {
 							<h5 class="card-title">Name: {{ garden.name }}</h5>
 							<p class="card-text">ObjectId: {{ garden._id }}</p>
 							<p class="card-text">City: {{ garden.city }}</p>
+							<p class="card-text">Lat: {{ garden.lat }}</p>
 							<p class="card-text">Any flags on: {{ garden.flagsOn }}</p>
 						</div>
 					</div>

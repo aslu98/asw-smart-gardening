@@ -4,6 +4,8 @@ module.exports = function(mongoose) {
         name: String,
         city: String,
 		position: String,
+        lat: Number,
+        lon: Number,
 		sensors: [{ type : mongoose.Types.ObjectId, ref: 'Sensor' }],
         flagsOn: Number,
 		sensorsWithFlag: [{ type : mongoose.Types.ObjectId, ref: 'Sensor' }]
