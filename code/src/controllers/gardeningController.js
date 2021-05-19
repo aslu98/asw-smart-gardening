@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 Gardener = require("../models/gardenerModel.js")(mongoose);
 Garden = require("../models/gardenModel.js")(mongoose);
 Sensor = require("../models/sensorModel.js")(mongoose);

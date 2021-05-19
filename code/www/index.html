@@ -11,7 +11,7 @@
 <body>
 <div id="gardening-app" class="container-fluid">
 	<h1>Amazing Gardens</h1>
-	<router-link to="/garden-info/609412d316b7f0346c54a093">Go to Garden </router-link>
+	<router-link to="/garden-info/609412d316b7f0346c54a093">Go to Garden</router-link>
 	<router-link to="/">Go to Home</router-link>
 	<router-view></router-view>
 </div>
@@ -26,10 +26,11 @@
 <script src="/static/js/router.js"></script>
 
 <script>
-   var app = new Vue({
-		router,
-		el: "#gardening-app"
-   })
+   const app = new Vue({
+       router,
+       el: "#gardening-app"
+   });
+
 </script>
 
 </body>

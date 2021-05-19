@@ -30,10 +30,9 @@ const Navbar = {
     template: `
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div id="navbarNav">
-            CIAOOOOO
                 <ul class="navbar-nav">
-                    \<navbutton :text="Home" @clicked="onClickChild()"></navbutton>
-                    \<navbutton :text="Movies" @clicked="onClickChild()"></navbutton>
+                    <navbutton :text="Home" @clicked="onClickChild()"></navbutton>
+                    <navbutton :text="Movies" @clicked="onClickChild()"></navbutton>
                 </ul>
             </div>
             <p>Tot click: {{ count }}</p>
