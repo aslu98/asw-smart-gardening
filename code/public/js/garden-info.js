@@ -1,14 +1,19 @@
-const Querytesting = {
+const Garden = {
 	//this template will be the one of the side info for the garden -> fare query con tutte le info necessarie (garden + sensori)
 	//there will be another component for the garden calendar (query on the maint.)
 	template: `
 	<div class="row">
 		<div class="col">
-			<div class="card" v-for="t in test">
+			<div class="card">
 				<div class="row no-gutters">
 					<div class="col-md-10">
 						<div class="card-body">
-							<h5 class="card-title"> {{t}} </h5>
+							{{$route.params.id}}
+							<h5 class="card-title">Name: {{ garden.name }}</h5>
+							<p class="card-text">ObjectId: {{ garden._id }}</p>
+							<p class="card-text">City: {{ garden.city }}</p>
+							<p class="card-text">Lat: {{ garden.lat }}</p>
+							<p class="card-text">Any flags on: {{ garden.flagsOn }}</p>
 						</div>
 					</div>
 				</div>
@@ -18,25 +23,20 @@ const Querytesting = {
 	`,
 	data() {
 		return {
-			test: [],
+			garden: {}
 		}
 	},
 	methods: {
-		getSensors:function () {
-			axios.post("http://localhost:3000/api/maintenances", {
-				garden: "609412d316b7f0346c54a093",
-				startTime: new Date("2021-05-30T17:00:00.000"),
-				duration: 60,
-				done: false,
-				gardener: "60944e8316b7f0346c54a49d"
-			})
+		getGarden: function () {
+			axios.get("http://localhost:3000/api/gardens/" + this.$route.params.id)
 			.then(response => {
-				this.test = response.data
+				this.garden = response.data
 			})
 			.catch(error => (console.log(error)));
+
 		},
 		init: function(){
-			this.getSensors();
+			this.getGarden();
 		}
 	},
 	mounted(){

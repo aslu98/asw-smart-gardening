@@ -67,6 +67,14 @@ exports.calendar_of_garden = function(req, res) {
 	});
 };
 
+exports.garden_info = function(req, res) {
+	Garden.findById({_id: req.params.id}, function(err, garden) {
+		if (err)
+			res.send(err);
+		res.json(garden);
+	});
+};
+
 exports.maintenance_done = function(req, res) {
 	Maintenance.findOneAndUpdate({_id: req.params.id}, {done:true}, {new: true}, function(err, maint) {
 		if (err)
@@ -93,7 +101,6 @@ exports.create_maintenance = function(req, res) {
 		res.status(201).json(maint);
 	});
 };
-
 /* EXAMPLE of post request for create_maintenance
 axios.post("http://localhost:3000/api/maintenances", {
 				garden: "609412d316b7f0346c54a093",
