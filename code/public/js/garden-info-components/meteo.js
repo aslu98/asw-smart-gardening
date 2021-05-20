@@ -1,1 +1,0 @@
-const Meteo = {template: '<p>met</p>'}

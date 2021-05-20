@@ -1,1 +1,0 @@
-const CalendarButton = {template: '<p>cb</p>'}
