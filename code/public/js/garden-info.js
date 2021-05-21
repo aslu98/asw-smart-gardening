@@ -1,29 +1,54 @@
 const Sensors = {
 	template:`
-		<p>Sensors</p>
+		<div class="sensors-template">
+			<h6>Sensors</h6>
+			<table class="table table-bordered">
+			  <thead>
+				<tr>
+				  <th scope="col">#</th>
+				  <th scope="col">First</th>
+				  <th scope="col">Last</th>
+				  <th scope="col">Handle</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <th scope="row">1</th>
+				  <td>Mark</td>
+				  <td>Otto</td>
+				  <td>@mdo</td>
+				</tr>
+				<tr>
+				  <th scope="row">2</th>
+				  <td>Jacob</td>
+				  <td>Thornton</td>
+				  <td>@fat</td>
+				</tr>
+			  </tbody>
+			</table>
+		</div>
 	`
 }
 
 const Meteo = {
 	template: `
 		<div class="meteo-template">
-			<h6> Meteo </h6>
-				<div class="meteo-card row">
-					<div class="col-md-1"/>
-					<div class="col-md-3">
+			<h6>Meteo</h6>
+				<div class="meteo-card border row">
+					<div class="col-4">
 						<div class="row">
-							<div class="mx-auto">
+							<div class="col-6 today-weather-icon">
 								<img :src=today.icon :alt=today.description />
 							</div>
-							<div class="mx-auto today-weather-info">
+							<div class="col-6 today-weather-info">
 								<p>{{today.temp}}</p>
 								<p>{{today.humidity}}</p>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-7">
+					<div class="col-8">
 						<div class="row">
-							<div class="col-md-4 border-left"  v-for="day in nextdays">
+							<div class="col-4 border-left"  v-for="day in nextdays">
 								<div class="row">
 									<div class="mx-auto">
 										<img :src=day.icon :alt=day.description />
@@ -31,16 +56,15 @@ const Meteo = {
 								</div>
 								<div class="row weather-info">
 									<div class="mx-auto">
-										{{day.temp}}
+										<p>{{day.temp}}</p>
 									</div>
 									<div class="mx-auto">
-										{{day.humidity}}
+										<p>{{day.humidity}}</p>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-1"/>
 				</div>
 			</div>
 	`,

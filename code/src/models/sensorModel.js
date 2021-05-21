@@ -5,6 +5,8 @@ module.exports = function(mongoose) {
         humidity: Number,
 		CO2: mongoose.Schema.Types.Decimal128,
 		flagOn: Boolean,
+        API: Number,
+        where: String,
         garden: { type : mongoose.Types.ObjectId, ref: 'Garden' },
     });
     return mongoose.model('Sensor', SensorSchema);

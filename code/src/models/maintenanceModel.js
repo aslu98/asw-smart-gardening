@@ -5,6 +5,7 @@ module.exports = function(mongoose) {
         startTime: Date,
         duration: Number,
         done: Boolean,
+        description: String,
 		gardener: { type : mongoose.Types.ObjectId, ref: 'Gardener' }
     });
     return mongoose.model('Maintenance', MaintenanceSchema);

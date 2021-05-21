@@ -1,1 +1,26 @@
 /*ASIA STYLE*/
+.today-weather-icon img {
+    padding:7px;
+    padding-left:8%;
+}
+
+.today-weather-icon{
+    padding: 0;
+}
+
+.today-weather-info{
+    padding:0;
+    padding-left:2px;
+    padding-top: 22px;
+}
+
+.today-weather-info p{
+    margin: 8px;
+    font-weight: bold;
+}
+
+.meteo-card{
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
