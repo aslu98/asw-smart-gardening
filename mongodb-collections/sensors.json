@@ -1,3 +1,3 @@
-{"_id":{"$oid":"609417a716b7f0346c54a0fc"},"temperature":16,"humidity":40,"CO2":0.04,"flagOn":false,"garden":{"$oid":"609412d316b7f0346c54a093"}}
-{"_id":{"$oid":"6094182f16b7f0346c54a12f"},"temperature":16,"humidity":10,"flagOn":true,"garden":{"$oid":"609412d316b7f0346c54a093"}}
-{"_id":{"$oid":"6094184016b7f0346c54a135"},"temperature":17,"humidity":60,"flagOn":false,"garden":{"$oid":"609412d316b7f0346c54a093"}}
+{"_id":{"$oid":"609417a716b7f0346c54a0fc"},"temperature":16,"humidity":40,"CO2":0.04,"flagOn":false,"API":1359457,"where":"Genziane","garden":{"$oid":"609412d316b7f0346c54a093"}}
+{"_id":{"$oid":"6094182f16b7f0346c54a12f"},"temperature":16,"humidity":10,"flagOn":true,"API":606355,"where":"Cactus","garden":{"$oid":"609412d316b7f0346c54a093"}}
+{"_id":{"$oid":"6094184016b7f0346c54a135"},"temperature":17,"humidity":60,"flagOn":false,"API":206644,"where":"Iris","garden":{"$oid":"609412d316b7f0346c54a093"}}
