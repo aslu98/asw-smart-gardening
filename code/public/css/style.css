@@ -24,3 +24,8 @@
     margin-right: 1%;
 }
 
+.table-bordered > tbody > tr > td,
+.table-bordered > tbody > tr > th {
+    border:thin solid #119F5D;
+}
+

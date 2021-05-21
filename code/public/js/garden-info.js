@@ -2,39 +2,54 @@ const Sensors = {
 	template:`
 		<div class="sensors-template">
 			<h6>Sensors</h6>
-			<table class="table table-bordered">
-			  <thead>
-				<tr>
-				  <th scope="col">#</th>
-				  <th scope="col">First</th>
-				  <th scope="col">Last</th>
-				  <th scope="col">Handle</th>
-				</tr>
-			  </thead>
-			  <tbody>
-				<tr>
-				  <th scope="row">1</th>
-				  <td>Mark</td>
-				  <td>Otto</td>
-				  <td>@mdo</td>
-				</tr>
-				<tr>
-				  <th scope="row">2</th>
-				  <td>Jacob</td>
-				  <td>Thornton</td>
-				  <td>@fat</td>
-				</tr>
-			  </tbody>
-			</table>
+				<table class="table table-bordered">
+				  <tbody>
+					<tr v-for="sensor in sensors">
+					  <th scope="row">#{{sensor.API}}</th>
+					  <td>{{sensor.where}}</td>
+					  <td>{{sensor.temperature}} °C</td>
+					  <td>{{sensor.humidity}} %</td>
+					</tr>
+				  </tbody>
+				</table>
 		</div>
-	`
+	`,
+	data(){
+		return {
+			gardenID: this.$route.params.id,
+			sensors: []
+		}
+	},
+	props: ['garden'],
+	watch: {
+		garden(n, o) {
+			this.gardenID = n._id;
+			this.getSensors()
+		}
+	},
+	methods: {
+		getSensors: function () {
+			axios.get("http://localhost:3000/api/sensors/garden/" + this.gardenID)
+				.then(response => {
+					this.sensors = response.data
+					console.log(this.sensors)
+				})
+				.catch(error => (console.log(error)));
+		},
+		init: function(){
+			this.getSensors();
+		}
+	},
+	mounted(){
+		this.init()
+	}
 }
 
 const Meteo = {
 	template: `
 		<div class="meteo-template">
 			<h6>Meteo</h6>
-				<div class="meteo-card border row">
+				<div class="meteo-card border border-success rounded row">
 					<div class="col-4">
 						<div class="row">
 							<div class="col-6 today-weather-icon">
@@ -48,7 +63,7 @@ const Meteo = {
 					</div>
 					<div class="col-8">
 						<div class="row">
-							<div class="col-4 border-left"  v-for="day in nextdays">
+							<div class="col-4 border-left border-success"  v-for="day in nextdays">
 								<div class="row">
 									<div class="mx-auto">
 										<img :src=day.icon :alt=day.description />
@@ -100,7 +115,6 @@ const Meteo = {
 						temp: data.current.temp.toFixed(1) + "°C",
 						humidity: data.current.humidity + "%"
 					}
-					console.log(this.today)
 					for (let i = 0; i<3; i++){
 						this.nextdays[i] = {
 							icon: "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon +"@2x.png",
@@ -108,7 +122,6 @@ const Meteo = {
 							temp: data.daily[i].temp.day.toFixed(0) + "°C",
 							humidity: data.daily[i].humidity + "%"
 						}
-						console.log(this.nextdays[i])
 					}
 				})
 				.catch(error => (console.log(error)));
@@ -142,19 +155,26 @@ const GardenInfo = {
 		'cal-btn': CalendarButton
 	},
 	template: `
-		<div class="card">
+		<div class="card border border-success">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card-body">
-						<h5 class="card-title"> {{ garden.name }}</h5>
-						<p class="card-text"> {{ garden.city }} </p>
-						<hr/>
-						<sensors></sensors>
-						<hr/>
-						<meteo :garden="garden"></meteo>
-						<hr/>
-						<to-do></to-do>
-						<cal-btn></cal-btn>
+						<div class="row">
+							<div class="col-2">
+								<i class="fas fa-chevron-circle-left"></i>
+							</div>
+							<div class="mx-auto">
+								<h5 class="card-title text-center"> {{ garden.name }}</h5>
+								<p class="card-text text-center"> {{ garden.city }} </p>
+							</div>
+						</div>
+							<hr class="border-success"/>
+							<sensors></sensors>
+							<hr class="border-success"/>
+							<meteo :garden="garden"></meteo>
+							<hr class="border-success"/>
+							<to-do></to-do>
+							<cal-btn></cal-btn>
 					</div>
 				</div>
 			</div>
