@@ -50,7 +50,7 @@ const Meteo = {
 		<div class="meteo-template">
 			<h6>Meteo</h6>
 				<div class="meteo-card border border-success rounded row">
-					<div class="col-4">
+					<div class="col-4 today-weather">
 						<div class="row">
 							<div class="col-6 today-weather-icon">
 								<img :src=today.icon :alt=today.description />
@@ -160,8 +160,8 @@ const GardenInfo = {
 				<div class="col-md-12">
 					<div class="card-body">
 						<div class="row">
-							<div class="col-2">
-								<i class="fas fa-chevron-circle-left"></i>
+							<div class="col-2 garden-info-back">
+								<i class="fas fa-chevron-circle-left fa-2x"></i>
 							</div>
 							<div class="mx-auto">
 								<h5 class="card-title text-center"> {{ garden.name }}</h5>

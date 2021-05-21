@@ -1,7 +1,26 @@
 /*ASIA STYLE*/
-.today-weather-icon img {
-    padding:7px;
-    padding-left:8%;
+.garden-info-back{
+    margin-top: 10px;
+}
+
+.card-title{
+    margin-bottom: 0;
+    font-weight: bolder;
+    font-size: 25px;
+}
+
+.table-bordered > tbody > tr > td,
+.table-bordered > tbody > tr > th {
+    border:thin solid #119F5D;
+}
+
+.meteo-card{
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.today-weather{
+    margin-top: 8px;
 }
 
 .today-weather-icon{
@@ -14,18 +33,13 @@
     padding-top: 22px;
 }
 
+.today-weather-icon img {
+    padding:7px;
+    padding-left:8%;
+}
+
 .today-weather-info p{
     margin: 8px;
     font-weight: bold;
-}
-
-.meteo-card{
-    margin-left: 1%;
-    margin-right: 1%;
-}
-
-.table-bordered > tbody > tr > td,
-.table-bordered > tbody > tr > th {
-    border:thin solid #119F5D;
 }
 
