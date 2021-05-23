@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" style="height: 100%; width: 100%;">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,28 +24,28 @@
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
 			integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
-	<!-- Vari NON SO SE SONO DA TENERE COSÌ O È MEGLIO AGGIUNGERLI SOLO DOVE SERVONO-->
+	<!-- Vari. NON SO SE SONO DA TENERE COSÌ O È MEGLIO AGGIUNGERLI SOLO DOVE SERVONO-->
 	<script src="/static/js/home.js"></script>
 	<script src="/static/js/gardens.js"></script>
 	<script src="/static/js/404.js"></script>
 	<script src="/static/js/navbar.js"></script>
 	<script src="/static/js/router.js"></script>
 </head>
-<body>
+<body style="height: 100%; width: 100%;">
 <div id="gardening-app" class="container-fluid">
-	<nav>
+	<nav class="navbar">
 		<h1 class="float-start">Amazing Gardens</h1>
 		<form class="float-end my-2">
 			<input type="text"/>
 			<input type="password"/>
-			<button>Login</button>
+			<button class="btn btn-primary">Login</button>
 		</form>
 	</nav>
-	<div id="mapid" style="height: 100%; width: 100%;"></div>
 <!--	<router-link to="/gardens">Go to Gardens</router-link>
 	<router-link to="/">Go to Home</router-link>
 	<router-view></router-view>-->
 </div>
+<div id="mapid" style="height: 100%; width: 100%;"></div>
 
 <script>
    var app = new Vue({
@@ -53,12 +53,12 @@
 	   el: "#gardening-app"
    });
 
-   var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+   var mymap = L.map('mapid').setView([44.107, 12.385], 13);
    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	   attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
 	   maxZoom: 18
    }).addTo(mymap);
-   L.marker([51.505, -0.09]).bindPopup('The center of London!').addTo(mymap);
+   L.marker([44.1073, 12.3855]).bindPopup('The library of Gatteo!').addTo(mymap);
 </script>
 
 </body>
