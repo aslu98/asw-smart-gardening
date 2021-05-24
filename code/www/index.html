@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Hello World in Vue.js</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
 
 <body>
 <div id="gardening-app" class="container-fluid">
 	<h1>Amazing Gardens</h1>
-	<router-link to="/gardens">Go to Gardens</router-link>
+	<router-link to="/garden-info/609412d316b7f0346c54a093">Go to Garden</router-link>
 	<router-link to="/">Go to Home</router-link>
 	<router-view></router-view>
 </div>
@@ -19,17 +19,19 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://npmcdn.com/vue-router/dist/vue-router.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="/static/js/home.js"></script>
-<script src="/static/js/gardens.js"></script>
+<script src="/static/js/garden-info.js"></script>
 <script src="/static/js/404.js"></script>
 <script src="/static/js/navbar.js"></script>
 <script src="/static/js/router.js"></script>
 
 <script>
-   var app = new Vue({
-		router,
-		el: "#gardening-app"
-   })
+   const app = new Vue({
+       router,
+       el: "#gardening-app"
+   });
+
 </script>
 
 </body>
