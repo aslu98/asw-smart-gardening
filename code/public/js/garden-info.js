@@ -3,7 +3,7 @@ const Sensors = {
 		<div class="sensors-template">
 			<h6>Sensors</h6>
 			<div class="card my-custom-scrollbar">
-				<table class="table table-bordered">
+				<table class="table">
 				  <tbody>
 					<tr v-for="sensor in sensors">
 					  <th scope="row">#{{sensor.API}}</th>
@@ -65,7 +65,7 @@ const Meteo = {
 	template: `
 		<div class="weather-template">
 			<h6>Meteo</h6>
-				<div class="weather-card row">
+				<div class="weather-card green-border row">
 					<div class="col-4 today-weather">
 						<div class="row">
 							<div class="col-6 today-weather-icon">
@@ -82,7 +82,7 @@ const Meteo = {
 							<div class="col-4 weather-cell"  v-for="day in nextdays">
 								<div class="row">
 									<div class="mx-auto">
-										<img :src=day.icon :alt=day.description />
+										<img class="center" :src=day.icon :alt=day.description />
 									</div>
 								</div>
 								<div class="row weather-info">
@@ -155,7 +155,7 @@ const CalendarButton = {
 	template: `
 		<div class="row">
 			<div class="mx-auto open-calendar-btn">
-				<button type="button" class="btn btn-success"> Open Calendar </button>
+				<button type="button" class="center btn btn-success"> Open Calendar </button>
 			</div>
 		</div>
 	`
@@ -171,7 +171,7 @@ const GardenInfo = {
 		'cal-btn': CalendarButton
 	},
 	template: `
-		<div class="card garden-info">
+		<div class="card garden-info green-border">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card-body">
