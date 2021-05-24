@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" style="height: 100%; width: 100%;">
+<html lang="it">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,6 +10,9 @@
 		  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 	<!-- Vue -->
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -25,42 +28,46 @@
 			integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
 	<!-- Vari. NON SO SE SONO DA TENERE COSÌ O È MEGLIO AGGIUNGERLI SOLO DOVE SERVONO-->
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="/static/js/home.js"></script>
     <script src="/static/js/garden-info.js"></script>
 	<script src="/static/js/404.js"></script>
 	<script src="/static/js/navbar.js"></script>
 	<script src="/static/js/router.js"></script>
+    <link href="/static/css/style.css" rel="stylesheet">
 </head>
-<body style="height: 100%; width: 100%;">
-<div id="gardening-app" class="container-fluid">
-	<nav class="navbar">
-		<h1 class="float-start">Amazing Gardens</h1>
-		<form class="float-end my-2">
-			<input type="text"/>
-			<input type="password"/>
-			<button class="btn btn-primary">Login</button>
-		</form>
+<body>
+<div id="gardening-app" class="container-fluid px-0">
+	<nav class="navbar px-2">
+        <h1 id="main-title" class="text-center col-xxl-8 col-md-6 col-sm-12">GardenCare</h1> <!-- O ci si mette un logo oppure si cerca qualche font particolare per rendere la scritta più carina -->
+        <form class="col-xxl-4 col-md-6 col-sm-12">
+            <div class="row" style="align-items: center">
+                <div class="col input-group input-group-sm">
+                    <input id="user" class="form-control" placeholder="User" type="text" alt="Username"/>
+                </div>
+                <div class="col input-group input-group-sm">
+                    <input id="password" class="form-control" placeholder="Password" type="password" alt="Password"/>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success rounded-pill">Login</button>
+                </div>
+            </div>
+        </form>
 	</nav>
-
-	<router-link to="/garden-info/609412d316b7f0346c54a093">Go to Garden</router-link>
-	<router-link to="/">Go to Home</router-link>
-	<router-view></router-view>-->
 </div>
-<div id="mapid" style="height: 100%; width: 100%;"></div>
+<div id="mapid"></div>
 
 <script>
-   var app = new Vue({
-	   router,
-	   el: "#gardening-app"
-   });
+    var app = new Vue({
+        router,
+        el: "#gardening-app"
+    });
 
-   var mymap = L.map('mapid').setView([44.107, 12.385], 13);
-   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	   attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-	   maxZoom: 18
-   }).addTo(mymap);
-   L.marker([44.1073, 12.3855]).bindPopup('The library of Gatteo!').addTo(mymap);
+    var mymap = L.map('mapid').setView([44.107, 12.385], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+        maxZoom: 18
+    }).addTo(mymap);
+    L.marker([44.1073, 12.3855]).bindPopup('The library of Gatteo!').addTo(mymap);
 </script>
 
 </body>
