@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 Gardener = require("../models/gardenerModel.js")(mongoose);
 Garden = require("../models/gardenModel.js")(mongoose);
 Sensor = require("../models/sensorModel.js")(mongoose);
@@ -40,72 +40,73 @@ exports.list_maintenances = function(req, res) {
 	});
 };
 
-
-/*EXAMPLES from LAB
-exports.last_movie = function(req, res) {
-	Movie.findOne({}, {}, {sort: {released: -1}}, function(err, movie) {
-		if (err || movie == null)
+exports.sensors_of_garden = function(req, res) {
+	Sensor.find({garden: req.params.id.toObjectId()}, function(err, sensor) {
+		if (err || sensor == null)
 			res.send(err);
-		res.json(movie);
+		res.json(sensor);
 	});
 };
 
-exports.read_movie = function(req, res) {
-	Movie.findById(req.params.id, function(err, movie) {
+exports.next_on_garden = function(req, res) {
+	Maintenance.find({garden: req.params.id.toObjectId(), startTime: {$gte: new Date()}})
+		.sort({'startTime': 1})
+		.limit(2)
+		.exec( function(err, maint) {
+		if (err || maint == null)
+			res.send(err);
+		res.json(maint);
+	});
+};
+
+exports.calendar_of_garden = function(req, res) {
+	Maintenance.find({garden: req.params.id.toObjectId()}, function(err, maint) {
+		if (err || maint == null)
+			res.send(err);
+		res.json(maint);
+	});
+};
+
+exports.garden_info = function(req, res) {
+	Garden.findById({_id: req.params.id}, function(err, garden) {
+		if (err)
+			res.send(err);
+		res.json(garden);
+	});
+};
+
+exports.maintenance_done = function(req, res) {
+	Maintenance.findOneAndUpdate({_id: req.params.id}, {done:true}, {new: true}, function(err, maint) {
 		if (err)
 			res.send(err);
 		else{
-			if(movie==null){
+			if(maint==null){
 				res.status(404).send({
-					description: 'Movie not found'
+					description: 'Maintenance not found'
 				});
 			}
 			else{
-				res.json(movie);
+				res.json(maint);
 			}
 		}
 	});
 };
 
-exports.create_movie = function(req, res) {
-	var new_movie = new Movie(req.body);
-	new_movie.save(function(err, movie) {
+
+exports.create_maintenance = function(req, res) {
+	var new_maintenance = new Maintenance(req.body);
+	new_maintenance.save(function(err, maint) {
 		if (err)
 			res.send(err);
-		res.status(201).json(movie);
+		res.status(201).json(maint);
 	});
 };
+/* EXAMPLE of post request for create_maintenance
+axios.post("http://localhost:3000/api/maintenances", {
+				garden: "609412d316b7f0346c54a093",
+				startTime: new Date("2021-05-30T17:00:00.000"),
+				duration: 60,
+				done: false,
+				gardener: "60944e8316b7f0346c54a49d"})
+*/
 
-exports.update_movie = function(req, res) {
-	Movie.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, movie) {
-		if (err)
-			res.send(err);
-		else{
-			if(movie==null){
-				res.status(404).send({
-					description: 'Movie not found'
-				});
-			}
-			else{
-				res.json(movie);
-			}
-		}
-	});
-};
-
-exports.delete_movie = function(req, res) {
-	Movie.deleteOne({_id: req.params.id}, function(err, result) {
-		if (err)
-			res.send(err);
-		else{
-			if(result.deletedCount==0){
-				res.status(404).send({
-					description: 'Movie not found'
-				});
-			}
-			else{
-				res.json({ message: 'Task successfully deleted' });
-			}
-		}
-  });
-};*/

@@ -1,14 +1,18 @@
 var express = require('express');
-var app = express();
-var mongoose = require('mongoose')
-var cors = require('cors')
-var path = require('path');
+const app = express();
+const mongoose = require('mongoose');
+const cors = require('cors');
+const path = require('path');
 
 global.appRoot = path.resolve(__dirname);
 
-var PORT = 3000;
+const PORT = 3000;
 
 mongoose.connect('mongodb://localhost/smart-gardening', { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true });
+String.prototype.toObjectId = function() {
+  const ObjectId = mongoose.Types.ObjectId;
+  return new ObjectId(this.toString());
+};
 
 app.use(cors())
 
