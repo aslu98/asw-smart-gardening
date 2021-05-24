@@ -112,3 +112,24 @@ axios.post("http://localhost:3000/api/maintenances", {
 				gardener: "60944e8316b7f0346c54a49d"})
 */
 
+exports.update_sensor = function(req, res) {
+	Sensors.findOneAndUpdate(
+		{API: req.params.API, fieldname: req.params.fieldname},
+		{value:req.params.value},
+		{new: true},
+		function(err, sensor) {
+			if (err)
+				res.send(err);
+			else{
+				if(sensor==null){
+					res.status(404).send({
+						description: 'Sensor not found'
+					});
+				}
+				else{
+					res.json(sensor);
+				}
+			}
+		});
+};
+
