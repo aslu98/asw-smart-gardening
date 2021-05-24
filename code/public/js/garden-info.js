@@ -63,9 +63,9 @@ const Sensors = {
 
 const Meteo = {
 	template: `
-		<div class="meteo-template">
+		<div class="weather-template">
 			<h6>Meteo</h6>
-				<div class="meteo-card border border-success rounded row">
+				<div class="weather-card row">
 					<div class="col-4 today-weather">
 						<div class="row">
 							<div class="col-6 today-weather-icon">
@@ -79,7 +79,7 @@ const Meteo = {
 					</div>
 					<div class="col-8">
 						<div class="row">
-							<div class="col-4 border-left border-success"  v-for="day in nextdays">
+							<div class="col-4 weather-cell"  v-for="day in nextdays">
 								<div class="row">
 									<div class="mx-auto">
 										<img :src=day.icon :alt=day.description />
@@ -147,15 +147,15 @@ const Meteo = {
 
 const Todo = {
 	template:`
-		<p>Todo</p>
+		<h6>TO DO</h6>
 	`
 }
 
 const CalendarButton = {
 	template: `
 		<div class="row">
-			<div class="mx-auto">
-				<button> Open Calendar </button>
+			<div class="mx-auto open-calendar-btn">
+				<button type="button" class="btn btn-success"> Open Calendar </button>
 			</div>
 		</div>
 	`
@@ -171,7 +171,7 @@ const GardenInfo = {
 		'cal-btn': CalendarButton
 	},
 	template: `
-		<div class="card border border-success">
+		<div class="card garden-info">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card-body">
@@ -184,13 +184,15 @@ const GardenInfo = {
 								<p class="card-text text-center"> {{ garden.city }} </p>
 							</div>
 						</div>
-							<hr class="border-success"/>
+						<div class="garden-info-components">
+							<hr/>
 							<sensors></sensors>
-							<hr class="border-success"/>
+							<hr/>
 							<meteo :garden="garden"></meteo>
-							<hr class="border-success"/>
+							<hr/>
 							<to-do></to-do>
 							<cal-btn></cal-btn>
+						</div>
 					</div>
 				</div>
 			</div>

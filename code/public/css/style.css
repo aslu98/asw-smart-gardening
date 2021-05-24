@@ -1,5 +1,19 @@
 /*ASIA STYLE*/
 /*GARDEN*/
+
+.garden-info {
+    border-color:#1d9d61;
+}
+
+.garden-info-components{
+    font-size: small;
+}
+
+.garden-info hr{
+    border-color:#1d9d61;
+    background-color:#1d9d61;
+}
+
 .garden-info-back{
     margin-top: 10px;
 }
@@ -13,19 +27,22 @@
 /*SENSORS*/
 .table-bordered > tbody > tr > td,
 .table-bordered > tbody > tr > th {
-    border:thin solid #119F5D;
+    border:thin solid #1d9d61;
     border-radius: 10px;
     border-top:none;
     border-right:none;
+    margin-left: 1%;
+    margin-right: 1%;
 }
 
 .my-custom-scrollbar {
-    border:thin solid #119F5D;
-    border-bottom: none;
+    border:thin solid #1d9d61;
     border-left:none;
-    height: 198px;
+    height: 160px;
     overflow: auto;
     display: block;
+    margin-left: 1%;
+    margin-right: 1%;
 }
 
 .red-state{
@@ -37,13 +54,22 @@
 }
 
 /*METEO*/
-.meteo-card{
+.weather-card{
+    border: thin solid #1d9d61;
     margin-left: 1%;
     margin-right: 1%;
+    border-radius: 5px;
 }
 
-.today-weather{
-    margin-top: 8px;
+.weather-cell{
+    border-left:thin solid #1d9d61;
+}
+
+.weather-cell img {
+    width:70%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .today-weather-icon{
@@ -65,3 +91,12 @@
     font-weight: bold;
 }
 
+/*BTN*/
+.open-calendar-btn button{
+    background:#1d9d61;
+    font-size:large;
+}
+
+.open-calendar-btn button:hover{
+    background:#0f8850;
+}
