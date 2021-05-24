@@ -1,3 +1,5 @@
-{"_id":{"$oid":"609417a716b7f0346c54a0fc"},"temperature":16,"humidity":40,"CO2":0.04,"flagOn":false,"API":1359457,"where":"Genziane","garden":{"$oid":"609412d316b7f0346c54a093"}}
-{"_id":{"$oid":"6094182f16b7f0346c54a12f"},"temperature":16,"humidity":10,"flagOn":true,"API":606355,"where":"Cactus","garden":{"$oid":"609412d316b7f0346c54a093"}}
-{"_id":{"$oid":"6094184016b7f0346c54a135"},"temperature":17,"humidity":60,"flagOn":false,"API":206644,"where":"Iris","garden":{"$oid":"609412d316b7f0346c54a093"}}
+{"_id":{"$oid":"609417a716b7f0346c54a0fc"},"fieldname":"Temperature","value":16,"flagOn":false,"API":1359457,"where":"Genziane","garden":{"$oid":"609412d316b7f0346c54a093"}}
+{"_id":{"$oid":"6094182f16b7f0346c54a12f"},"fieldname":"Temperature","value":16,"flagOn":true,"API":606355,"where":"Cactus","garden":{"$oid":"609412d316b7f0346c54a093"}}
+{"_id":{"$oid":"6094184016b7f0346c54a135"},"fieldname":"Humidity","value":60,"API":206644,"where":"Iris","garden":{"$oid":"609412d316b7f0346c54a093"}}
+{"_id":{"$oid":"60abb8c216b7f0346c5575f7"},"fieldname":"Humidity","value":46,"flagOn":false,"API":1359457,"where":"Genziane","garden":{"$oid":"609412d316b7f0346c54a093"}}
+{"_id":{"$oid":"60abb90916b7f0346c557602"},"fieldname":"Humidity","value":10,"flagOn":true,"API":606355,"where":"Cactus","garden":{"$oid":"609412d316b7f0346c54a093"}}
