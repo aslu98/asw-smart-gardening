@@ -41,7 +41,9 @@ exports.list_maintenances = function(req, res) {
 };
 
 exports.sensors_of_garden = function(req, res) {
-	Sensor.find({garden: req.params.id.toObjectId()}, function(err, sensor) {
+	Sensor.find({garden: req.params.id.toObjectId()})
+		.sort({'flagOn': -1, 'API': 1})
+		.exec(function(err, sensor) {
 		if (err || sensor == null)
 			res.send(err);
 		res.json(sensor);
