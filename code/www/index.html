@@ -57,17 +57,45 @@
 </div>
 
 <script>
-    var app = new Vue({
+    let app = new Vue({
         router,
-        el: "#gardening-app"
+        el: "#gardening-app",
+        data() {
+            return {
+                gardens: [],
+                mymap: []
+            }
+        },
+        methods: {
+            getAllGardens() {
+                axios.get("http://localhost:3000/api/gardens/")
+                    .then(response => {
+                        this.gardens = response.data;
+                        this.createMap();
+                    })
+                    .catch(error => (console.log(error)));
+            },
+            createMap() {
+                this.mymap = L.map('mapid').setView([44.107, 12.385], 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+                    maxZoom: 18
+                }).addTo(this.mymap);
+                this.setGardensPointer();
+            },
+            setGardensPointer() {
+                this.gardens.forEach(g => {
+                    L.marker([g.lat, g.lon]).bindPopup(g.name).addTo(this.mymap);
+                })
+            },
+            init() {
+                this.getAllGardens();
+            }
+        },
+        mounted() {
+            this.init();
+        }
     });
-
-    var mymap = L.map('mapid').setView([44.107, 12.385], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-        maxZoom: 18
-    }).addTo(mymap);
-    L.marker([44.1073, 12.3855]).bindPopup('The library of Gatteo!').addTo(mymap);
 </script>
 
 </body>
