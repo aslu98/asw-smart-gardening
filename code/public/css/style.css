@@ -44,9 +44,20 @@
 }
 
 /* ANDREA */
-html, body, #mapid {
+html, body {
     height: 100%;
     width: 100%;
+}
+
+#mapid {
+    display: flex;
+    flex-grow: 1;
+}
+
+#gardening-app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .navbar {
