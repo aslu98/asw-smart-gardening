@@ -63,8 +63,3 @@ html, body {
 .navbar {
     background-color: #1d9d61; /* Chiaro: #21b26f || Scuro: #1d9d61 */
 }
-
-#main-title {
-    font-family: "Comic Sans MS";
-    color: white;
-}
