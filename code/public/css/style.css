@@ -44,16 +44,22 @@
 }
 
 /* ANDREA */
-html, body, #mapid {
+html, body {
     height: 100%;
     width: 100%;
 }
 
-.navbar {
-    background-color: #1d9d61; /* Chiaro: #21b26f || Scuro: #1d9d61 */
+#mapid {
+    display: flex;
+    flex-grow: 1;
 }
 
-#main-title {
-    font-family: "Comic Sans MS";
-    color: white;
+#gardening-app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background-color: #1d9d61; /* Chiaro: #21b26f || Scuro: #1d9d61 */
 }
