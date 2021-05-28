@@ -38,7 +38,6 @@ const Sensors = {
 			axios.get("http://localhost:3000/api/sensors/garden/" + this.gardenID)
 				.then(response => {
 					this.sensors = response.data
-					console.log(this.sensors)
 				})
 				.catch(error => (console.log(error)));
 		},
@@ -68,6 +67,9 @@ const Meteo = {
 				<div class="weather-card green-border row">
 					<div class="col-4 today-weather">
 						<div class="row">
+							<p class="center p-meteo-date">{{today.date}}</p>
+						</div>
+						<div class="row">
 							<div class="col-6 today-weather-icon">
 								<img :src=today.icon :alt=today.description />
 							</div>
@@ -80,6 +82,9 @@ const Meteo = {
 					<div class="col-8">
 						<div class="row">
 							<div class="col-4 weather-cell"  v-for="day in nextdays">
+								<div class="row">
+									<p class="center p-meteo-date">{{day.date}}</p>
+								</div>
 								<div class="row">
 									<div class="mx-auto">
 										<img class="center" :src=day.icon :alt=day.description />
@@ -101,6 +106,8 @@ const Meteo = {
 	`,
 	data() {
 		return {
+			today_options : { weekday: 'short', day: 'numeric', month: 'long'},
+			date_options : { weekday: 'short', day: 'numeric', month: 'short'},
 			lat: 0,
 			lon: 0,
 			today:{},
@@ -116,8 +123,11 @@ const Meteo = {
 		}
 	},
 	methods: {
+		capitalizeDate: function (d) {
+			return d[0].toUpperCase() + d.substr(1, d.lastIndexOf(' '))
+				+ d[d.lastIndexOf(' ')+1].toUpperCase() + d.substr(d.lastIndexOf(' ')+2)
+		},
 		updateInfo: function () {
-			console.log("updateInfo called")
 			axios.get("https://api.openweathermap.org/data/2.5/onecall?" +
 				"lat=" + this.lat +
 				"&lon=" + this.lon +
@@ -125,18 +135,24 @@ const Meteo = {
 				"appid=d4cf4658574ecc23eeaee6f3c187d8c9")
 				.then(response => {
 					let data = response.data
+					var dt = new Date(data.current.dt * 1000)
+					var dtstring = dt.toLocaleDateString("it-IT", this.today_options).toString()
 					this.today = {
 						icon: "http://openweathermap.org/img/wn/" + data.current.weather[0].icon +"@2x.png",
 						description: data.current.weather[0].icon.description,
 						temp: data.current.temp.toFixed(1) + "°C",
-						humidity: data.current.humidity + "%"
+						humidity: data.current.humidity + "%",
+						date: this.capitalizeDate(dtstring)
 					}
 					for (let i = 0; i<3; i++){
+						dt = new Date(data.daily[i+1].dt * 1000)
+						dtstring = dt.toLocaleDateString("it-IT", this.date_options)
 						this.nextdays[i] = {
-							icon: "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon +"@2x.png",
-							description: data.daily[i].weather[0].icon.description,
-							temp: data.daily[i].temp.day.toFixed(0) + "°C",
-							humidity: data.daily[i].humidity + "%"
+							icon: "http://openweathermap.org/img/wn/" + data.daily[i+1].weather[0].icon +"@2x.png",
+							description: data.daily[i+1].weather[0].icon.description,
+							temp: data.daily[i+1].temp.day.toFixed(0) + "°C",
+							humidity: data.daily[i+1].humidity + "%",
+							date: this.capitalizeDate(dtstring)
 						}
 					}
 				})
