@@ -40,27 +40,7 @@
 </head>
 <body>
 <div id="gardening-app" class="container-fluid px-0">
-	<nav class="navbar px-2">
-        <div class="col-xxl-8 col-md-6 col-sm-12">
-            <a href="#" id="main-title">
-                <img src="/static/img/GardenCareSmall.png" alt="GardenCare Logo">
-            </a>
-        </div>
-        <form class="col-xxl-4 col-md-6 col-sm-12">
-            <div class="row mx-0" style="align-items: center">
-                <div class="col input-group input-group-sm">
-                    <input id="user" class="form-control" placeholder="User" type="text" alt="Username"/>
-                </div>
-                <div class="col input-group input-group-sm">
-                    <input id="password" class="form-control" placeholder="Password" type="password" alt="Password"/>
-                </div>
-                <div class="col">
-                    <button class="btn btn-success rounded-pill">Login</button>
-                    <button class="btn btn-success rounded-pill">Registrati</button>
-                </div>
-            </div>
-        </form>
-	</nav>
+    <Navbar></Navbar>
     <div id="mapid"></div>
 </div>
 
@@ -68,6 +48,9 @@
     let app = new Vue({
         router,
         el: "#gardening-app",
+        components: {
+            'Navbar': Navbar
+        },
         data() {
             return {
                 gardens: [],
@@ -102,12 +85,11 @@
                         shadowSize: [41, 41],
                         shadowAnchor: [12, 41]
                     });
-                    console.log(gardenIcon.iconUrl);
                     L.marker([g.lat, g.lon], {
                         icon: gardenIcon,
                         title: g.name})
                         .bindPopup(g.name).addTo(this.mymap);
-                })
+                });
             },
             init() {
                 this.getAllGardens();
