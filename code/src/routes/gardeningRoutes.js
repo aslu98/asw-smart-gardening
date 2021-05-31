@@ -17,13 +17,16 @@ module.exports = function(app) {
 		.get(controller.list_maintenances)
 		.post(controller.create_maintenance);
 
+	app.route('/api/sensors/:API/:fieldname/:value')
+		.post(controller.update_sensor)
+
 	app.route('/api/sensors/garden/:id')
 		.get(controller.sensors_of_garden)
 
 	app.route('/api/maintenances/garden/:id')
 		.get(controller.calendar_of_garden)
 
-	app.route('/api/maintenances/garden/:id/next')
+	app.route('/api/maintenances/garden/:id/next/:n')
 		.get(controller.next_on_garden)
 
 	app.route('/api/maintenances/garden/:id')

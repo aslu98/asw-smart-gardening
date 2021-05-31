@@ -1,40 +1,50 @@
+const DBURL = "http://localhost:3000/api"
+
 const Sensors = {
 	template:`
 		<div class="sensors-template">
 			<h6>Sensors</h6>
-				<table class="table table-bordered">
+			<div class="card my-custom-scrollbar">
+				<table class="table">
 				  <tbody>
 					<tr v-for="sensor in sensors">
 					  <th scope="row">#{{sensor.API}}</th>
 					  <td>{{sensor.where}}</td>
-					  <td>{{sensor.temperature}} °C</td>
-					  <td>{{sensor.humidity}} %</td>
+					  <td>{{sensor.fieldname}} </td>
+					  <td>
+						  {{sensor.value}} {{getMeasureUnit(sensor.fieldname)}}
+						  <i v-if="sensor.flagOn" class="fas fa-circle red-state"></i>
+						  <i v-else class="fas fa-circle green-state"></i>
+					  </td>
 					</tr>
 				  </tbody>
 				</table>
+			</div>
 		</div>
 	`,
-	data(){
+	data() {
 		return {
 			gardenID: this.$route.params.id,
 			sensors: []
 		}
 	},
-	props: ['garden'],
-	watch: {
-		garden(n, o) {
-			this.gardenID = n._id;
-			this.getSensors()
-		}
-	},
 	methods: {
 		getSensors: function () {
-			axios.get("http://localhost:3000/api/sensors/garden/" + this.gardenID)
+			axios.get(DBURL + "/sensors/garden/" + this.gardenID)
 				.then(response => {
 					this.sensors = response.data
-					console.log(this.sensors)
 				})
 				.catch(error => (console.log(error)));
+		},
+		getMeasureUnit: function (fieldname){
+			switch(fieldname){
+				case "Temperature":
+					return "°C"
+				case "Humidity":
+					return "%"
+				default:
+					return ""
+			}
 		},
 		init: function(){
 			this.getSensors();
@@ -47,10 +57,13 @@ const Sensors = {
 
 const Meteo = {
 	template: `
-		<div class="meteo-template">
+		<div class="weather-template">
 			<h6>Meteo</h6>
-				<div class="meteo-card border border-success rounded row">
+				<div class="weather-card green-border row">
 					<div class="col-4 today-weather">
+						<div class="row">
+							<p class="center p-weather-date">{{today.date}}</p>
+						</div>
 						<div class="row">
 							<div class="col-6 today-weather-icon">
 								<img :src=today.icon :alt=today.description />
@@ -63,10 +76,13 @@ const Meteo = {
 					</div>
 					<div class="col-8">
 						<div class="row">
-							<div class="col-4 border-left border-success"  v-for="day in nextdays">
+							<div class="col-4 weather-cell"  v-for="day in nextdays">
+								<div class="row">
+									<p class="center p-weather-date">{{day.date}}</p>
+								</div>
 								<div class="row">
 									<div class="mx-auto">
-										<img :src=day.icon :alt=day.description />
+										<img class="center" :src=day.icon :alt=day.description />
 									</div>
 								</div>
 								<div class="row weather-info">
@@ -85,6 +101,8 @@ const Meteo = {
 	`,
 	data() {
 		return {
+			today_options : { weekday: 'short', day: 'numeric', month: 'long'},
+			date_options : { weekday: 'short', day: 'numeric', month: 'short'},
 			lat: 0,
 			lon: 0,
 			today:{},
@@ -100,8 +118,11 @@ const Meteo = {
 		}
 	},
 	methods: {
+		capitalizeDate: function (d) {
+			return d[0].toUpperCase() + d.substr(1, d.lastIndexOf(' '))
+				+ d[d.lastIndexOf(' ')+1].toUpperCase() + d.substr(d.lastIndexOf(' ')+2)
+		},
 		updateInfo: function () {
-			console.log("updateInfo called")
 			axios.get("https://api.openweathermap.org/data/2.5/onecall?" +
 				"lat=" + this.lat +
 				"&lon=" + this.lon +
@@ -109,18 +130,24 @@ const Meteo = {
 				"appid=d4cf4658574ecc23eeaee6f3c187d8c9")
 				.then(response => {
 					let data = response.data
+					var dt = new Date(data.current.dt * 1000)
+					var dtstring = dt.toLocaleDateString("it-IT", this.today_options).toString()
 					this.today = {
 						icon: "http://openweathermap.org/img/wn/" + data.current.weather[0].icon +"@2x.png",
 						description: data.current.weather[0].icon.description,
 						temp: data.current.temp.toFixed(1) + "°C",
-						humidity: data.current.humidity + "%"
+						humidity: data.current.humidity + "%",
+						date: this.capitalizeDate(dtstring)
 					}
 					for (let i = 0; i<3; i++){
+						dt = new Date(data.daily[i+1].dt * 1000)
+						dtstring = dt.toLocaleDateString("it-IT", this.date_options)
 						this.nextdays[i] = {
-							icon: "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon +"@2x.png",
-							description: data.daily[i].weather[0].icon.description,
-							temp: data.daily[i].temp.day.toFixed(0) + "°C",
-							humidity: data.daily[i].humidity + "%"
+							icon: "http://openweathermap.org/img/wn/" + data.daily[i+1].weather[0].icon +"@2x.png",
+							description: data.daily[i+1].weather[0].icon.description,
+							temp: data.daily[i+1].temp.day.toFixed(0) + "°C",
+							humidity: data.daily[i+1].humidity + "%",
+							date: this.capitalizeDate(dtstring)
 						}
 					}
 				})
@@ -131,15 +158,65 @@ const Meteo = {
 
 const Todo = {
 	template:`
-		<p>Todo</p>
-	`
+		<div class="to-do-template">
+			<h6>TO DO</h6>
+				<div class="to-do-card green-border">
+					<div v-for="maint in maints" class="to-do-maint text-center">
+						<div class="row to-do-date">
+							<div class="col-4"> {{maint.weekday}} </div>
+							<div class="col-4"> {{maint.date}} </div>
+							<div class="col-4"> {{maint.from_to}} </div>
+						</div>
+						<div class="row">
+							<div class="col-12">{{maint.description}}</div>
+						</div>
+						<hr v-if="maint.last" class="green-hr to-do-hr"/>
+					</div>
+				</div>
+			</div>
+	`,
+	data(){
+		return {
+			gardenID: this.$route.params.id,
+			n: 2,
+			maints: [],
+			weekday_options: {weekday: 'long'},
+			date_format: "DD/MM/YYYY",
+			from_to_format: "HH:mm"
+		}
+	},
+	methods: {
+		getToDo: function () {
+			axios.get(DBURL + "/maintenances/garden/" + this.gardenID + "/next/" + this.n)
+				.then(response => {
+					this.maints = response.data
+					for (let i = 0; i < this.maints.length; i++) {
+						let date = new Date(this.maints[i].startTime)
+						this.maints[i].weekday = date.toLocaleDateString("it-IT", this.weekday_options).toString()
+						this.maints[i].weekday = this.maints[i].weekday[0].toUpperCase() + this.maints[i].weekday.substr(1)
+						this.maints[i].date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
+						this.maints[i].from_to = date.toISOString().substr(11,5) + " - "
+						date.setMinutes(date.getMinutes() + (this.maints[i].duration))
+						this.maints[i].from_to += date.toISOString().substr(11,5)
+						this.maints[i].last = i != this.maints.length - 1
+					}
+				})
+				.catch(error => (console.log(error)));
+		},
+		init: function(){
+			this.getToDo()
+		}
+	},
+	mounted(){
+		this.init()
+	}
 }
 
 const CalendarButton = {
 	template: `
 		<div class="row">
-			<div class="mx-auto">
-				<button> Open Calendar </button>
+			<div class="mx-auto open-calendar-btn">
+				<button type="button" class="center btn btn-success"> Open Calendar </button>
 			</div>
 		</div>
 	`
@@ -155,7 +232,7 @@ const GardenInfo = {
 		'cal-btn': CalendarButton
 	},
 	template: `
-		<div class="card border border-success">
+		<div class="card garden-info green-border">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card-body">
@@ -168,13 +245,15 @@ const GardenInfo = {
 								<p class="card-text text-center"> {{ garden.city }} </p>
 							</div>
 						</div>
-							<hr class="border-success"/>
+						<div class="garden-info-components">
+							<hr class="green-hr"/>
 							<sensors></sensors>
-							<hr class="border-success"/>
+							<hr class="green-hr"/>
 							<meteo :garden="garden"></meteo>
-							<hr class="border-success"/>
+							<hr class="green-hr"/>
 							<to-do></to-do>
 							<cal-btn></cal-btn>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -187,7 +266,7 @@ const GardenInfo = {
 	},
 	methods: {
 		getGarden: function () {
-			axios.get("http://localhost:3000/api/gardens/" + this.$route.params.id)
+			axios.get(DBURL + "/gardens/" + this.$route.params.id)
 			.then(response => {
 				this.garden = response.data
 			})

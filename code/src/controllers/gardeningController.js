@@ -41,7 +41,9 @@ exports.list_maintenances = function(req, res) {
 };
 
 exports.sensors_of_garden = function(req, res) {
-	Sensor.find({garden: req.params.id.toObjectId()}, function(err, sensor) {
+	Sensor.find({garden: req.params.id.toObjectId()})
+		.sort({'flagOn': -1, 'API': 1})
+		.exec(function(err, sensor) {
 		if (err || sensor == null)
 			res.send(err);
 		res.json(sensor);
@@ -51,13 +53,18 @@ exports.sensors_of_garden = function(req, res) {
 exports.next_on_garden = function(req, res) {
 	Maintenance.find({garden: req.params.id.toObjectId(), startTime: {$gte: new Date()}})
 		.sort({'startTime': 1})
-		.limit(2)
+		.limit(parseInt(req.params.n))
 		.exec( function(err, maint) {
-		if (err || maint == null)
+		if (err || maint == null) {
 			res.send(err);
-		res.json(maint);
+		}
+		else {
+			res.json(maint);
+		}
 	});
 };
+
+//, startTime: {$gte: new Date()}
 
 exports.calendar_of_garden = function(req, res) {
 	Maintenance.find({garden: req.params.id.toObjectId()}, function(err, maint) {
@@ -109,4 +116,25 @@ axios.post("http://localhost:3000/api/maintenances", {
 				done: false,
 				gardener: "60944e8316b7f0346c54a49d"})
 */
+
+exports.update_sensor = function(req, res) {
+	Sensors.findOneAndUpdate(
+		{API: req.params.API, fieldname: req.params.fieldname},
+		{value:req.params.value},
+		{new: true},
+		function(err, sensor) {
+			if (err)
+				res.send(err);
+			else{
+				if(sensor==null){
+					res.status(404).send({
+						description: 'Sensor not found'
+					});
+				}
+				else{
+					res.json(sensor);
+				}
+			}
+		});
+};
 

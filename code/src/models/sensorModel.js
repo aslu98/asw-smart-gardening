@@ -1,9 +1,8 @@
 module.exports = function(mongoose) {
     var Schema = mongoose.Schema;
     var SensorSchema = new Schema({
-        temperature: Number,
-        humidity: Number,
-		CO2: mongoose.Schema.Types.Decimal128,
+        fieldname: String,
+        value: Number,
 		flagOn: Boolean,
         API: Number,
         where: String,

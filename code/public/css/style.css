@@ -1,4 +1,34 @@
-/*ASIA STYLE*/
+/*ASIA*/
+/*GENERIC*/
+.center{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.green-border{
+    border: thin solid #1d9d61;
+}
+
+.red-state{
+    color:red;
+}
+
+.green-state{
+    color:limegreen;
+}
+
+.green-hr{
+    border-color:#1d9d61;
+    background-color:#1d9d61;
+}
+
+/*GARDEN*/
+
+.garden-info-components{
+    font-size: small;
+}
+
 .garden-info-back{
     margin-top: 10px;
 }
@@ -9,18 +39,52 @@
     font-size: 25px;
 }
 
-.table-bordered > tbody > tr > td,
-.table-bordered > tbody > tr > th {
-    border:thin solid #119F5D;
+/*SENSORS*/
+.table {
+    margin-bottom: 0;
+    border-bottom: 0;
+    border-radius: 5px;
 }
 
-.meteo-card{
+.table > tbody > tr > td,
+.table> tbody > tr > th {
+    border:thin solid #1d9d61;
+    border-radius: 10px;
+    border-top:none;
+    border-right:none;
     margin-left: 1%;
     margin-right: 1%;
 }
 
-.today-weather{
-    margin-top: 8px;
+.my-custom-scrollbar {
+    border:thin solid #1d9d61;
+    border-left:none;
+    height: 160px;
+    overflow: auto;
+    display: block;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+/*METEO*/
+.weather-card{
+    margin-left: 1%;
+    margin-right: 1%;
+    border-radius: 5px;
+}
+
+.p-weather-date{
+    margin-top: 0.4em;
+    font-size: 1.1em;
+    margin-bottom: 0;
+}
+
+.weather-cell{
+    border-left:thin solid #1d9d61;
+}
+
+.weather-cell img {
+    width:70%;
 }
 
 .today-weather-icon{
@@ -34,14 +98,55 @@
 }
 
 .today-weather-icon img {
-    padding:7px;
-    padding-left:8%;
+    padding:0;
 }
 
 .today-weather-info p{
     margin: 8px;
     font-weight: bold;
 }
+
+/*TO-DO*/
+.to-do-card{
+    margin-left: 1%;
+    margin-right: 1%;
+    border-radius: 5px;
+}
+
+.to-do-date div{
+    color:dimgrey;
+    margin-bottom:0.3em
+}
+
+.to-do-maint{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
+}
+
+.to-do-hr{
+    margin:0.5em
+}
+
+/*BTN*/
+
+.open-calendar-btn{
+    margin-top:4%;
+}
+
+.open-calendar-btn button{
+    background:#1d9d61;
+    font-size:large;
+}
+
+.open-calendar-btn button:hover{
+    background:#0f8850;
+}
+
+
+
+
+
 
 /* ANDREA */
 html, body {
