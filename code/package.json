@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "leaflet-sidebar-v2": "^3.2.3",
     "mongoose": "^5.12.5",
     "vue": "^2.6.12",
     "date-and-time": "^1.0.0",
