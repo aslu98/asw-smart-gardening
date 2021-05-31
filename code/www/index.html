@@ -45,40 +45,27 @@
 <body>
 <div id="gardening-app" class="container-fluid px-0">
     <Navbar></Navbar>
-    <div id="garden-info" class="leaflet-sidebar collapsed">
-        <div class="leaflet-sidebar-tabs">
-            <ul role="tablist">
-                <li id="sidebar-li" role="tab">
-                    <a href="#home" :class="[!showGardenDetails ? 'sidebar-a' : '']" @click="setShowGardenDetails(false)">
-                        <img v-if="!showGardenDetails" class="ms-1" src="/static/img/farming-black&white.L.png" alt="Icona giardino in bianco e nero">
-                        <img v-else class="ms-1" src="/static/img/farming-colors.L.png" alt="Icona giardino a colori">
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="leaflet-sidebar-content">
-            <div class="leaflet-sidebar-pane" id="home">
-                <div class="row">
-                    <div class="mx-auto">
-                        <button> Open Calendar </button>
-                    </div>
-                </div>
-                <p>Todo</p>
-                <div class="sensors-template">
-                    <h6>Sensors</h6>
-                    <table class="table table-bordered">
-                        <tbody>
-                        <tr>
-                            <th scope="row">PROVA SENSORE</th>
-                            <td>DOVE SENSORE</td>
-                            <td>TEMPERATURA</td>
-                            <td>UMIDITA</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <div id="garden-info" class="leaflet-sidebar">
+<!--        <img v-if="!showGardenDetails" class="ms-1" src="/static/img/farming-black&white.L.png" alt="Icona giardino in bianco e nero">
+        <img v-else class="ms-1" src="/static/img/farming-colors.L.png" alt="Icona giardino a colori">
+        <div class="row">
+            <div class="mx-auto">
+                <button> Open Calendar </button>
             </div>
         </div>
+        <div class="sensors-template">
+            <h6>Sensors</h6>
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th scope="row">PROVA SENSORE</th>
+                    <td>DOVE SENSORE</td>
+                    <td>TEMPERATURA</td>
+                    <td>UMIDITA</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>-->
     </div>
     <div id="mapid"></div>
 </div>
@@ -88,7 +75,8 @@
         router,
         el: "#gardening-app",
         components: {
-            'Navbar': Navbar
+            'Navbar': Navbar,
+            'GardenInfo': GardenInfo
         },
         data() {
             return {
@@ -137,21 +125,20 @@
                         title: g.name})
                         .addTo(this.map)
                         .on('click', e => {
-                            this.sidebar.open("home");
+                            this.sidebar.show();
                             this.setShowGardenDetails(true);
                             //INVOCARE CHIAMATE PER I COMPONENT
                         });
                 });
             },
             createSidebar() {
-                this.sidebar = L.control.sidebar({
-                    autopan: true,       // whether to maintain the centered map point when opening the sidebar
-                    closeButton: true,
-                    container: 'garden-info',
+                this.sidebar = L.control.sidebar('garden-info', {
+                    closeButton: false,
+                    autopan: true,
                     position: 'right'
                 }).addTo(this.map);
                 this.map.on('click', e => {
-                    this.sidebar.close();
+                    this.sidebar.hide();
                     this.setShowGardenDetails(false);
                 })
             },

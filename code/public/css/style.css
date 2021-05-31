@@ -64,10 +64,7 @@ html, body {
     background-color: #1d9d61; /* Chiaro: #21b26f || Scuro: #1d9d61 */
 }
 
-#sidebar-li {
-    background-color: white;
-}
-
-.sidebar-a {
-    pointer-events: none;
+#garden-info {
+    right: 5px;
+    bottom: 0;
 }
