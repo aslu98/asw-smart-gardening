@@ -17,6 +17,9 @@ module.exports = function(app) {
 		.get(controller.list_maintenances)
 		.post(controller.create_maintenance);
 
+	app.route('/api/sensors/:API/:fieldname/:value')
+		.post(controller.update_sensor)
+
 	app.route('/api/sensors/garden/:id')
 		.get(controller.sensors_of_garden)
 
