@@ -1,3 +1,5 @@
+const DBURL = "http://localhost:3000/api"
+
 const Sensors = {
 	template:`
 		<div class="sensors-template">
@@ -20,22 +22,15 @@ const Sensors = {
 			</div>
 		</div>
 	`,
-	data(){
+	data() {
 		return {
 			gardenID: this.$route.params.id,
 			sensors: []
 		}
 	},
-	props: ['garden'],
-	watch: {
-		garden(n, o) {
-			this.gardenID = n._id;
-			this.getSensors()
-		}
-	},
 	methods: {
 		getSensors: function () {
-			axios.get("http://localhost:3000/api/sensors/garden/" + this.gardenID)
+			axios.get(DBURL + "/sensors/garden/" + this.gardenID)
 				.then(response => {
 					this.sensors = response.data
 				})
@@ -67,7 +62,7 @@ const Meteo = {
 				<div class="weather-card green-border row">
 					<div class="col-4 today-weather">
 						<div class="row">
-							<p class="center p-meteo-date">{{today.date}}</p>
+							<p class="center p-weather-date">{{today.date}}</p>
 						</div>
 						<div class="row">
 							<div class="col-6 today-weather-icon">
@@ -83,7 +78,7 @@ const Meteo = {
 						<div class="row">
 							<div class="col-4 weather-cell"  v-for="day in nextdays">
 								<div class="row">
-									<p class="center p-meteo-date">{{day.date}}</p>
+									<p class="center p-weather-date">{{day.date}}</p>
 								</div>
 								<div class="row">
 									<div class="mx-auto">
@@ -163,8 +158,58 @@ const Meteo = {
 
 const Todo = {
 	template:`
-		<h6>TO DO</h6>
-	`
+		<div class="to-do-template">
+			<h6>TO DO</h6>
+				<div class="to-do-card green-border">
+					<div v-for="maint in maints" class="to-do-maint text-center">
+						<div class="row to-do-date">
+							<div class="col-4"> {{maint.weekday}} </div>
+							<div class="col-4"> {{maint.date}} </div>
+							<div class="col-4"> {{maint.from_to}} </div>
+						</div>
+						<div class="row">
+							<div class="col-12">{{maint.description}}</div>
+						</div>
+						<hr v-if="maint.last" class="green-hr"/>
+					</div>
+				</div>
+			</div>
+	`,
+	data(){
+		return {
+			gardenID: this.$route.params.id,
+			n: 2,
+			maints: [],
+			weekday_options: {weekday: 'long'},
+			date_format: "DD/MM/YYYY",
+			from_to_format: "HH:mm"
+		}
+	},
+	methods: {
+		getToDo: function () {
+			axios.get(DBURL + "/maintenances/garden/" + this.gardenID + "/next/" + this.n)
+				.then(response => {
+					this.maints = response.data
+					for (let i = 0; i < this.maints.length; i++) {
+						let date = new Date(this.maints[i].startTime)
+						this.maints[i].weekday = date.toLocaleDateString("it-IT", this.weekday_options).toString()
+						this.maints[i].weekday = this.maints[i].weekday[0].toUpperCase() + this.maints[i].weekday.substr(1)
+						this.maints[i].date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
+						this.maints[i].from_to = date.toISOString().substr(11,5) + " - "
+						date.setMinutes(date.getMinutes() + (this.maints[i].duration))
+						this.maints[i].from_to += date.toISOString().substr(11,5)
+						this.maints[i].last = i != this.maints.length - 1
+					}
+				})
+				.catch(error => (console.log(error)));
+		},
+		init: function(){
+			this.getToDo()
+		}
+	},
+	mounted(){
+		this.init()
+	}
 }
 
 const CalendarButton = {
@@ -201,11 +246,11 @@ const GardenInfo = {
 							</div>
 						</div>
 						<div class="garden-info-components">
-							<hr/>
+							<hr class="green-hr"/>
 							<sensors></sensors>
-							<hr/>
+							<hr class="green-hr"/>
 							<meteo :garden="garden"></meteo>
-							<hr/>
+							<hr class="green-hr"/>
 							<to-do></to-do>
 							<cal-btn></cal-btn>
 						</div>
@@ -221,7 +266,7 @@ const GardenInfo = {
 	},
 	methods: {
 		getGarden: function () {
-			axios.get("http://localhost:3000/api/gardens/" + this.$route.params.id)
+			axios.get(DBURL + "/gardens/" + this.$route.params.id)
 			.then(response => {
 				this.garden = response.data
 			})

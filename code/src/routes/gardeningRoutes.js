@@ -26,7 +26,7 @@ module.exports = function(app) {
 	app.route('/api/maintenances/garden/:id')
 		.get(controller.calendar_of_garden)
 
-	app.route('/api/maintenances/garden/:id/next')
+	app.route('/api/maintenances/garden/:id/next/:n')
 		.get(controller.next_on_garden)
 
 	app.route('/api/maintenances/garden/:id')

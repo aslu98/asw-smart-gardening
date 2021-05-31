@@ -53,13 +53,18 @@ exports.sensors_of_garden = function(req, res) {
 exports.next_on_garden = function(req, res) {
 	Maintenance.find({garden: req.params.id.toObjectId(), startTime: {$gte: new Date()}})
 		.sort({'startTime': 1})
-		.limit(2)
+		.limit(parseInt(req.params.n))
 		.exec( function(err, maint) {
-		if (err || maint == null)
+		if (err || maint == null) {
 			res.send(err);
-		res.json(maint);
+		}
+		else {
+			res.json(maint);
+		}
 	});
 };
+
+//, startTime: {$gte: new Date()}
 
 exports.calendar_of_garden = function(req, res) {
 	Maintenance.find({garden: req.params.id.toObjectId()}, function(err, maint) {
