@@ -170,7 +170,7 @@ const Todo = {
 						<div class="row">
 							<div class="col-12">{{maint.description}}</div>
 						</div>
-						<hr v-if="maint.last" class="green-hr"/>
+						<hr v-if="maint.last" class="green-hr to-do-hr"/>
 					</div>
 				</div>
 			</div>

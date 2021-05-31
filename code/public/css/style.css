@@ -115,15 +115,18 @@
 
 .to-do-date div{
     color:dimgrey;
-    margin-bottom:1%;
+    margin-bottom:0.3em
 }
 
 .to-do-maint{
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
     font-size: 1.1em;
 }
 
+.to-do-hr{
+    margin:0.5em
+}
 
 /*BTN*/
 
