@@ -7,9 +7,8 @@ const path = require('path');
 global.appRoot = path.resolve(__dirname);
 
 const PORT = 3000;
-
 mongoose.connect('mongodb://localhost/smart-gardening', { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true });
-
+const DBURL = "http://localhost:3000/api"
 String.prototype.toObjectId = function() {
   const ObjectId = mongoose.Types.ObjectId;
   return new ObjectId(this.toString());

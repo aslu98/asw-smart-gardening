@@ -18,16 +18,15 @@
     color:limegreen;
 }
 
+.green-hr{
+    border-color:#1d9d61;
+    background-color:#1d9d61;
+}
+
 /*GARDEN*/
 
 .garden-info-components{
     font-size: small;
-
-}
-
-.garden-info hr{
-    border-color:#1d9d61;
-    background-color:#1d9d61;
 }
 
 .garden-info-back{
@@ -74,7 +73,7 @@
     border-radius: 5px;
 }
 
-.p-meteo-date{
+.p-weather-date{
     margin-top: 0.4em;
     font-size: 1.1em;
     margin-bottom: 0;
@@ -107,7 +106,33 @@
     font-weight: bold;
 }
 
+/*TO-DO*/
+.to-do-card{
+    margin-left: 1%;
+    margin-right: 1%;
+    border-radius: 5px;
+}
+
+.to-do-date div{
+    color:dimgrey;
+    margin-bottom:0.3em
+}
+
+.to-do-maint{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
+}
+
+.to-do-hr{
+    margin:0.5em
+}
+
 /*BTN*/
+
+.open-calendar-btn{
+    margin-top:4%;
+}
 
 .open-calendar-btn button{
     background:#1d9d61;
