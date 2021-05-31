@@ -1,45 +1,26 @@
-const Navbutton = {
-    data: () => {
-        return {
-            count: 0
-        }
-    },
-    template: `
-        <li class="nav-item">
-            <router-link class="nav-link" :to="{name : text}" @click="onClickButton()"> {{text}} {{count}} click</router-link>
-        </li>
-    `,
-    props: ['text'],
-    methods: {
-        onClickButton(){
-            this.count++;
-            this.$emit('clicked');
-        }
-    }
-}
-
 const Navbar = {
-    components:{
-        'navbutton': Navbutton
-    },
-    data: () => {
-        return {
-            count: 0
-        }
-    },
     template: `
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div id="navbarNav">
-                <ul class="navbar-nav">
-                    <navbutton :text="Home" @clicked="onClickChild()"></navbutton>
-                    <navbutton :text="Movies" @clicked="onClickChild()"></navbutton>
-                </ul>
+        <nav class="navbar px-2">
+            <div class="col-xxl-4"></div>
+            <div class="col-xxl-4 col-md-6 col-sm-12 text-center">
+                <a href="#" id="main-title">
+                    <img src="/static/img/GardenCareSmall.png" alt="GardenCare Logo">
+                </a>
             </div>
-            <p>Tot click: {{ count }}</p>
+            <form class="col-xxl-4 col-md-6 col-sm-12">
+                <div class="row mx-0 align-items-center">
+                    <div class="col input-group input-group-sm">
+                        <input id="user" class="form-control" placeholder="User" type="text" alt="Username"/>
+                    </div>
+                    <div class="col input-group input-group-sm">
+                        <input id="password" class="form-control" placeholder="Password" type="password" alt="Password"/>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-success rounded-pill">Login</button>
+                        <button class="btn btn-success rounded-pill">Registrati</button>
+                    </div>
+                </div>
+            </form>
         </nav>
-    `,
-    methods: {
-        onClickChild(){
-            this.count++;
-        }
-    }}
+    `
+}
