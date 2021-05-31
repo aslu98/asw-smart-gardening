@@ -65,10 +65,10 @@ const Meteo = {
 							<p class="center p-weather-date">{{today.date}}</p>
 						</div>
 						<div class="row">
-							<div class="col-6 today-weather-icon">
-								<img :src=today.icon :alt=today.description />
+							<div class="col-7 today-weather-icon">
+								<img class="img-fluid" :src=today.icon :alt=today.description />
 							</div>
-							<div class="col-6 today-weather-info">
+							<div class="col-5 today-weather-info">
 								<p>{{today.temp}}</p>
 								<p>{{today.humidity}}</p>
 							</div>
@@ -133,7 +133,8 @@ const Meteo = {
 					var dt = new Date(data.current.dt * 1000)
 					var dtstring = dt.toLocaleDateString("it-IT", this.today_options).toString()
 					this.today = {
-						icon: "http://openweathermap.org/img/wn/" + data.current.weather[0].icon +"@2x.png",
+						//icon: "http://openweathermap.org/img/wn/" + data.current.weather[0].icon +"@2x.png",
+						icon: "/static/img/weather-icons/" + data.current.weather[0].icon + ".png",
 						description: data.current.weather[0].icon.description,
 						temp: data.current.temp.toFixed(1) + "°C",
 						humidity: data.current.humidity + "%",
@@ -143,7 +144,8 @@ const Meteo = {
 						dt = new Date(data.daily[i+1].dt * 1000)
 						dtstring = dt.toLocaleDateString("it-IT", this.date_options)
 						this.nextdays[i] = {
-							icon: "http://openweathermap.org/img/wn/" + data.daily[i+1].weather[0].icon +"@2x.png",
+							//icon: "http://openweathermap.org/img/wn/" + data.daily[i+1].weather[0].icon +"@2x.png",
+							icon: "/static/img/weather-icons/" + data.daily[i+1].weather[0].icon + ".png",
 							description: data.daily[i+1].weather[0].icon.description,
 							temp: data.daily[i+1].temp.day.toFixed(0) + "°C",
 							humidity: data.daily[i+1].humidity + "%",
@@ -237,12 +239,12 @@ const GardenInfo = {
 				<div class="col-md-12">
 					<div class="card-body">
 						<div class="row">
-							<div class="col-2 garden-info-back">
-								<i class="fas fa-chevron-circle-left fa-2x"></i>
-							</div>
 							<div class="mx-auto">
 								<h5 class="card-title text-center"> {{ garden.name }}</h5>
 								<p class="card-text text-center"> {{ garden.city }} </p>
+							</div>
+							<div class="col-2 garden-info-back">
+								<i class="fas fa-chevron-circle-right fa-2x"></i>
 							</div>
 						</div>
 						<div class="garden-info-components">
