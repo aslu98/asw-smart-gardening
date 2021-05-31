@@ -65,10 +65,10 @@ const Meteo = {
 							<p class="center p-weather-date">{{today.date}}</p>
 						</div>
 						<div class="row">
-							<div class="col-6 today-weather-icon">
-								<img :src=today.icon :alt=today.description />
+							<div class="col-7 today-weather-icon">
+								<img class="img-fluid" :src=today.icon :alt=today.description />
 							</div>
-							<div class="col-6 today-weather-info">
+							<div class="col-5 today-weather-info">
 								<p>{{today.temp}}</p>
 								<p>{{today.humidity}}</p>
 							</div>
