@@ -86,10 +86,10 @@ const Meteo = {
 									</div>
 								</div>
 								<div class="row weather-info">
-									<div class="mx-auto">
+									<div class="col-6 center">
 										<p>{{day.temp}}</p>
 									</div>
-									<div class="mx-auto">
+									<div class="col-6 center">
 										<p>{{day.humidity}}</p>
 									</div>
 								</div>
@@ -163,7 +163,8 @@ const Todo = {
 		<div class="to-do-template">
 			<h6>TO DO</h6>
 				<div class="to-do-card green-border">
-					<div v-for="maint in maints" class="to-do-maint text-center">
+					<div v-if="nothing"> <p class="empty-card"> Nothing to do! </p> </div>
+					<div v-else v-for="maint in maints" class="to-do-maint text-center">
 						<div class="row to-do-date">
 							<div class="col-4"> {{maint.weekday}} </div>
 							<div class="col-4"> {{maint.date}} </div>
@@ -179,6 +180,7 @@ const Todo = {
 	`,
 	data(){
 		return {
+			nothing: false,
 			gardenID: this.$route.params.id,
 			n: 2,
 			maints: [],
@@ -191,6 +193,7 @@ const Todo = {
 		getToDo: function () {
 			axios.get(DBURL + "/maintenances/garden/" + this.gardenID + "/next/" + this.n)
 				.then(response => {
+					this.nothing = false;
 					this.maints = response.data
 					for (let i = 0; i < this.maints.length; i++) {
 						let date = new Date(this.maints[i].startTime)
@@ -203,7 +206,10 @@ const Todo = {
 						this.maints[i].last = i != this.maints.length - 1
 					}
 				})
-				.catch(error => (console.log(error)));
+				.catch(error => {
+					this.nothing = true;
+					console.log(error)
+				});
 		},
 		init: function(){
 			this.getToDo()
@@ -234,17 +240,17 @@ const GardenInfo = {
 		'cal-btn': CalendarButton
 	},
 	template: `
-		<div class="card garden-info green-border">
+		<div class="garden-info">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card-body">
 						<div class="row">
-							<div class="mx-auto">
-								<h5 class="card-title text-center"> {{ garden.name }}</h5>
-								<p class="card-text text-center"> {{ garden.city }} </p>
-							</div>
 							<div class="col-2 garden-info-back">
 								<i class="fas fa-chevron-circle-right fa-2x"></i>
+							</div>
+							<div class="col-10">
+								<h5 class="card-title text-center"> {{ garden.name }}</h5>
+								<p class="card-text text-center"> {{ garden.city }} </p>
 							</div>
 						</div>
 						<div class="garden-info-components">

@@ -19,8 +19,12 @@
 }
 
 .green-hr{
-    border-color:#1d9d61;
-    background-color:#1d9d61;
+    height: 0px;
+    border: none;
+    border-top: 2px solid #1d9d61;
+    margin: 0.8em;
+    margin-right: 0;
+    margin-left:0;
 }
 
 .icon-attr{
@@ -29,6 +33,10 @@
 }
 
 /*GARDEN*/
+
+#garden-info{
+    padding: 0;
+}
 
 .garden-info-components{
     font-size: small;
@@ -42,6 +50,13 @@
     margin-bottom: 0;
     font-weight: bolder;
     font-size: 25px;
+}
+
+.empty-card{
+    margin:1em;
+    text-align: center;
+    font-size:1.5em;
+    color:dimgrey;
 }
 
 /*SENSORS*/
@@ -64,7 +79,7 @@
 .my-custom-scrollbar {
     border:thin solid #1d9d61;
     border-left:none;
-    height: 160px;
+    height: 12em;
     overflow: auto;
     display: block;
     margin-left: 1%;
@@ -82,6 +97,7 @@
     margin-top: 0.4em;
     font-size: 1.1em;
     margin-bottom: 0;
+    text-align: center;
 }
 
 .weather-cell{
@@ -89,19 +105,17 @@
 }
 
 .weather-cell img {
-    width:70%;
+    width:90%;
 }
 
 .today-weather-icon{
    padding: 0;
-    padding-left:0.5em;
 }
 
 .today-weather-info{
     font-size: 1.1em;
     padding:0;
-    padding-left:0.1em;
-    padding-top: 0.5em;
+    padding-top: 0.3em;
 }
 
 .today-weather-icon img {
