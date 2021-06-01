@@ -131,8 +131,7 @@ const Meteo = {
 					var dt = new Date(data.current.dt * 1000)
 					var dtstring = dt.toLocaleDateString("it-IT", this.today_options).toString()
 					this.today = {
-						//icon: "http://openweathermap.org/img/wn/" + data.current.weather[0].icon +"@2x.png",
-						icon: "/static/img/weather-icons/" + data.current.weather[0].icon + ".png",
+						icon: "/static/img/weather-icons/" + data.current.weather[0].icon.substr(0,2) + "d.png",
 						description: data.current.weather[0].icon.description,
 						temp: data.current.temp.toFixed(1) + "°C",
 						humidity: data.current.humidity + "%",
@@ -142,8 +141,7 @@ const Meteo = {
 						dt = new Date(data.daily[i+1].dt * 1000)
 						dtstring = dt.toLocaleDateString("it-IT", this.date_options)
 						this.nextdays[i] = {
-							//icon: "http://openweathermap.org/img/wn/" + data.daily[i+1].weather[0].icon +"@2x.png",
-							icon: "/static/img/weather-icons/" + data.daily[i+1].weather[0].icon + ".png",
+							icon: "/static/img/weather-icons/" + data.daily[i+1].weather[0].icon.substr(0,2) + "d.png",
 							description: data.daily[i+1].weather[0].icon.description,
 							temp: data.daily[i+1].temp.day.toFixed(0) + "°C",
 							humidity: data.daily[i+1].humidity + "%",
