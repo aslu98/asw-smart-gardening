@@ -5,7 +5,7 @@ const Sensors = {
 		<div class="sensors-template">
 			<h6>Sensors</h6>
 			<div class="card my-custom-scrollbar">
-				<table class="table">
+				<table class="table sensors-table">
 				  <tbody>
 					<tr v-for="sensor in sensors">
 					  <th scope="row">#{{sensor.API}}</th>

@@ -60,20 +60,29 @@
 }
 
 /*SENSORS*/
-.table {
+.sensors-table {
     margin-bottom: 0;
     border-bottom: 0;
     border-radius: 5px;
 }
 
-.table > tbody > tr > td,
-.table> tbody > tr > th {
+.sensors-table > tbody > tr > td,
+.sensors-table> tbody > tr > th {
     border:thin solid #1d9d61;
     border-radius: 10px;
     border-top:none;
     border-right:none;
     margin-left: 1%;
     margin-right: 1%;
+}
+
+@media screen and (min-width:768px) and (max-width:991px) {
+    .sensors-table {
+        margin-bottom: 0;
+        border-bottom: 0;
+        border-radius: 5px;
+        font-size: 0.8em;
+    }
 }
 
 .my-custom-scrollbar {
@@ -98,6 +107,21 @@
     font-size: 1.1em;
     margin-bottom: 0;
     text-align: center;
+
+}
+
+@media screen and (min-width:768px) and (max-width:991px) {
+    .p-weather-date{
+        font-size:0.9em;
+        padding:0;
+    }
+}
+
+@media screen and (min-width:992px) and (max-width:1199px){
+    .p-weather-date{
+        font-size:1em;
+        padding:1px;
+    }
 }
 
 .weather-cell{
@@ -120,15 +144,32 @@
 
 .today-weather-icon img {
     padding:0;
+    width: 99%;
 }
 
 .today-weather-info p{
-    margin: 8px;
+    margin: 15%;
+    margin-left: 3%;
     font-weight: bold;
 }
 
 .weather-info p {
     margin-bottom: 0.3em;
+}
+
+@media screen and (min-width:768px) and (max-width:991px) {
+    .today-weather-info {
+        font-size: 0.8em;
+        padding: 0;
+    }
+    .weather-info {
+        font-size: 0.5em;
+    }
+    .weather-info div {
+        margin-top: 0.2em;
+        margin-bottom: 0.3em;
+        padding-left: 0.8em;
+    }
 }
 
 /*TO-DO*/
@@ -147,6 +188,14 @@
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     font-size: 1.1em;
+}
+
+@media screen and (min-width:768px) and (max-width:991px) {
+    .to-do-maint{
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        font-size: 0.8em;
+    }
 }
 
 .to-do-hr{
