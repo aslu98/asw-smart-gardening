@@ -1,5 +1,3 @@
-const DBURL = "http://localhost:3000/api"
-
 const Sensors = {
 	template:`
 		<div class="sensors-template">
@@ -231,8 +229,6 @@ const CalendarButton = {
 }
 
 const GardenInfo = {
-	//this template will be the one of the side info for the garden -> fare query con tutte le info necessarie (garden + sensori)
-	//there will be another component for the garden calendar (query on the maint.)
 	components: {
 		'sensors': Sensors,
 		'meteo': Meteo,
@@ -289,16 +285,3 @@ const GardenInfo = {
 		this.init()
 	}
 }
-
-
-
-// EXAMPLE v-if
-// <p v-if="movie.hasOwnProperty('imdb') && movie.imdb.rating != null" class="card-text">{{movie.imdb.rating}}/10</p>
-
-//EXAMPLE filters
-/*filters: {
-	limit: function(text, length) {
-		if(text==null) return "";
-		return text.substring(0, length);
-	}
-},*/

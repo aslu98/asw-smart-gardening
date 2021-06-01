@@ -37,6 +37,7 @@
 	<!-- Vari. NON SO SE SONO DA TENERE COSÌ O È MEGLIO AGGIUNGERLI SOLO DOVE SERVONO-->
 	<script src="/static/js/home.js"></script>
     <script src="/static/js/garden-info.js"></script>
+    <script src="/static/js/gardener-board.js"></script>
 	<script src="/static/js/404.js"></script>
 	<script src="/static/js/navbar.js"></script>
 	<script src="/static/js/router.js"></script>
@@ -46,30 +47,7 @@
 <body>
 <div id="gardening-app" class="container-fluid px-0">
     <Navbar></Navbar>
-    <div id="garden-info" class="leaflet-sidebar green-border">
-<!--        <img v-if="!showGardenDetails" class="ms-1" src="/static/img/farming-black&white.L.png" alt="Icona giardino in bianco e nero">
-        <img v-else class="ms-1" src="/static/img/farming-colors.L.png" alt="Icona giardino a colori">
-        <div class="row">
-            <div class="mx-auto">
-                <button> Open Calendar </button>
-            </div>
-        </div>
-        <div class="sensors-template">
-            <h6>Sensors</h6>
-            <table class="table table-bordered">
-                <tbody>
-                <tr>
-                    <th scope="row">PROVA SENSORE</th>
-                    <td>DOVE SENSORE</td>
-                    <td>TEMPERATURA</td>
-                    <td>UMIDITA</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>-->
-        <router-view></router-view>
-    </div>
-    <div id="mapid"></div>
+    <router-view></router-view>
 </div>
 
 <script>
