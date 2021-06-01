@@ -110,20 +110,6 @@
 
 }
 
-@media screen and (min-width:768px) and (max-width:991px) {
-    .p-weather-date{
-        font-size:0.9em;
-        padding:0;
-    }
-}
-
-@media screen and (min-width:992px) and (max-width:1199px){
-    .p-weather-date{
-        font-size:1em;
-        padding:1px;
-    }
-}
-
 .weather-cell{
     border-left:thin solid #1d9d61;
 }
@@ -158,6 +144,10 @@
 }
 
 @media screen and (min-width:768px) and (max-width:991px) {
+    .p-weather-date{
+        font-size:0.9em;
+        padding:0;
+    }
     .today-weather-info {
         font-size: 0.8em;
         padding: 0;
@@ -169,6 +159,18 @@
         margin-top: 0.2em;
         margin-bottom: 0.3em;
         padding-left: 0.8em;
+    }
+}
+
+@media screen and (min-width:992px) and (max-width:1199px){
+    .p-weather-date{
+        font-size:1em;
+        padding:1px;
+    }
+    .weather-info div {
+        margin-top: 0.2em;
+        margin-bottom: 0.2em;
+        padding-left: 0.5em;
     }
 }
 
