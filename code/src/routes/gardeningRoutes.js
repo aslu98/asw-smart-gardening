@@ -4,6 +4,9 @@ module.exports = function(app) {
 	app.route('/api/gardens')
 		.get(controller.list_gardens)
 
+	app.route('/api/gardens-in-need/:max')
+		.get(controller.gardens_in_need)
+
 	app.route('/api/gardens/:id')
 		.get(controller.garden_info)
 
@@ -15,7 +18,7 @@ module.exports = function(app) {
 
 	app.route('/api/maintenances')
 		.get(controller.list_maintenances)
-		.post(controller.create_maintenance);
+		.post(controller.create_maintenance)
 
 	app.route('/api/sensors/:API/:fieldname/:value')
 		.post(controller.update_sensor)
@@ -25,6 +28,9 @@ module.exports = function(app) {
 
 	app.route('/api/maintenances/garden/:id')
 		.get(controller.calendar_of_garden)
+
+	app.route('/api/maintenance/gardener/:id)')
+		.get(controller.calendar_of_gardener)
 
 	app.route('/api/maintenances/garden/:id/next/:n')
 		.get(controller.next_on_garden)

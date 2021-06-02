@@ -14,8 +14,16 @@
     color:red;
 }
 
+.orange-state{
+    color:darkorange;
+}
+
 .green-state{
     color:limegreen;
+}
+
+.grey-state{
+    color:grey;
 }
 
 .green-hr{
