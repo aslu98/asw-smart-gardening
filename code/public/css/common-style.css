@@ -1,6 +1,10 @@
 /*ASIA*/
 
 /*GENERIC*/
+.row {
+    margin: 0;
+}
+
 .center{
     display:block;
     margin-left:auto;
