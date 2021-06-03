@@ -26,6 +26,9 @@ module.exports = function(app) {
 	app.route('/api/sensors/garden/:id')
 		.get(controller.sensors_of_garden)
 
+	app.route('/api/sensors/garden/:id/on')
+		.get(controller.on_sensors_of_garden)
+
 	app.route('/api/maintenances/garden/:id')
 		.get(controller.calendar_of_garden)
 

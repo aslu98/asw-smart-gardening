@@ -41,7 +41,7 @@
     margin-right: 1%;
 }
 
-.my-custom-scrollbar {
+.sensors-scrollbar {
     border:thin solid #1d9d61;
     border-left:none;
     height: 12em;
@@ -176,5 +176,9 @@
         margin-top: 0.2em;
         margin-bottom: 0.2em;
         padding-left: 0.5em;
+    }
+    .today-weather-info {
+        font-size: 0.9em;
+        padding: 0;
     }
 }

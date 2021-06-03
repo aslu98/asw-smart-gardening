@@ -1,6 +1,6 @@
 const MaintenanceCard = {
     template: `
-		<div class="maintenace-card">
+		<div class="maintenace-card center my-4">
 		    <div class="row">
               <div class="col-3 grey-state">
                   WHERE
@@ -30,16 +30,18 @@ const MaintenanceCard = {
                 DONE
               </div>
               <div class="col-3 maintenance-info">
-                <p>{{maintenance.done}}</p>
+                <p v-if="maintenance.done"> SI </p>
+                <p v-else> NO </p>
               </div>
               <div class="col-3 grey-state">
                 URGENCY
               </div>
-              <div class="col-3">
+              <div class="col-1 urgency">
                 <i v-if="inneed == 'green'" class="fas fa-circle green-state"></i>
                 <i v-if="inneed == 'orange'" class="fas fa-circle orange-state"></i>
                 <i v-if="inneed == 'red'" class="fas fa-circle red-state"></i>
               </div>
+              <div class="col-2"></div>
             </div>
 		</div>
 	`,

@@ -61,6 +61,16 @@ exports.sensors_of_garden = function(req, res) {
 	});
 };
 
+exports.on_sensors_of_garden = function(req, res) {
+	Sensor.find({garden: req.params.id.toObjectId(), flagOn: true})
+		.sort({'flagOn': -1, 'API': 1})
+		.exec(function(err, sensor) {
+			if (err || sensor == null)
+				res.send(err);
+			res.json(sensor);
+		});
+};
+
 exports.next_on_garden = function(req, res) {
 	Maintenance.find({garden: req.params.id.toObjectId(), startTime: {$gte: new Date()}})
 		.sort({'startTime': 1})

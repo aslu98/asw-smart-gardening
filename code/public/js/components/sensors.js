@@ -3,7 +3,7 @@ const Sensors = {
       <div class="sensors-template">
       <h6>Sensors</h6>
       <div v-if="nothing"> <p class="empty-card"> No sensors here! </p> </div>
-      <div v-else class="card my-custom-scrollbar">
+      <div v-else class="card sensors-scrollbar">
         <table class="table sensors-table">
           <tbody>
           <tr v-for="sensor in sensors">
