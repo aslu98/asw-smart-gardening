@@ -5,7 +5,7 @@ const Sensors = {
 		<div class="sensors-template">
 			<h6>Sensors</h6>
 			<div class="card my-custom-scrollbar">
-				<table class="table">
+				<table class="table sensors-table">
 				  <tbody>
 					<tr v-for="sensor in sensors">
 					  <th scope="row">#{{sensor.API}}</th>
@@ -86,10 +86,10 @@ const Meteo = {
 									</div>
 								</div>
 								<div class="row weather-info">
-									<div class="mx-auto">
+									<div class="col-6 center">
 										<p>{{day.temp}}</p>
 									</div>
-									<div class="mx-auto">
+									<div class="col-6 center">
 										<p>{{day.humidity}}</p>
 									</div>
 								</div>
@@ -133,8 +133,7 @@ const Meteo = {
 					var dt = new Date(data.current.dt * 1000)
 					var dtstring = dt.toLocaleDateString("it-IT", this.today_options).toString()
 					this.today = {
-						//icon: "http://openweathermap.org/img/wn/" + data.current.weather[0].icon +"@2x.png",
-						icon: "/static/img/weather-icons/" + data.current.weather[0].icon + ".png",
+						icon: "/static/img/weather-icons/" + data.current.weather[0].icon.substr(0,2) + "d.png",
 						description: data.current.weather[0].icon.description,
 						temp: data.current.temp.toFixed(1) + "°C",
 						humidity: data.current.humidity + "%",
@@ -144,8 +143,7 @@ const Meteo = {
 						dt = new Date(data.daily[i+1].dt * 1000)
 						dtstring = dt.toLocaleDateString("it-IT", this.date_options)
 						this.nextdays[i] = {
-							//icon: "http://openweathermap.org/img/wn/" + data.daily[i+1].weather[0].icon +"@2x.png",
-							icon: "/static/img/weather-icons/" + data.daily[i+1].weather[0].icon + ".png",
+							icon: "/static/img/weather-icons/" + data.daily[i+1].weather[0].icon.substr(0,2) + "d.png",
 							description: data.daily[i+1].weather[0].icon.description,
 							temp: data.daily[i+1].temp.day.toFixed(0) + "°C",
 							humidity: data.daily[i+1].humidity + "%",
@@ -163,7 +161,8 @@ const Todo = {
 		<div class="to-do-template">
 			<h6>TO DO</h6>
 				<div class="to-do-card green-border">
-					<div v-for="maint in maints" class="to-do-maint text-center">
+					<div v-if="nothing"> <p class="empty-card"> Nothing to do! </p> </div>
+					<div v-else v-for="maint in maints" class="to-do-maint text-center">
 						<div class="row to-do-date">
 							<div class="col-4"> {{maint.weekday}} </div>
 							<div class="col-4"> {{maint.date}} </div>
@@ -179,6 +178,7 @@ const Todo = {
 	`,
 	data(){
 		return {
+			nothing: false,
 			gardenID: this.$route.params.id,
 			n: 2,
 			maints: [],
@@ -191,6 +191,7 @@ const Todo = {
 		getToDo: function () {
 			axios.get(DBURL + "/maintenances/garden/" + this.gardenID + "/next/" + this.n)
 				.then(response => {
+					this.nothing = false;
 					this.maints = response.data
 					for (let i = 0; i < this.maints.length; i++) {
 						let date = new Date(this.maints[i].startTime)
@@ -203,7 +204,10 @@ const Todo = {
 						this.maints[i].last = i != this.maints.length - 1
 					}
 				})
-				.catch(error => (console.log(error)));
+				.catch(error => {
+					this.nothing = true;
+					console.log(error)
+				});
 		},
 		init: function(){
 			this.getToDo()
@@ -234,17 +238,17 @@ const GardenInfo = {
 		'cal-btn': CalendarButton
 	},
 	template: `
-		<div class="card garden-info green-border">
+		<div class="garden-info">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card-body">
 						<div class="row">
-							<div class="mx-auto">
-								<h5 class="card-title text-center"> {{ garden.name }}</h5>
-								<p class="card-text text-center"> {{ garden.city }} </p>
-							</div>
 							<div class="col-2 garden-info-back">
 								<i class="fas fa-chevron-circle-right fa-2x"></i>
+							</div>
+							<div class="col-10">
+								<h5 class="card-title text-center"> {{ garden.name }}</h5>
+								<p class="card-text text-center"> {{ garden.city }} </p>
 							</div>
 						</div>
 						<div class="garden-info-components">
