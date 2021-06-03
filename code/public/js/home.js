@@ -1,1 +1,0 @@
-const Home = { template: '<p>Home</p>'}
