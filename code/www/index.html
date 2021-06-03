@@ -35,18 +35,27 @@
     <script src="/static/js/lib/leaflet-sidebar.min.js"></script>
 
 	<!-- Vari. NON SO SE SONO DA TENERE COSÌ O È MEGLIO AGGIUNGERLI SOLO DOVE SERVONO-->
+    <script src="/static/js/components/meteo.js"></script>
+    <script src="/static/js/components/sensors.js"></script>
+    <script src="/static/js/components/todo.js"></script>
+    <script src="/static/js/components/maintenance-card.js"></script>
+    <script src="/static/js/components/gardens-in-need.js"></script>
+    <script src="/static/js/components/gardener-calendar.js"></script>
     <script src="/static/js/garden-info.js"></script>
+    <script src="/static/js/gardener-board.js"></script>
 	<script src="/static/js/404.js"></script>
 	<script src="/static/js/navbar.js"></script>
 	<script src="/static/js/router.js"></script>
-    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/common-style.css" rel="stylesheet">
+    <link href="/static/css/garden-info-style.css" rel="stylesheet">
+    <link href="/static/css/gardener-board-style.css" rel="stylesheet">
 
 </head>
 <body>
 <div id="gardening-app" class="container-fluid px-0">
     <Navbar></Navbar>
     <div id="garden-info" class="leaflet-sidebar">
-        <router-view></router-view>
+        <Gardeninfo :gardenid="selectedGarden"></Gardeninfo>
     </div>
     <div id="mapid"></div>
 </div>
@@ -57,7 +66,7 @@
         el: "#gardening-app",
         components: {
             'Navbar': Navbar,
-            'GardenInfo': GardenInfo
+            'Gardeninfo': GardenInfo
         },
         data() {
             return {
@@ -65,7 +74,7 @@
                 map: [],
                 sidebar: [],
                 showGardenDetails: false,
-                selectedGarden: []
+                selectedGarden: ""
             }
         },
         methods: {
@@ -129,14 +138,12 @@
             closeSidebar() {
                 this.sidebar.hide();
                 this.setShowGardenDetails(false);
-                router.replace({path: '/'});
                 this.selectedGarden = "";
             },
             openSidebar(gardenId) {
                 if(this.selectedGarden !== gardenId){
                     this.sidebar.show();
                     this.setShowGardenDetails(true);
-                    router.replace({name: 'Garden', params: {id: gardenId}});
                     this.selectedGarden = gardenId;
                 }
             }

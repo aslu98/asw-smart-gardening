@@ -40,6 +40,17 @@ exports.list_maintenances = function(req, res) {
 	});
 };
 
+exports.gardens_in_need = function(req, res) {
+	Garden.find({})
+		.sort({'flagsOn': -1})
+		.limit(parseInt(req.params.max))
+		.exec(function(err, gardens) {
+			if (err || gardens == null)
+				res.send(err);
+			res.json(gardens);
+		});
+};
+
 exports.sensors_of_garden = function(req, res) {
 	Sensor.find({garden: req.params.id.toObjectId()})
 		.sort({'flagOn': -1, 'API': 1})
@@ -64,13 +75,19 @@ exports.next_on_garden = function(req, res) {
 	});
 };
 
-//, startTime: {$gte: new Date()}
-
 exports.calendar_of_garden = function(req, res) {
 	Maintenance.find({garden: req.params.id.toObjectId()}, function(err, maint) {
 		if (err || maint == null)
 			res.send(err);
 		res.json(maint);
+	});
+};
+
+exports.calendar_of_gardener = function(req, res) {
+	Maintenance.find({gardener: req.params.id.toObjectId()}, function(err, maints) {
+		if (err || maints == null)
+			res.send(err);
+		res.json(maints);
 	});
 };
 
