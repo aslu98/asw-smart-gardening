@@ -49,11 +49,13 @@ const GardenInfo = {
 	},
 	methods: {
 		getGarden: function () {
-			axios.get(DBURL + "/gardens/" + this.$props.gardenid)
-			.then(response => {
-				this.garden = response.data
-			})
-			.catch(error => (console.log(error)));
+			if(this.$props.gardenid !== "") {
+				axios.get(DBURL + "/gardens/" + this.$props.gardenid)
+					.then(response => {
+						this.garden = response.data
+					})
+					.catch(error => (console.log(error)));
+			}
 		}
 	},
 	mounted() {

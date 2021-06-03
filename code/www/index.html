@@ -35,15 +35,12 @@
     <script src="/static/js/lib/leaflet-sidebar.min.js"></script>
 
 	<!-- Vari. NON SO SE SONO DA TENERE COSÌ O È MEGLIO AGGIUNGERLI SOLO DOVE SERVONO-->
-<<<<<<< HEAD
-=======
     <script src="/static/js/components/meteo.js"></script>
     <script src="/static/js/components/sensors.js"></script>
     <script src="/static/js/components/todo.js"></script>
     <script src="/static/js/components/maintenance-card.js"></script>
     <script src="/static/js/components/gardens-in-need.js"></script>
     <script src="/static/js/components/gardener-calendar.js"></script>
->>>>>>> gardener-page
     <script src="/static/js/garden-info.js"></script>
     <script src="/static/js/gardener-board.js"></script>
 	<script src="/static/js/404.js"></script>
@@ -58,7 +55,7 @@
 <div id="gardening-app" class="container-fluid px-0">
     <Navbar></Navbar>
     <div id="garden-info" class="leaflet-sidebar">
-        <Gardeninfo :gardenid="'609412d316b7f0346c54a093'"></Gardeninfo>
+        <Gardeninfo :gardenid="selectedGarden"></Gardeninfo>
     </div>
     <div id="mapid"></div>
 </div>
@@ -77,7 +74,7 @@
                 map: [],
                 sidebar: [],
                 showGardenDetails: false,
-                selectedGarden: []
+                selectedGarden: ""
             }
         },
         methods: {
@@ -141,14 +138,12 @@
             closeSidebar() {
                 this.sidebar.hide();
                 this.setShowGardenDetails(false);
-                router.replace({path: '/'});
                 this.selectedGarden = "";
             },
             openSidebar(gardenId) {
                 if(this.selectedGarden !== gardenId){
                     this.sidebar.show();
                     this.setShowGardenDetails(true);
-                    router.replace({name: 'Garden', params: {id: gardenId}});
                     this.selectedGarden = gardenId;
                 }
             }
