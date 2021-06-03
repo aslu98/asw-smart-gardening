@@ -88,15 +88,6 @@ p{
     margin-right: 1%;
 }
 
-@media screen and (min-width:768px) and (max-width:991px) {
-    .sensors-table {
-        margin-bottom: 0;
-        border-bottom: 0;
-        border-radius: 5px;
-        font-size: 0.8em;
-    }
-}
-
 .my-custom-scrollbar {
     border:thin solid #1d9d61;
     border-left:none;
@@ -155,37 +146,6 @@ p{
     margin-bottom: 0.3em;
 }
 
-@media screen and (min-width:768px) and (max-width:991px) {
-    .p-weather-date{
-        font-size:0.9em;
-        padding:0;
-    }
-    .today-weather-info {
-        font-size: 0.8em;
-        padding: 0;
-    }
-    .weather-info {
-        font-size: 0.5em;
-    }
-    .weather-info div {
-        margin-top: 0.2em;
-        margin-bottom: 0.3em;
-        padding-left: 0.8em;
-    }
-}
-
-@media screen and (min-width:992px) and (max-width:1199px){
-    .p-weather-date{
-        font-size:1em;
-        padding:1px;
-    }
-    .weather-info div {
-        margin-top: 0.2em;
-        margin-bottom: 0.2em;
-        padding-left: 0.5em;
-    }
-}
-
 /*TO-DO*/
 .to-do-card{
     margin-left: 1%;
@@ -202,14 +162,6 @@ p{
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     font-size: 1.1em;
-}
-
-@media screen and (min-width:768px) and (max-width:991px) {
-    .to-do-maint{
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
-        font-size: 0.8em;
-    }
 }
 
 .to-do-hr{
@@ -230,10 +182,6 @@ p{
 .open-calendar-btn button:hover{
     background:#0f8850;
 }
-
-
-
-
 
 
 /* ANDREA */
@@ -258,6 +206,102 @@ html, body {
 }
 
 #garden-info {
-    right: 5px;
+    right: 2px;
     bottom: 0;
+}
+
+/* Media query */
+
+@media screen and (max-width: 575px) {
+
+    /* btn-sm di Bootstrap */
+    #form-button-container > button {
+        padding: .25rem .5rem;
+        font-size: .875rem;
+        border-radius: .2rem;
+    }
+}
+
+@media screen and (max-width: 991px) {
+
+    #form-button-container {
+        text-align: center;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #logo-container {
+        padding-right: 0;
+    }
+
+    #form-login {
+        padding-left: 0;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:991px) {
+    .p-weather-date{
+        font-size:0.9em;
+        padding:0;
+    }
+    .today-weather-info {
+        font-size: 0.8em;
+        padding: 0;
+    }
+    .weather-info {
+        font-size: 0.5em;
+    }
+    .weather-info div {
+        margin-top: 0.2em;
+        margin-bottom: 0.3em;
+        padding-left: 0.8em;
+    }
+    .to-do-maint{
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        font-size: 0.8em;
+    }
+    .sensors-table {
+        margin-bottom: 0;
+        border-bottom: 0;
+        border-radius: 5px;
+        font-size: 0.8em;
+    }
+}
+
+@media screen and (min-width:992px) and (max-width:1199px){
+    .p-weather-date{
+        font-size:1em;
+        padding:1px;
+    }
+    .weather-info div {
+        margin-top: 0.2em;
+        margin-bottom: 0.2em;
+        padding-left: 0.5em;
+    }
+}
+
+@media screen and (min-width: 992px) {
+
+    #logo-container {
+        padding-right: 1rem;
+    }
+
+    #form-login {
+        padding-left: 1rem;
+    }
+}
+
+@media screen and (max-width: 1399px) {
+
+    #logo-container {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+
+    #logo-container {
+        text-align: end;
+    }
 }
