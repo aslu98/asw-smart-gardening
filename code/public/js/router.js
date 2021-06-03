@@ -7,4 +7,3 @@ const router = new VueRouter({
     ]
 })
 
-  

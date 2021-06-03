@@ -208,6 +208,10 @@ html, body {
         font-size: .875rem;
         border-radius: .2rem;
     }
+
+    #form-login {
+        padding-top: .25rem;
+    }
 }
 
 @media screen and (max-width: 991px) {

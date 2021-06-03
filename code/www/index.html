@@ -35,7 +35,6 @@
     <script src="/static/js/lib/leaflet-sidebar.min.js"></script>
 
 	<!-- Vari. NON SO SE SONO DA TENERE COSÌ O È MEGLIO AGGIUNGERLI SOLO DOVE SERVONO-->
-	<script src="/static/js/home.js"></script>
     <script src="/static/js/garden-info.js"></script>
 	<script src="/static/js/404.js"></script>
 	<script src="/static/js/navbar.js"></script>
@@ -65,7 +64,8 @@
                 gardens: [],
                 map: [],
                 sidebar: [],
-                showGardenDetails: false
+                showGardenDetails: false,
+                selectedGarden: []
             }
         },
         methods: {
@@ -107,9 +107,7 @@
                         title: g.name})
                         .addTo(this.map)
                         .on('click', e => {
-                            this.sidebar.show();
-                            this.setShowGardenDetails(true);
-                            //INVOCARE CHIAMATE PER I COMPONENT
+                            this.openSidebar(g._id);
                         });
                 });
             },
@@ -120,12 +118,27 @@
                     position: 'right'
                 }).addTo(this.map);
                 this.map.on('click', e => {
-                    this.sidebar.hide();
-                    this.setShowGardenDetails(false);
+                    if(this.showGardenDetails){
+                        this.closeSidebar();
+                    }
                 })
             },
             setShowGardenDetails(state) {
                 this.showGardenDetails = state;
+            },
+            closeSidebar() {
+                this.sidebar.hide();
+                this.setShowGardenDetails(false);
+                router.replace({path: '/'});
+                this.selectedGarden = "";
+            },
+            openSidebar(gardenId) {
+                if(this.selectedGarden !== gardenId){
+                    this.sidebar.show();
+                    this.setShowGardenDetails(true);
+                    router.replace({name: 'Garden', params: {id: gardenId}});
+                    this.selectedGarden = gardenId;
+                }
             }
         },
         mounted() {
