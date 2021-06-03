@@ -8,38 +8,38 @@ const GardensInNeed = {
               <div v-for="garden in gardens" class="row">
                 <div class="col-10">
                   <div class="row">
-                    <div class="col-3 grey-state in-need-info">
+                    <div class="col-3 grey-state in-need-info grey-label">
                       WHERE
                     </div>
-                    <div class="col-7">
+                    <div class="col-7 gardener-info">
                       <p>{{garden.name}}</p>
                     </div>
-                    <div class="col-2">
+                    <div class="col-2 gardener-info">
                       <i v-if="garden.inneed == 'green'" class="fas fa-circle green-state"></i>
                       <i v-if="garden.inneed == 'orange'" class="fas fa-circle orange-state"></i>
                       <i v-if="garden.inneed == 'red'" class="fas fa-circle red-state"></i>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-3 grey-state in-need-info">
+                    <div class="col-3 grey-state in-need-info grey-label">
                       CITY
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 gardener-info">
                       <p>{{garden.city}}</p>
                     </div>
                   </div>
                   <div v-if="garden.sensors != []" v-for="sensor in garden.sensors" class="row">
                     <div class="row sensor-row">
-                      <div class="col-3 grey-state in-need-info">
+                      <div class="col-3 grey-state in-need-info grey-label">
                         SENSOR
                       </div>
-                      <div class="col-5 ml-5">
+                      <div class="col-5 ml-5 gardener-info">
                         <p>{{sensor.fieldname}} ({{sensor.where}})</p>
                       </div>
-                      <div class="col-2 grey-state">
+                      <div class="col-2 grey-state grey-label">
                         IS
                       </div>
-                      <div class="col-2">
+                      <div class="col-2 gardener-info">
                         <p>{{sensor.value}} {{getMeasureUnit(sensor.fieldname)}}</p>
                       </div>
                     </div>
