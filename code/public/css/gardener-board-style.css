@@ -3,16 +3,20 @@
     margin: 0;
 }
 
+.gardener-info{
+    padding-left:0;
+}
+
+.grey-label{
+    text-align: right;
+}
+
 /*MAINTENACE-CARD*/
 .maintenace-card{
     width: 95%;
     padding: 2%;
     border-radius: 25px;
     border: 2px solid black;
-}
-
-.maintenance-info{
-    padding-left:0;
 }
 
 .urgency{
