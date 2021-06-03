@@ -47,27 +47,7 @@
 <div id="gardening-app" class="container-fluid px-0">
     <Navbar></Navbar>
     <div id="garden-info" class="leaflet-sidebar">
-<!--        <img v-if="!showGardenDetails" class="ms-1" src="/static/img/farming-black&white.L.png" alt="Icona giardino in bianco e nero">
-        <img v-else class="ms-1" src="/static/img/farming-colors.L.png" alt="Icona giardino a colori">
-        <div class="row">
-            <div class="mx-auto">
-                <button> Open Calendar </button>
-            </div>
-        </div>
-        <div class="sensors-template">
-            <h6>Sensors</h6>
-            <table class="table table-bordered">
-                <tbody>
-                <tr>
-                    <th scope="row">PROVA SENSORE</th>
-                    <td>DOVE SENSORE</td>
-                    <td>TEMPERATURA</td>
-                    <td>UMIDITA</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>-->
-        <router-view></router-view>
+        <Gardeninfo :gardenid="'609412d316b7f0346c54a093'"></Gardeninfo>
     </div>
     <div id="mapid"></div>
 </div>
@@ -78,7 +58,7 @@
         el: "#gardening-app",
         components: {
             'Navbar': Navbar,
-            'GardenInfo': GardenInfo
+            'Gardeninfo': GardenInfo
         },
         data() {
             return {

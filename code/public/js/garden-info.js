@@ -24,13 +24,18 @@ const Sensors = {
 	`,
 	data() {
 		return {
-			gardenID: this.$route.params.id,
 			sensors: []
+		}
+	},
+	props: ['gardenid'],
+	watch: {
+		gardenid() {
+			this.getSensors()
 		}
 	},
 	methods: {
 		getSensors: function () {
-			axios.get(DBURL + "/sensors/garden/" + this.gardenID)
+			axios.get(DBURL + "/sensors/garden/" + this.$props.gardenid)
 				.then(response => {
 					this.sensors = response.data
 				})
@@ -179,7 +184,6 @@ const Todo = {
 	data(){
 		return {
 			nothing: false,
-			gardenID: this.$route.params.id,
 			n: 2,
 			maints: [],
 			weekday_options: {weekday: 'long'},
@@ -187,9 +191,15 @@ const Todo = {
 			from_to_format: "HH:mm"
 		}
 	},
+	props: ['gardenid'],
+	watch: {
+		gardenid() {
+			this.getToDo()
+		}
+	},
 	methods: {
 		getToDo: function () {
-			axios.get(DBURL + "/maintenances/garden/" + this.gardenID + "/next/" + this.n)
+			axios.get(DBURL + "/maintenances/garden/" + this.$props.gardenid + "/next/" + this.n)
 				.then(response => {
 					this.nothing = false;
 					this.maints = response.data
@@ -229,8 +239,6 @@ const CalendarButton = {
 }
 
 const GardenInfo = {
-	//this template will be the one of the side info for the garden -> fare query con tutte le info necessarie (garden + sensori)
-	//there will be another component for the garden calendar (query on the maint.)
 	components: {
 		'sensors': Sensors,
 		'meteo': Meteo,
@@ -253,11 +261,11 @@ const GardenInfo = {
 						</div>
 						<div class="garden-info-components">
 							<hr class="green-hr"/>
-							<sensors></sensors>
+							<sensors :gardenid="$props.gardenid"></sensors>
 							<hr class="green-hr"/>
 							<meteo :garden="garden"></meteo>
 							<hr class="green-hr"/>
-							<to-do></to-do>
+							<to-do :gardenid="$props.gardenid"></to-do>
 							<cal-btn></cal-btn>
 						</div>
 					</div>
@@ -270,21 +278,23 @@ const GardenInfo = {
 			garden: {}
 		}
 	},
+	props: ['gardenid'],
+	watch: {
+		gardenid() {
+			this.getGarden()
+		}
+	},
 	methods: {
 		getGarden: function () {
-			axios.get(DBURL + "/gardens/" + this.$route.params.id)
+			axios.get(DBURL + "/gardens/" + this.$props.gardenid)
 			.then(response => {
 				this.garden = response.data
 			})
 			.catch(error => (console.log(error)));
-
-		},
-		init: function(){
-			this.getGarden();
 		}
 	},
-	mounted(){
-		this.init()
+	mounted() {
+		this.getGarden()
 	}
 }
 
