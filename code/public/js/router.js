@@ -1,3 +1,5 @@
+const DBURL = "http://localhost:3000/api"
+
 const router = new VueRouter({
     mode: 'history',
     routes: [
