@@ -10,12 +10,12 @@ const GardenInfo = {
 				<div class="col-md-12">
 					<div class="card-body">
 						<div class="row">
-							<div class="col-2 garden-info-back">
-								<i class="fas fa-chevron-circle-right fa-2x"></i>
-							</div>
 							<div class="col-10">
 								<h5 class="card-title text-center"> {{ garden.name }}</h5>
 								<p class="card-text text-center"> {{ garden.city }} </p>
+							</div>
+							<div class="col-2 garden-info-back">
+								<i class="fas fa-chevron-circle-right fa-2x" style="cursor: pointer" @click="hideInfo"></i>
 							</div>
 						</div>
 						<div class="garden-info-components">
@@ -49,11 +49,16 @@ const GardenInfo = {
 	},
 	methods: {
 		getGarden: function () {
-			axios.get(DBURL + "/gardens/" + this.$props.gardenid)
-			.then(response => {
-				this.garden = response.data
-			})
-			.catch(error => (console.log(error)));
+			if(this.$props.gardenid !== "") {
+				axios.get(DBURL + "/gardens/" + this.$props.gardenid)
+					.then(response => {
+						this.garden = response.data
+					})
+					.catch(error => (console.log(error)));
+			}
+		},
+		hideInfo() {
+			this.$emit('hidesidebar');
 		}
 	},
 	mounted() {

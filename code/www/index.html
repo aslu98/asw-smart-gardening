@@ -55,7 +55,7 @@
 <div id="gardening-app" class="container-fluid px-0">
     <Navbar></Navbar>
     <div id="garden-info" class="leaflet-sidebar">
-        <Gardeninfo :gardenid="'609412d316b7f0346c54a093'"></Gardeninfo>
+        <Gardeninfo :gardenid="selectedGarden" @hidesidebar="closeSidebar"></Gardeninfo>
     </div>
     <router-view></router-view>
     <div id="mapid"></div>
@@ -75,7 +75,7 @@
                 map: [],
                 sidebar: [],
                 showGardenDetails: false,
-                selectedGarden: []
+                selectedGarden: ""
             }
         },
         methods: {
@@ -139,14 +139,12 @@
             closeSidebar() {
                 this.sidebar.hide();
                 this.setShowGardenDetails(false);
-                router.replace({path: '/'});
                 this.selectedGarden = "";
             },
             openSidebar(gardenId) {
                 if(this.selectedGarden !== gardenId){
                     this.sidebar.show();
                     this.setShowGardenDetails(true);
-                    router.replace({name: 'Garden', params: {id: gardenId}});
                     this.selectedGarden = gardenId;
                 }
             }
