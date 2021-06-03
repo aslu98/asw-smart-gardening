@@ -29,7 +29,7 @@ module.exports = function(app) {
 	app.route('/api/maintenances/garden/:id')
 		.get(controller.calendar_of_garden)
 
-	app.route('/api/maintenance/gardener/:id)')
+	app.route('/api/maintenances/gardener/:id')
 		.get(controller.calendar_of_gardener)
 
 	app.route('/api/maintenances/garden/:id/next/:n')

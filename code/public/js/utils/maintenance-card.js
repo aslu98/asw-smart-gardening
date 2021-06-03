@@ -54,9 +54,6 @@ const MaintenanceCard = {
     watch: {
         garden(n, o) {
             this.garden = n
-        },
-        maintenance(n, o) {
-            this.maintenance = n
             if (this.garden.flagsOn == 0){
                 this.inneed = "green"
             } else if (this.garden.flagsOn == 1){
@@ -64,6 +61,9 @@ const MaintenanceCard = {
             } else {
                 this.inneed = "red"
             }
+        },
+        maintenance(n, o) {
+            this.maintenance = n
         }
     }
 }

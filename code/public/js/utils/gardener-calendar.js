@@ -7,7 +7,7 @@ const GardenerCalendar ={
     },
     methods: {
         getMaintenances: function () {
-            axios.get(DBURL + "/maintenance/gardener" + this.$route.params.id)
+            axios.get(DBURL + "/maintenances/gardener" + this.$route.params.id)
                 .then(response => {
                     this.maintenances = response.data
                 })

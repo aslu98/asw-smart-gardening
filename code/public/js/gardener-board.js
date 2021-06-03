@@ -47,6 +47,9 @@ const GardenerBoard = {
 				.catch(error => (console.log(error)));
 
 		}
+	},
+	mounted() {
+		this.getGarden()
 	}
 }
 
