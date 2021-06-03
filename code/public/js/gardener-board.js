@@ -31,6 +31,7 @@ const GardenerBoard = {
 				garden: "609412d316b7f0346c54a093",
 				startTime: new Date("2021-05-30T17:00:00.000"),
 				duration: 60,
+				description: "Ripiantare i tulipani suddividendo i bulbi.",
 				done: false,
 				gardener: "60944e8316b7f0346c54a49d"
 			}, //quando arriva una evento clicked-maint dal calendar (figlio)

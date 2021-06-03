@@ -5,7 +5,7 @@ const MaintenanceCard = {
               <div class="col-3 grey-state">
                   WHERE
               </div>
-              <div class="col-9">
+              <div class="col-9 maintenance-info">
                 <p>{{garden.name}}</p>
               </div>
             </div>
@@ -13,7 +13,7 @@ const MaintenanceCard = {
               <div class="col-3 grey-state">
                 CITY
               </div>
-              <div class="col-9">
+              <div class="col-9 maintenance-info">
                 <p>{{garden.city}}</p>
               </div>
             </div>
@@ -21,7 +21,7 @@ const MaintenanceCard = {
               <div class="col-3 grey-state">
                 TO DO
               </div>
-              <div class="col-9">
+              <div class="col-9 maintenance-info">
                 <p>{{maintenance.description}}</p>
               </div>
             </div>
@@ -29,7 +29,7 @@ const MaintenanceCard = {
               <div class="col-3 grey-state">
                 DONE
               </div>
-              <div class="col-3">
+              <div class="col-3 maintenance-info">
                 <p>{{maintenance.done}}</p>
               </div>
               <div class="col-3 grey-state">

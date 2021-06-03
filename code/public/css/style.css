@@ -6,6 +6,10 @@
     margin-right:auto;
 }
 
+p{
+    margin-bottom: 0;
+}
+
 .green-border{
     border: thin solid #1d9d61;
 }
