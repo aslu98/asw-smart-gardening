@@ -55,7 +55,7 @@
 <div id="gardening-app" class="container-fluid px-0">
     <Navbar></Navbar>
     <div id="garden-info" class="leaflet-sidebar">
-        <Gardeninfo :gardenid="selectedGarden"></Gardeninfo>
+        <Gardeninfo :gardenid="selectedGarden" @hidesidebar="closeSidebar"></Gardeninfo>
     </div>
     <div id="mapid"></div>
 </div>
