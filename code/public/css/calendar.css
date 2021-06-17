@@ -1,1 +1,55 @@
+.prevWeek, nextWeek{
+    margin-top: 20%;
+}
 
+.prevWeek{
+    text-align: right;
+}
+
+.nextWeek{
+    text-align: left;
+}
+
+.day-heading{
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.day-heading p{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/*MEDIA QUERY*/
+@media screen and (min-width:992px) and (max-width:1199px){
+    .day-heading{
+        font-size: 0.7em;
+        text-align: center;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:991px) {
+    .day-heading{
+        font-size: 0.6em;
+        text-align: center;
+    }
+}
+
+@media screen and (min-width:668px) and (max-width:768px) {
+    .day-heading{
+        font-size: 0.7em;
+        text-align: center;
+    }
+
+    .day-heading p{
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+@media screen and (max-width:668px) {
+    .day-heading{
+        font-size: 0.6em;
+        text-align: center;
+    }
+}

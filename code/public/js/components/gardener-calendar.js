@@ -10,14 +10,17 @@ const GardenerCalendar ={
             </div>
             <div class= "row">
                 <div class="col-1">
-                  <div class='clickable'v-on:click="previousWeek()">
-                    <i class="fas fa-arrow-circle-left"></i>
+                  <div class='clickable prevWeek' v-on:click="previousWeek()">
+                    <i class="fas fa-arrow-circle-left fa-lg"></i>
                   </div>
                 </div>
                 <div class="col-10">
                     <table class="table">
                       <thead>
-                          <th scope="column" v-for="date in weekDates"> {{ date || dayHeading() }} </th>
+                          <th class='day-heading' scope="column" v-for="date in weekDates"> 
+                            <p>{{date.toLocaleDateString("it-IT", weekday_options).toString().capitalize()}}</p>
+                            <p>{{date.toLocaleDateString("it-IT", day_options).toString()}}</p>
+                          </th>
                       </thead>
                       <tbody>
                       
@@ -25,8 +28,8 @@ const GardenerCalendar ={
                     </table>
                 </div>
                 <div class="col-1">
-                  <div class='clickable' v-on:click="nextWeek()">
-                    <i class="fas fa-arrow-circle-right"></i>
+                  <div class='clickable nextWeek' v-on:click="nextWeek()">
+                    <i class="fas fa-arrow-circle-right fa-lg"></i>
                   </div>
                 </div>
             </div>
@@ -61,7 +64,7 @@ const GardenerCalendar ={
             let day = d.getDay()
             let diff = d.getDate() - day + (day == 0 ? -6:1);
             let startingDate = new Date(d.setDate(diff));
-            this.weekDates[0] = new Date(startingDate)
+            Vue.set(this.weekDates, 0, new Date(startingDate))
             for (let i = 1; i<7; i++) {
                 this.weekDates[i] =  new Date(startingDate.setDate(startingDate.getDate() + 1));
             }
@@ -81,14 +84,7 @@ const GardenerCalendar ={
         this.getGardenerName()
         this.getMaintenances()
         this.setWeekDates()
-    },
-    filters: {
-        dayHeading: function(d) {
-            let weekday = d.toLocaleDateString("it-IT", this.weekday_options).toString().capitalize()
-            let day = d.toLocaleDateString("it-IT", this.day_options).toString()
-            return weekday + "\n" + day
-        }
-    },
+    }
     //quando viene cliccata una maint. deve inviarla al padre
     //inizialmente gli invia
 }
