@@ -15,12 +15,14 @@ const GardenerCalendar ={
                   </div>
                 </div>
                 <div class="col-10">
-                    <table class="table">
+                    <table class="table calendar-table">
                       <thead>
-                          <th class='day-heading' scope="column" v-for="date in weekDates"> 
-                            <p>{{date.toLocaleDateString("it-IT", weekday_options).toString().capitalize()}}</p>
-                            <p>{{date.toLocaleDateString("it-IT", day_options).toString()}}</p>
-                          </th>
+                          <tr>
+                              <th class='day-heading' scope="column" v-for="date in weekDates"> 
+                                <p>{{date.toLocaleDateString("it-IT", weekday_options).toString().capitalize()}}</p>
+                                <p>{{date.toLocaleDateString("it-IT", day_options).toString()}}</p>
+                              </th>
+                          </tr>
                       </thead>
                       <tbody>
                       

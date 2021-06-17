@@ -1,3 +1,14 @@
+.calendar-table {
+    border-radius: 5px;
+}
+
+.calendar-table > thead > tr > th,
+.calendar-table > tbody > tr > td,
+.calendar-table > tbody > tr > th {
+    border:thin solid #1d9d61 !important;
+    border-radius: 10px;
+}
+
 .prevWeek, nextWeek{
     margin-top: 20%;
 }
