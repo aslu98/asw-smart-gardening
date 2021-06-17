@@ -44,6 +44,9 @@ module.exports = function(app) {
 	app.route('/api/maintenances/:id/done')
 		.get(controller.maintenance_done)
 
+	app.route('/api/gardener/:id')
+		.get(controller.gardener_info)
+
 	app.use(controller.show_index);
 };
 

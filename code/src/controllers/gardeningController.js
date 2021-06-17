@@ -165,3 +165,11 @@ exports.update_sensor = function(req, res) {
 		});
 };
 
+exports.gardener_info = function(req, res) {
+	Gardener.findById({_id: req.params.id}, function(err, gardener) {
+		if (err)
+			res.send(err);
+		res.json(gardener);
+	});
+};
+

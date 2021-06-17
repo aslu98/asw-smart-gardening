@@ -34,7 +34,7 @@ const MaintenanceCard = {
                 <p v-else> NO </p>
               </div>
               <div class="col-3 grey-state grey-label">
-                URGENCY
+                STATE
               </div>
               <div class="col-1 urgency gardener-info">
                 <i v-if="inneed == 'green'" class="fas fa-circle green-state"></i>

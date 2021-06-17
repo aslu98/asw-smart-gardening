@@ -76,7 +76,6 @@ const GardensInNeed = {
                         axios.get(DBURL +'/sensors/garden/' + this.gardens[i]._id +"/on")
                             .then(response => {
                                 this.gardens[i].sensors = response.data
-                                console.log(this.gardens[i].sensors)
                             })
                             .catch(error => {
                                 console.log(error)
