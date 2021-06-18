@@ -48,7 +48,7 @@
 }
 
 .calendar-timeslot p{
-    font-size: 0.4em;
+    font-size: 0.7em;
     color: darkgrey;
     padding-bottom: 2em;
     padding-left:0.3em;
@@ -69,6 +69,14 @@
         font-size: 0.7em;
         text-align: center;
     }
+
+    .calendar-timeslot p{
+        font-size: 0.5em;
+        color: darkgrey;
+        padding-bottom: 2em;
+        padding-left:0.3em;
+        padding-top:0.2em;
+    }
 }
 
 @media screen and (min-width:768px) and (max-width:991px) {
@@ -79,6 +87,14 @@
 
     .calendar-add-btn{
         padding-left:0;
+    }
+
+    .calendar-timeslot p{
+        font-size: 0.4em;
+        color: darkgrey;
+        padding-bottom: 2em;
+        padding-left:0.3em;
+        padding-top:0.2em;
     }
 }
 
@@ -96,6 +112,14 @@
     .calendar-add-btn button{
         font-size: 0.6em;
     }
+
+    .calendar-timeslot p{
+        font-size: 0.4em;
+        color: darkgrey;
+        padding-bottom: 2em;
+        padding-left:0.3em;
+        padding-top:0.2em;
+    }
 }
 
 @media screen and (max-width:668px) {
@@ -110,5 +134,13 @@
 
     .calendar-add-btn button{
         font-size: 0.3em;
+    }
+
+    .calendar-timeslot p{
+        font-size: 0.4em;
+        color: darkgrey;
+        padding-bottom: 2em;
+        padding-left:0.3em;
+        padding-top:0.2em;
     }
 }
