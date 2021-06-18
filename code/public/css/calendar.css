@@ -59,6 +59,10 @@
     background-color: #c5f4d6;
 }
 
+.calendar-add-btn button{
+    font-size: 0.7em;
+}
+
 /*MEDIA QUERY*/
 @media screen and (min-width:992px) and (max-width:1199px){
     .day-heading{
@@ -72,6 +76,10 @@
         font-size: 0.6em;
         text-align: center;
     }
+
+    .calendar-add-btn{
+        padding-left:0;
+    }
 }
 
 @media screen and (min-width:668px) and (max-width:768px) {
@@ -84,11 +92,23 @@
         padding-right: 0;
         padding-left: 0;
     }
+
+    .calendar-add-btn button{
+        font-size: 0.6em;
+    }
 }
 
 @media screen and (max-width:668px) {
     .day-heading{
         font-size: 0.6em;
         text-align: center;
+    }
+
+    .calendar-add-btn{
+        padding-left:0;
+    }
+
+    .calendar-add-btn button{
+        font-size: 0.3em;
     }
 }

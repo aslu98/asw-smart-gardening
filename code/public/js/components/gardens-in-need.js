@@ -1,6 +1,6 @@
 const MAX = 10;
 const GardensInNeed = {
-    components:{
+    components : {
         "add-button": AddButton
     },
     template: `

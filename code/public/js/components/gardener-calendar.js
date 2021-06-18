@@ -32,9 +32,13 @@ const GardenerCalendar = {
                       <tr v-for="timeslot in timeslots">
                         <td v-for="date in weekDates" class="calendar-timeslot clickable">
                           <p v-if="maintInTimeSlot(timeslot,date)" class="maint-timeslot">{{timeslot.toLocaleTimeString("it-IT", time_options).toString()}}</p>
-                          <div v-else class="no-maint-timeslot"> 
-                            <p>{{timeslot.toLocaleTimeString("it-IT", time_options).toString()}}</p>
-                            <add-button></add-button>
+                          <div v-else class="no-maint-timeslot row">
+                            <div class="col-6">
+                              <p>{{timeslot.toLocaleTimeString("it-IT", time_options).toString()}}</p>
+                            </div>
+                            <div class="col-6 pt-1 calendar-add-btn">
+                              <add-button></add-button>
+                            </div>
                           </div>
                         </td>
                       </tr>
