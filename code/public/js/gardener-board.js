@@ -8,6 +8,9 @@ const GardenerBoard = {
 	template: `
 		<div class="gardener-board row">
 			<div class="col-12 col-md-7">
+				<div class= "row">
+					<h5 class="mt-3">Calendario di {{gardenerName}}</h5>
+				</div>
 				<gardener-calendar></gardener-calendar>
 			</div>
 			<div class="col-12 col-md-5">
@@ -25,6 +28,7 @@ const GardenerBoard = {
 	`,
 	data() {
 		return {
+			gardenerName: "",
 			maintenance:{
 				garden: "609412d316b7f0346c54a093",
 				startTime: new Date("2021-05-30T17:00:00.000"),
@@ -38,6 +42,13 @@ const GardenerBoard = {
 		}
 	},
 	methods: {
+		getGardenerName: function() {
+			axios.get(DBURL + "/gardener/" + this.$route.params.id)
+				.then(response => {
+					this.gardenerName = response.data.name + " " + response.data.surname
+				})
+				.catch(error => (console.log(error)));
+		},
 		getGarden: function () {
 			axios.get(DBURL + "/gardens/" + this.maintenance.garden)
 				.then(response => {
@@ -48,6 +59,7 @@ const GardenerBoard = {
 		}
 	},
 	mounted() {
+		this.getGardenerName()
 		this.getGarden()
 	}
 }

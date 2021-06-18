@@ -1,6 +1,8 @@
 const MaintenanceCard = {
     template: `
-		<div class="maintenace-card center my-4">
+      <div>
+        <h6 class="mt-3"> Manutenzione selezionata </h6>
+		<div class="maintenance-card center mb-4">
 		    <div class="row">
               <div class="col-3 grey-state grey-label">
                   WHERE
@@ -44,6 +46,7 @@ const MaintenanceCard = {
               <div class="col-2"></div>
             </div>
 		</div>
+      </div>
 	`,
     data() {
         return {

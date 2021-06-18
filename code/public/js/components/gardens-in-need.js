@@ -1,8 +1,11 @@
 const MAX = 10;
 const GardensInNeed = {
+    components:{
+        "add-button": AddButton
+    },
     template: `
 		<div class="gardens-in-need-card my-4">
-            <h6>Gardens in need</h6>
+            <h6>Giardini</h6>
             <div v-if="nothing"> <p class="empty-card"> No gardens in need! </p> </div>
             <div v-else class="card gardens-scrollbar">
               <div v-for="garden in gardens" class="row">
@@ -45,9 +48,7 @@ const GardensInNeed = {
                     </div>
                   </div>
                 </div>
-                <div class="col-2 vcenter-item">
-                  <button type="button" class="btn btn-success py-0 px-1 add-btn"> + </button>
-                </div>
+                <add-button> </add-button>
                 <hr class="green-hr"/>
               </div>
             </div>

@@ -2,23 +2,30 @@
     border-radius: 5px;
 }
 
-.calendar-table > thead > tr > th,
-.calendar-table > tbody > tr > td,
-.calendar-table > tbody > tr > th {
+.calendar-table > thead > tr > th{
     border:thin solid #1d9d61 !important;
-    border-radius: 10px;
 }
 
-.prevWeek, nextWeek{
-    margin-top: 20%;
+.calendar-table > tbody > tr > td{
+    border:thin solid #1d9d61;
+    border-top: 0;
+    border-bottom: thin solid lightgray;
+    padding:0 !important;
+}
+
+.calendar-table > tbody > tr:last-child > td{
+    border:thin solid #1d9d61;
+    border-top: 0;
 }
 
 .prevWeek{
     text-align: right;
+    margin-top: 20%;
 }
 
 .nextWeek{
     text-align: left;
+    margin-top: 20%;
 }
 
 .day-heading{
@@ -29,6 +36,27 @@
 .day-heading p{
     padding-top: 0;
     padding-bottom: 0;
+}
+
+.weekday{
+    font-weight: normal;
+    color:grey;
+}
+
+.calendar-timeslot{
+    padding-top:0 !important;
+}
+
+.calendar-timeslot p{
+    font-size: 0.4em;
+    color: darkgrey;
+    padding-bottom: 2em;
+    padding-left:0.3em;
+    padding-top:0.2em;
+}
+
+.maint-timeslot{
+    background-color: #c5f4d6;
 }
 
 /*MEDIA QUERY*/
