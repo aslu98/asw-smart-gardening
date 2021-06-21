@@ -172,16 +172,16 @@ exports.login = function(req, res) {
 }
 
 exports.registration = function(req, res) {
-	let newUser = {
-		name: req.query.name,
-		surname: req.query.surname,
-		telephone: req.query.telephone,
-		address: req.query.address,
-		fiscal_code: req.query.fiscal_code,
-		user_id: req.query.user_id
-	};
-	console.log(newUser.name);
-	/*bcrypt;*/
+	let newGardenerTmp = req.body.params;
+	newGardenerTmp.salt = bcrypt.genSaltSync(10);
+	newGardenerTmp.password = bcrypt.hashSync(newGardenerTmp.password, newGardenerTmp.salt);
+
+	let newGardener = new Gardener(newGardenerTmp);
+	newGardener.save(function(err, gardener) {
+		if (err)
+			res.send(false);
+		res.status(201).send(true);
+	});
 }
 
 exports.checkUsername = function(req, res) {

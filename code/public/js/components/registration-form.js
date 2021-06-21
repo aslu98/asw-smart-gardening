@@ -53,15 +53,18 @@ const RegistrationForm = {
                                        placeholder="Password" name="password" v-model.trim="form.password" required>
                             </div>
                             <div class="pb-2">
-                              <label class="control-label" for="password2">Conferma Password</label>
-                                <input type="password" class="form-control form-control-sm" id="password2" :class="{ 'is-invalid': passwordError }"
+                                <label class="control-label" for="password2">Conferma Password</label>
+                                    <input type="password" class="form-control form-control-sm" id="password2" :class="{ 'is-invalid': passwordError }"
                                        placeholder="Conferma password" name="password2" v-model.trim="form.password2" required>
-                                <small v-if="passwordError" class="invalid-feedback alert alert-danger"> {{ passwordError }} </small>
+                                    <small v-if="passwordError" class="invalid-feedback alert alert-danger"> {{ passwordError }} </small>
                             </div>
                         </div>
+                        <div v-if="registrationError || registrationSuccess" class="pt-2 pb-2">
+                            <div v-if="registrationError" class="alert alert-danger"> {{ registrationError }} </div>
+                            <div v-if="registrationSuccess" class="alert alert-success"> {{ registrationSuccess }} </div>
+                        </div>
                         <div class="form-group text-end pt-2">
-                            <input type="submit" value="Conferma" class="btn btn-success rounded-pill">
-                            <!--onclick="formhash(this.form, this.form.password, this.form.password2);"-->
+                            <input type="submit" value="Conferma" class="btn btn-success rounded-pill" :class="{ 'disabled': redirecting}">
                         </div>
                     </form>
                 </div>
@@ -83,7 +86,10 @@ const RegistrationForm = {
             },
             telephoneError: "",
             userError: "",
-            passwordError: ""
+            passwordError: "",
+            registrationError: "",
+            registrationSuccess: "",
+            redirecting: false
         }
     },
     methods: {
@@ -92,6 +98,8 @@ const RegistrationForm = {
             this.telephoneError = "";
             this.passwordError = "";
             this.userError = "";
+            this.registrationError = "";
+            this.registrationSuccess = "";
             if(isNaN(this.form.telephone)) {
                 this.telephoneError = "Il numero di telefono non è valido. Inserire un numero di telefono valido (inserire solo numeri)";
                 existingError = true;
@@ -127,7 +135,14 @@ const RegistrationForm = {
                                     }
                                 })
                                 .then(res => {
-
+                                    let userCreated = res.data;
+                                    if(userCreated) {
+                                        this.registrationSuccess = "Utente creato con successo, ora verrai reindirizzato alla Home";
+                                        this.redirecting = true;
+                                        setTimeout(() => {window.location = "http://localhost:3000/";}, 1000)
+                                    } else {
+                                        this.registrationError = "Errore durante la registrazione, provare più tardi";
+                                    }
                                 })
                                 .catch(err => {
                                     console.log(err);
