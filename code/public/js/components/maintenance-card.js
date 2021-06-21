@@ -56,7 +56,14 @@ const MaintenanceCard = {
             inneed:"green"
         }
     },
-    props: ['garden', 'maintenance'],
+    props: {
+        'garden':{
+            required: true
+        },
+        'maintenance': {
+            required: true
+        }
+    },
     watch: {
         garden(n, o) {
             this.garden = n

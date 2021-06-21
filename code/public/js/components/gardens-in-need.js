@@ -1,7 +1,8 @@
 const MAX = 10;
 const GardensInNeed = {
     components : {
-        "add-button": AddButton
+        "add-button": AddMaintenance,
+        "maintenance-modal": MaintenancePopUp,
     },
     template: `
 		<div class="gardens-in-need-card my-4">
@@ -49,6 +50,7 @@ const GardensInNeed = {
                   </div>
                 </div>
                 <add-button> </add-button>
+                <maintenance-modal :gardener="getGardener()" :garden="garden"></maintenance-modal>
                 <hr class="green-hr"/>
               </div>
             </div>
@@ -59,6 +61,11 @@ const GardensInNeed = {
             nothing: true,
             gardens: []
         }
+    },
+    props: {
+        gardener: {
+            required:true
+        },
     },
     methods:{
         getGardensInNeed: function(){
@@ -88,6 +95,9 @@ const GardensInNeed = {
                     console.log(error)
                 });
         },
+        getGardener: function () {
+            return this.$props.gardener
+        },
         getMeasureUnit: function (fieldname){
             switch(fieldname){
                 case "Temperature":
@@ -102,15 +112,4 @@ const GardensInNeed = {
     mounted() {
         this.getGardensInNeed()
     }
-
-    /*<div v-for="sensor in garden.sensors" class="row">
-                    <div class="row">
-                      <div class="col-3 grey-state in-need-info">
-                        SENSOR
-                      </div>
-                      <div class="col-9 maintenance-info">
-                        <p>{{sensor.fieldname}}</p>
-                      </div>
-                    </div>
-                  </div>*/
 }

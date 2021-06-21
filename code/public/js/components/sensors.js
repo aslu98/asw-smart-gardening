@@ -27,7 +27,9 @@ const Sensors = {
             sensors: []
         }
     },
-    props: ['gardenid'],
+    props: {'gardenid': {
+        required: true
+    }},
     watch: {
         gardenid() {
             this.getSensors()

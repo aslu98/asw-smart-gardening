@@ -3,14 +3,18 @@ String.prototype.capitalize = function() {
 }
 
 String.prototype.capitalizeMonth = function() {
-    return this.substr(0,3) + this.charAt(3).toUpperCase() + this.slice(4);
+    let capPos = 3
+    if (this.length < 6){
+        capPos = 2
+    }
+    return this.substr(0, capPos) + this.charAt(capPos).toUpperCase() + this.slice(capPos+1);
 }
 
 const Calendar = {
     components:{
-        "add-button": AddButton
+        "add-button": AddMaintenance,
+        "maintenance-modal": MaintenancePopUp,
     },
-    props: ['from'],
     template:
         `
           <div class="gardener-calendar">
@@ -44,7 +48,8 @@ const Calendar = {
                         <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
                       </div>
                       <div class="col-6 pt-1 calendar-add-btn">
-                        <add-button v-if="activeAdd[slotindex][dateindex]"></add-button>
+                        <add-button v-if="activeAdd[slotindex][dateindex]"/>
+                        <maintenance-modal :timeslot="timeslot" :date="date" :gardener="getGardener()"></maintenance-modal>
                       </div>
                     </div>
                   </td>
@@ -69,7 +74,16 @@ const Calendar = {
             lastmaint: false,
             weekday_options: { weekday: 'long'},
             day_options: {day: 'numeric', month: 'short'},
-            time_options: {hour: '2-digit'}
+            time_options: {hour: '2-digit'},
+            gardener: ""
+        }
+    },
+    props: {
+        gardener: {
+            required:true
+        },
+        from: {
+            required: true
         }
     },
     methods: {
@@ -100,6 +114,9 @@ const Calendar = {
                 this.weekDates[i] =  new Date(startingDate.setDate(startingDate.getDate() + 1));
             }
         },
+        getGardener: function () {
+            return this.$props.gardener
+        },
         initializeActiveAdd: function () {
             for (let i= 0 ; i < this.timeslots.length; i++){
                 this.activeAdd[i] = []
@@ -119,8 +136,6 @@ const Calendar = {
             if (this.checkMaintInTimeslot(timeslot, date)){
                 let maint = this.getMaintsInTimeSlot(timeslot, date)[0]
                 this.$emit('clicked-maint', maint)
-            } else {
-                //create maint
             }
         },
         switchActiveAddOn: function (ti, di){

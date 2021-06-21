@@ -11,7 +11,7 @@ const GardenerBoard = {
 				<div class= "row">
 					<h5 class="mt-3">Calendario di {{gardenerName}}</h5>
 				</div>
-				<gardener-calendar :from="'gardener'" @clicked-maint="updateMaint"></gardener-calendar>
+				<gardener-calendar :from="'gardener'" @clicked-maint="showMaint" :gardener="this.$route.params.id"></gardener-calendar>
 			</div>
 			<div class="col-12 col-md-5">
 				<div v-if="!emptyMaint" class="row">
@@ -21,9 +21,11 @@ const GardenerBoard = {
 					<meteo :garden="garden"></meteo>
 				</div>
 				<div>
-					<gardens-in-need></gardens-in-need>
+					<gardens-in-need :gardener="this.$route.params.id"></gardens-in-need>
 				</div>
 			</div>
+		
+		
 		</div>
 	`,
 	data() {
@@ -50,7 +52,7 @@ const GardenerBoard = {
 				.catch(error => (console.log(error)));
 
 		},
-		updateMaint: function(maint) {
+		showMaint: function(maint) {
 			this.maintenance = maint
 			this.emptyMaint = false
 			this.getGarden()

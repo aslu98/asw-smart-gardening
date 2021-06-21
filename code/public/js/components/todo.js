@@ -28,7 +28,9 @@ const Todo = {
             from_to_format: "HH:mm"
         }
     },
-    props: ['gardenid'],
+    props: {'gardenid':{
+            required: true}
+            },
     watch: {
         gardenid() {
             this.getToDo()

@@ -52,7 +52,10 @@ const Meteo = {
             nextdays: []
         }
     },
-    props: ['garden'],
+    props: {
+        'garden':{
+            required: true
+        }},
     watch: {
         garden(n, o) {
             this.lat = n.lat
