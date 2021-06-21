@@ -39,7 +39,7 @@ const Calendar = {
                 <tr v-for="(timeslot, slotindex) in timeslots">
                   <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot clickable" v-on:click="clickedSlot(timeslot, date)">
                     <div v-if="checkMaintInTimeslot(timeslot,date)" class="maint-timeslot">
-                      <p :class="{'first-maint': firstmaint, 'last-maint': lastmaint}"> {{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
+                      <p :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date)}"> {{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
                     </div>
                     <div v-else class="no-maint-timeslot row"
                          v-on:mouseover="switchActiveAddOn(slotindex, dateindex)"
@@ -49,7 +49,7 @@ const Calendar = {
                       </div>
                       <div class="col-6 pt-1 calendar-add-btn">
                         <add-button v-if="activeAdd[slotindex][dateindex]"/>
-                        <maintenance-modal :timeslot="timeslot" :date="date" :gardener="getGardener()"></maintenance-modal>
+                        <maintenance-modal :timeslot="timeslot" :datestr="date" :gardener="getGardener()"></maintenance-modal>
                       </div>
                     </div>
                   </td>
@@ -70,8 +70,6 @@ const Calendar = {
             maintenances: [],
             weekDates: [new Date()],
             timeslots: [],
-            firstmaint: true,
-            lastmaint: false,
             weekday_options: { weekday: 'long'},
             day_options: {day: 'numeric', month: 'short'},
             time_options: {hour: '2-digit'},
@@ -131,6 +129,14 @@ const Calendar = {
         },
         checkMaintInTimeslot: function (timeslot, date){
             return this.getMaintsInTimeSlot(timeslot, date).length > 0;
+        },
+        isFirstMaint: function (timeslot, date) {
+            return this.checkMaintInTimeslot(timeslot, date)
+                && !this.checkMaintInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours() - 1)), date)
+        },
+        isLastMaint: function (timeslot, date) {
+            return this.checkMaintInTimeslot(timeslot, date)
+                && !this.checkMaintInTimeslot(new Date(new Date(timeslot).setHours(new Date(timeslot).getHours()+1)), date)
         },
         clickedSlot: function (timeslot, date){
             if (this.checkMaintInTimeslot(timeslot, date)){

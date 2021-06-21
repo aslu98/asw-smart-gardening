@@ -25,7 +25,7 @@ const MaintenancePopUp = {
                   <div class="pb-2">
                     <label class="control-label" for="date">Data</label>
                     <input type="date" class="form-control form-control-sm" id="date"
-                           placeholder="Data" name="date" :value="date" v-model="date" required>
+                           placeholder="Data" name="date" v-model="date" required>
                   </div>
                   <div class="pb-2">
                     <label class="control-label" for="hour">Ora di inizio</label>
@@ -34,7 +34,7 @@ const MaintenancePopUp = {
                   </div>
                   <div class="pb-2">
                     <label class="control-label" for="duration">Durata in ore</label>
-                    <input type="duration" min="1" max="12" step="1" class="form-control form-control-sm" id="hour"
+                    <input type="number" min="1" max="12" step="1" class="form-control form-control-sm" id="hour"
                            placeholder="Durata" name="duration" v-model="duration" required>
                   </div>
                   <div class="pb-2">
@@ -62,7 +62,7 @@ const MaintenancePopUp = {
         timeslot: {
             default: ""
         },
-        date: {
+        datestr: {
             default: ""
         },
         garden: {
@@ -107,13 +107,14 @@ const MaintenancePopUp = {
             return this.$props.garden._id
         },
         setDateAndHour: function () {
-            this.date = new Date(this.$props.date).toLocaleDateString("it-IT")
-            console.log(this.date)
+            if(this.$props.datestr != "") {
+                this.date = new Date(this.$props.datestr).toISOString().split('T')[0]
+            }
             this.hour = new Date(this.$props.timeslot).getHours()
         }
     },
     mounted() {
-        this.getGardens()
         this.setDateAndHour()
+        this.getGardens()
     }
 }

@@ -4,13 +4,11 @@
 }
 
 .calendar-table > thead > tr > th{
-    border:thin solid #1d9d61 !important;
-
+    border:thin solid #1d9d61;
 }
 
 .calendar-table > tbody > tr > td{
     border:thin solid #1d9d61;
-    border-top: 0;
     border-bottom: thin solid lightgray;
     padding:0 !important;
 
@@ -64,12 +62,12 @@
     border-right: thin solid black;
 }
 
-first-maint{
-    border-top: thin solid black;
+.first-maint{
+    border-top: thin solid black !important;
 }
 
-last-maint{
-    border-bottom: thin solid black;
+.last-maint{
+    border-bottom: thin solid black !important;
 }
 
 .calendar-add-btn button{
