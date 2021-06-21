@@ -6,7 +6,7 @@ String.prototype.capitalizeMonth = function() {
     return this.substr(0,3) + this.charAt(3).toUpperCase() + this.slice(4);
 }
 
-const GardenerCalendar = {
+const Calendar = {
     components:{
         "add-button": AddButton
     },
@@ -72,8 +72,8 @@ const GardenerCalendar = {
         }
     },
     methods: {
-        getMaintenances: function () {
-            axios.get(DBURL + "/maintenances/gardener/" + this.$route.params.id)
+        getMaintenancesFrom: function (from) {
+            axios.get(DBURL + "/maintenances/" + from + "/" + this.$route.params.id)
                 .then(response => {
                     this.maintenances = response.data
                     for (let i=0; i<this.maintenances.length; i++){
@@ -146,11 +146,9 @@ const GardenerCalendar = {
         }
     },
     mounted(){
-        this.getMaintenances()
+        this.getMaintenancesFrom('gardener')
         this.setWeekDates()
         this.setTimeSlots()
         this.initializeActiveAdd()
     }
-    //quando viene cliccata una maint. deve inviarla al padre
-    //inizialmente gli invia
 }

@@ -3,7 +3,7 @@ const GardenerBoard = {
 		'meteo': Meteo,
 		'maintenance-card': MaintenanceCard,
 		'gardens-in-need': GardensInNeed,
-		'gardener-calendar': GardenerCalendar
+		'gardener-calendar': Calendar
 	},
 	template: `
 		<div class="gardener-board row">
