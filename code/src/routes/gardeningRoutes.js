@@ -44,6 +44,13 @@ module.exports = function(app) {
 	app.route('/api/maintenances/:id/done')
 		.get(controller.maintenance_done)
 
+	app.route('/api/login')
+		.post(controller.login)
+
+	app.route('/api/registration')
+		.post(controller.registration)
+		.get(controller.checkUsername)
+
 	app.use(controller.show_index);
 };
 
