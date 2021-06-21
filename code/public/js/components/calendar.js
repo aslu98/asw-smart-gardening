@@ -10,6 +10,7 @@ const Calendar = {
     components:{
         "add-button": AddButton
     },
+    props: ['from'],
     template:
         `
           <div class="gardener-calendar">
@@ -146,7 +147,7 @@ const Calendar = {
         }
     },
     mounted(){
-        this.getMaintenancesFrom('gardener')
+        this.getMaintenancesFrom(this.$props.from)
         this.setWeekDates()
         this.setTimeSlots()
         this.initializeActiveAdd()

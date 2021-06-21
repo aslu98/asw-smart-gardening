@@ -11,7 +11,7 @@ const GardenerBoard = {
 				<div class= "row">
 					<h5 class="mt-3">Calendario di {{gardenerName}}</h5>
 				</div>
-				<gardener-calendar @clicked-maint="updateMaint"></gardener-calendar>
+				<gardener-calendar :from="'gardener'" @clicked-maint="updateMaint"></gardener-calendar>
 			</div>
 			<div class="col-12 col-md-5">
 				<div v-if="!emptyMaint" class="row">
