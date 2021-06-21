@@ -32,9 +32,10 @@ const GardenerCalendar = {
                 </thead>
                 <tbody>
                 <tr v-for="(timeslot, slotindex) in timeslots">
-                  <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot clickable">
-                    <p v-if="maintInTimeSlot(timeslot,date)" class="maint-timeslot">
-                      {{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
+                  <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot clickable" v-on:click="clickedSlot(timeslot, date)">
+                    <div v-if="checkMaintInTimeslot(timeslot,date)" class="maint-timeslot">
+                      <p :class="{'first-maint': firstmaint, 'last-maint': lastmaint}"> {{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
+                    </div>
                     <div v-else class="no-maint-timeslot row"
                          v-on:mouseover="switchActiveAddOn(slotindex, dateindex)"
                          v-on:mouseleave="switchActiveAddOff(slotindex, dateindex)">
@@ -63,6 +64,8 @@ const GardenerCalendar = {
             maintenances: [],
             weekDates: [new Date()],
             timeslots: [],
+            firstmaint: true,
+            lastmaint: false,
             weekday_options: { weekday: 'long'},
             day_options: {day: 'numeric', month: 'short'},
             time_options: {hour: '2-digit'}
@@ -104,10 +107,20 @@ const GardenerCalendar = {
                 }
             }
         },
-        maintInTimeSlot: function (timeslot, date){
+        getMaintsInTimeSlot: function (timeslot, date) {
             return this.maintenances.filter(m => m.startTime.getDate() == date.getDate())
-                .filter(m => (timeslot.getHours() >= m.startTime.getHours() && timeslot.getHours() <= m.endTime.getHours()))
-                .length > 0;
+                .filter(m => (timeslot.getHours() >= m.startTime.getHours() && timeslot.getHours() <= m.endTime.getHours()));
+        },
+        checkMaintInTimeslot: function (timeslot, date){
+            return this.getMaintsInTimeSlot(timeslot, date).length > 0;
+        },
+        clickedSlot: function (timeslot, date){
+            if (this.checkMaintInTimeslot(timeslot, date)){
+                let maint = this.getMaintsInTimeSlot(timeslot, date)[0]
+                this.$emit('clicked-maint', maint)
+            } else {
+                //create maint
+            }
         },
         switchActiveAddOn: function (ti, di){
             let activeTi = this.activeAdd[ti]
@@ -126,12 +139,10 @@ const GardenerCalendar = {
         previousWeek: function () {
             this.weekDates[0].setDate(this.weekDates[0].getDate() - 7)
             this.setWeekDates()
-            console.log(this.weekDates[2])
         },
         nextWeek: function () {
             this.weekDates[0].setDate(this.weekDates[0].getDate() + 7)
             this.setWeekDates()
-            console.log(this.weekDates[2])
         }
     },
     mounted(){

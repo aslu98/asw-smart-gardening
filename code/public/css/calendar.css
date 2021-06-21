@@ -55,8 +55,18 @@
     padding-top:0.2em;
 }
 
-.maint-timeslot{
+.maint-timeslot {
     background-color: #c5f4d6;
+    border-left: thin solid black;
+    border-right: thin solid black;
+}
+
+first-maint{
+    border-top: thin solid black;
+}
+
+last-maint{
+    border-bottom: thin solid black;
 }
 
 .calendar-add-btn button{

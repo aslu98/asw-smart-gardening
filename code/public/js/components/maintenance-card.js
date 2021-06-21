@@ -2,7 +2,7 @@ const MaintenanceCard = {
     template: `
       <div>
         <h6 class="mt-3"> Manutenzione selezionata </h6>
-		<div class="maintenance-card center mb-4">
+		<div v-if="this.maintenance != {} " class="maintenance-card center mb-4">
 		    <div class="row">
               <div class="col-3 grey-state grey-label">
                   WHERE
@@ -46,6 +46,7 @@ const MaintenanceCard = {
               <div class="col-2"></div>
             </div>
 		</div>
+        <div v-else> Nessuna manutenzione selezionata</div>
       </div>
 	`,
     data() {
