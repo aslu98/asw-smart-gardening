@@ -12,7 +12,8 @@ String.prototype.capitalizeMonth = function() {
 
 const Calendar = {
     components:{
-        "add-button": AddMaintenance,
+        "add-button": AddButton,
+        "done-button": DoneButton,
         "maintenance-modal": MaintenancePopUp,
     },
     template:
@@ -38,8 +39,15 @@ const Calendar = {
                 <tbody>
                 <tr v-for="(timeslot, slotindex) in timeslots">
                   <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot clickable" v-on:click="clickedSlot(timeslot, date)">
-                    <div v-if="checkMaintInTimeslot(timeslot,date)" class="maint-timeslot">
-                      <p :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date)}"> {{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
+                    <div v-if="checkMaintInTimeslot(timeslot,date)" class="maint-timeslot" :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date)}">
+                        <div class="row">
+                          <div class="col-6 mr-3">
+                            <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
+                          </div>
+                          <div class="col-6 px-0">
+                            <done-button v-if="isLastMaint(timeslot, date)"></done-button>
+                          </div>
+                        </div>
                     </div>
                     <div v-else class="no-maint-timeslot row"
                          v-on:mouseover="switchActiveAddOn(slotindex, dateindex)"
@@ -136,7 +144,7 @@ const Calendar = {
         },
         isLastMaint: function (timeslot, date) {
             return this.checkMaintInTimeslot(timeslot, date)
-                && !this.checkMaintInTimeslot(new Date(new Date(timeslot).setHours(new Date(timeslot).getHours()+1)), date)
+                && !this.checkMaintInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours()+1)), date)
         },
         clickedSlot: function (timeslot, date){
             if (this.checkMaintInTimeslot(timeslot, date)){

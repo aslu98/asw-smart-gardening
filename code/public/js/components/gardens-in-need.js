@@ -1,7 +1,7 @@
 const MAX = 10;
 const GardensInNeed = {
     components : {
-        "add-button": AddMaintenance,
+        "add-button": AddButton,
         "maintenance-modal": MaintenancePopUp,
     },
     template: `
