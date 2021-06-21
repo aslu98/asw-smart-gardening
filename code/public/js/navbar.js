@@ -9,14 +9,14 @@ const Navbar = {
             <form id="form-login" method="post" class="col-xxl-5 col-lg-8 col-sm-12 col-12">
                 <div class="row mx-0 align-items-center">
                     <div class="col input-group input-group-sm">
-                        <input id="user" v-model="username" class="form-control" placeholder="User" type="text" alt="Username"/>
+                        <input id="userLogin" v-model="usernameLogin" class="form-control" placeholder="User" type="text" alt="Username"/>
                     </div>
                     <div class="col input-group input-group-sm">
-                        <input id="password" v-model="password" class="form-control" placeholder="Password" type="password" alt="Password"/>
+                        <input id="passwordLogin" v-model="passwordLogin" class="form-control" placeholder="Password" type="password" alt="Password"/>
                     </div>
                     <div id="form-button-container" class="col">
                         <input type="submit" value="Login" class="btn btn-success rounded-pill"/>
-                        <input type="button" value="Registrati" @click="registerNewGardener" class="btn btn-success rounded-pill">
+                        <a href="/registration-form" class="btn btn-success rounded-pill">Registrati</a>
                     </div>
                 </div>
             </form>
@@ -24,14 +24,26 @@ const Navbar = {
     `,
     data() {
         return {
-            username: "",
-            password: "",
+            usernameLogin: "",
+            passwordLogin: "",
             logged: false
         };
     },
     methods: {
-        registerNewGardener() {
-            console.log("Registrazione");
-        }
+        /*async login() {
+            const { username, password } = this;
+            const res = await fetch(
+                "https://SomberHandsomePhysics--five-nine.repl.co/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ username, password })
+                }
+            );
+            const data = await res.json();
+            console.log(data);
+        },*/
     }
 }

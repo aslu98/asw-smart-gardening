@@ -5,9 +5,11 @@ module.exports = function(mongoose) {
         surname: String,
 		telephone: Number,
 		address: String,
+        fiscal_code: String,
         birth: Date,
 		user_id: String,
-		password: String
+		password: String,
+        salt: String
     });
     return mongoose.model('Gardener', GardenerSchema);
     //note on 'Gardener' -> 'gardeners'

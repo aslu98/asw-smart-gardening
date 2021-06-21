@@ -4,6 +4,8 @@ Garden = require("../models/gardenModel.js")(mongoose);
 Sensor = require("../models/sensorModel.js")(mongoose);
 Maintenance = require("../models/maintenanceModel.js")(mongoose);
 
+const bcrypt = require('bcrypt');
+
 exports.show_index = function(req, res) {
 	res.sendFile(appRoot  + '/www/index.html');
 };
@@ -164,4 +166,28 @@ exports.update_sensor = function(req, res) {
 			}
 		});
 };
+
+exports.login = function(req, res) {
+
+}
+
+exports.registration = function(req, res) {
+	let newUser = {
+		name: req.query.name,
+		surname: req.query.surname,
+		telephone: req.query.telephone,
+		address: req.query.address,
+		fiscal_code: req.query.fiscal_code,
+		user_id: req.query.user_id
+	};
+	console.log(newUser.name);
+	/*bcrypt;*/
+}
+
+exports.checkUsername = function(req, res) {
+	let requestUser = req.query.userId;
+	Gardener.exists({user_id: requestUser }, function(err, result) {
+		res.send(result);
+	});
+}
 
