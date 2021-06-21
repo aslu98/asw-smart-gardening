@@ -35,15 +35,17 @@ const Sensors = {
     },
     methods: {
         getSensors: function () {
-            axios.get(DBURL + "/sensors/garden/" + this.$props.gardenid)
-                .then(response => {
-                    this.nothing = false
-                    this.sensors = response.data
-                })
-                .catch(error => {
-                    this.nothing = true
-                    console.log(error)
-                });
+            if(this.$props.gardenid !== "") {
+                axios.get(DBURL + "/sensors/garden/" + this.$props.gardenid)
+                    .then(response => {
+                        this.nothing = false
+                        this.sensors = response.data
+                    })
+                    .catch(error => {
+                        this.nothing = true
+                        console.log(error)
+                    });
+            }
         },
         getMeasureUnit: function (fieldname){
             switch(fieldname){
