@@ -21,13 +21,5 @@ const AddButton = {
           </div>
         </div>
     </div>
-    `,
-    /*mounted(){
-        /*var myModal = document.getElementById('addMaint')
-        var myInput = document.getElementById('myInput')
-
-        myModal.addEventListener('shown.bs.modal', function () {
-            myInput.focus()
-        })+/
-    }*/
+    `
 }
