@@ -4,12 +4,12 @@ const CreateMaintenance = {
       <div class="modal fade" :id="this.$props.modalid" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
            aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <form name="createMaint" method="post" @submit.prevent="registerNewMaint">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title m-0 ml-4" id="exampleModalLabel"> Crea manutenzione</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title m-0 ml-4" id="exampleModalLabel"> Crea manutenzione</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form v-if="this.completed" name="createMaint" method="post" @submit.prevent="registerNewMaint">
               <div class="modal-body">
                 <div class="pb-1">
                   <div v-if="errors.length" class="mb-3">
@@ -60,8 +60,11 @@ const CreateMaintenance = {
               <div class="modal-footer">
                 <input type="submit" value="Salva" class="btn btn-success rounded-pill"/>
               </div>
-            </div>
           </form>
+            <div v-else class="modal-content">
+              <h5 class="form-ok"> ✓ Operazione avvenuta con successo </h5>
+            </div>
+          </div>
         </div>
       </div>
       </div>
@@ -92,7 +95,8 @@ const CreateMaintenance = {
             duration: "",
             done: false,
             description: "",
-            gardens: {}
+            gardens: {},
+            completed: false
         }
     },
     methods: {
@@ -108,6 +112,13 @@ const CreateMaintenance = {
                     gardener: this.$props.gardener
                 }
                 axios.post(DBURL + "/maintenances", maint)
+                    .then(r => {
+                        this.completed = true
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.errors.push(error)
+                    });
             }
         },
         getGardens: function () {

@@ -93,12 +93,21 @@
     width: 50%;
 }
 
+/* FORM CREATE MAINT */
+
 .form-error{
     font-size: 0.8em;
 }
 
 .form-error-heading{
     color:darkred;
+}
+
+.form-ok{
+    margin: 2em;
+    color: darkgreen;
+    font-weight: bold;
+    text-align: center;
 }
 
 /*MEDIA QUERY*/
