@@ -9,7 +9,7 @@ const CreateMaintenance = {
               <h5 class="modal-title m-0 ml-4" id="exampleModalLabel"> Crea manutenzione</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form v-if="this.completed" name="createMaint" method="post" @submit.prevent="registerNewMaint">
+            <form v-if="!this.completed" name="createMaint" method="post" @submit.prevent="registerNewMaint">
               <div class="modal-body">
                 <div class="pb-1">
                   <div v-if="errors.length" class="mb-3">
@@ -96,17 +96,18 @@ const CreateMaintenance = {
             done: false,
             description: "",
             gardens: {},
-            completed: false
+            completed: false,
+            maintenances: {}
         }
     },
     methods: {
         registerNewMaint: function () {
             this.errors = []
-            if (this.checkGardenSelection() & this.checkDuration()){
+            if (this.checkGardenSelection() & this.checkDuration() & this.checkOverlap()){
                 let maint = {
                     garden: this.selectedgarden,
                     startTime: new Date(new Date(this.date).setHours(this.hour)).toISOString(),
-                    duration: this.duration * 60,
+                    duration: this.duration,
                     done: this.done,
                     description: this.description,
                     gardener: this.$props.gardener
@@ -114,6 +115,7 @@ const CreateMaintenance = {
                 axios.post(DBURL + "/maintenances", maint)
                     .then(r => {
                         this.completed = true
+                        this.getMaintenances()
                     })
                     .catch(error => {
                         console.log(error)
@@ -125,6 +127,13 @@ const CreateMaintenance = {
             axios.get(DBURL + "/gardens")
                 .then(response => {
                     this.gardens = response.data
+                })
+                .catch(error => (console.log(error)));
+        },
+        getMaintenances: function() {
+            axios.get(DBURL + "/maintenances")
+                .then(response => {
+                    this.maintenances = response.data
                 })
                 .catch(error => (console.log(error)));
         },
@@ -150,10 +159,25 @@ const CreateMaintenance = {
                 this.errors.push("L'orario di fine della manutenzione eccede i limiti dell'orario lavorativo.");
             }
             return !check
+        },
+        checkOverlap: function (){
+            let checkAfter = this.maintenances
+                .filter(m => new Date(m.startTime).getDate() == new Date(this.date).getDate())
+                .filter(m => new Date(m.startTime).getHours() < new Date(new Date(this.date).setHours(this.hour + this.duration)).getHours())
+                .length > 0
+            let checkBefore = this.maintenances
+                .filter(m => new Date(m.startTime).getDate() == new Date(this.date).getDate())
+                .filter(m => new Date(new Date(this.date).setHours(this.hour)).getHours() > new Date(new Date(m.startTime).setHours((new Date(m.startTime)).getHours() + m.duration)).getHours())
+                .length > 0
+            if (checkAfter || checkBefore) {
+                this.errors.push("La manutezione non può essere registrata perchè si sovrappone con una manutenzione già presente.");
+            }
+            return !(checkAfter || checkBefore)
         }
     },
     mounted() {
         this.getGardens()
+        this.getMaintenances()
         this.setDateAndHour()
         this.setSelectedGarden()
     }

@@ -103,7 +103,7 @@ const Calendar = {
                     this.maintenances = response.data
                     for (let i=0; i<this.maintenances.length; i++){
                         this.maintenances[i].startTime = new Date(this.maintenances[i].startTime)
-                        this.maintenances[i].endTime = new Date(new Date(this.maintenances[i].startTime).setMinutes(this.maintenances[i].startTime.getMinutes() + this.maintenances[i].duration))
+                        this.maintenances[i].endTime = new Date(new Date(this.maintenances[i].startTime).setHours(this.maintenances[i].startTime.getHours() + this.maintenances[i].duration))
                     }
                 })
                 .catch(error => (console.log(error)));
