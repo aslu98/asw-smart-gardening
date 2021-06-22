@@ -43,7 +43,11 @@
 }
 
 .gardens-in-need-card hr{
-    margin: 0.2em!important;
+    margin: 0.2em !important;
+}
+
+label.control-label{
+    font-size: 14px !important;
 }
 
 .in-need-info{

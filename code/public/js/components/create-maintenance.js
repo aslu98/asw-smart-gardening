@@ -1,6 +1,6 @@
 const CreateMaintenance = {
     template: `
-      <div class="col-2 vcenter-item">
+      <div class="create-maintenance">
       <div class="modal fade" :id="this.$props.modalid" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
            aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -18,7 +18,7 @@ const CreateMaintenance = {
                   </div>
                   <div class="pb-3">
                     <div class="bootstrap-select-wrapper">
-                      <label class="control-label" for="garden">Giardino</label>
+                      <label class="control-label" :class="this.$props.from" for="garden">Giardino</label>
                       <select class="form-control form-control-sm" id="garden" name="garden" v-model="selectedgarden">
                         <option v-for="garden in gardens" :value="garden._id" :selected="garden._id == getGardenId()">
                           {{ garden.name }} - {{ garden.city }}
@@ -128,8 +128,6 @@ const CreateMaintenance = {
                 this.date = new Date(this.$props.datestr).toISOString().split('T')[0]
             }
             this.hour = new Date(this.$props.timeslot).getHours()
-            console.log(this.date)
-            console.log(this.hour)
         },
         checkGardenSelection: function(){
             let check = this.selectedgarden == ""
