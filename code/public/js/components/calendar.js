@@ -1,15 +1,3 @@
-String.prototype.capitalize = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-}
-
-String.prototype.capitalizeMonth = function() {
-    let capPos = 3
-    if (this.length < 6){
-        capPos = 2
-    }
-    return this.substr(0, capPos) + this.charAt(capPos).toUpperCase() + this.slice(capPos+1);
-}
-
 const Calendar = {
     components:{
         "add-button": AddButton,
@@ -38,20 +26,24 @@ const Calendar = {
                 </thead>
                 <tbody>
                 <tr v-for="(timeslot, slotindex) in timeslots">
-                  <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot clickable" v-on:click="clickedSlot(timeslot, date)">
-                    <div v-if="checkMaintInTimeslot(timeslot,date)" class="maint-timeslot" :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date)}">
-                        <div class="row">
-                          <div class="col-6 mr-3">
-                            <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
-                          </div>
-                          <div class="col-6 px-0 calendar-done-btn">
-                            <done-button v-if="isLastMaint(timeslot, date) && !isMaintDone(timeslot,date)" 
-                                         :maint="getMaintsInTimeSlot(timeslot,date)[0]"
-                                         @maint-done="setMaintDone(timeslot,date)"></done-button>
-                            <done-button v-else-if="isLastMaint(timeslot, date) && isMaintDone(timeslot,date)"
-                                         :disabled="true"></done-button>
-                          </div>
+                  <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot clickable"
+                      v-on:click="clickedSlot(timeslot, date)">
+                    <maintenance-modal :timeslot="timeslot" :datestr="date" :gardener="getGardener()"
+                                       :modalid="getModalId(slotindex, dateindex)" @new-maint="addToMaintenances"></maintenance-modal>
+                    <div v-if="checkMaintInTimeslot(timeslot,date)" class="maint-timeslot"
+                         :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date)}">
+                      <div class="row">
+                        <div class="col-6 mr-3">
+                          <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
                         </div>
+                        <div class="col-6 px-0 calendar-done-btn">
+                          <done-button v-if="isLastMaint(timeslot, date) && !isMaintDone(timeslot,date)"
+                                       :maint="getMaintsInTimeslot(timeslot,date)[0]"
+                                       @maint-done="setMaintDone(timeslot,date)"></done-button>
+                          <done-button v-else-if="isLastMaint(timeslot, date) && isMaintDone(timeslot,date)"
+                                       :disabled="true"></done-button>
+                        </div>
+                      </div>
                     </div>
                     <div v-else class="no-maint-timeslot row"
                          v-on:mouseover="switchActiveAddOn(slotindex, dateindex)"
@@ -60,7 +52,6 @@ const Calendar = {
                         <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
                       </div>
                       <div class="col-6 pt-1 calendar-add-btn">
-                        <maintenance-modal :timeslot="timeslot" :datestr="date" :gardener="getGardener()" :modalid="getModalId(slotindex, dateindex)"></maintenance-modal>
                         <add-button v-if="activeAdd[slotindex][dateindex]" :modalid="getModalId(slotindex, dateindex)"/>
                       </div>
                     </div>
@@ -97,8 +88,8 @@ const Calendar = {
         }
     },
     methods: {
-        getMaintenancesFrom: function (from) {
-            axios.get(DBURL + "/maintenances/" + from + "/" + this.$route.params.id)
+        getMaintenancesFrom: function () {
+            axios.get(DBURL + "/maintenances/" + this.$props.from + "/" + this.$route.params.id)
                 .then(response => {
                     this.maintenances = response.data
                     for (let i=0; i<this.maintenances.length; i++){
@@ -135,12 +126,12 @@ const Calendar = {
                 }
             }
         },
-        getMaintsInTimeSlot: function (timeslot, date) {
-            return this.maintenances.filter(m => m.startTime.getDate() == date.getDate())
-                .filter(m => (timeslot.getHours() >= m.startTime.getHours() && timeslot.getHours() <= m.endTime.getHours()));
+        getMaintsInTimeslot: function (timeslot, date) {
+            return this.maintenances.filter(m => new Date(new Date(m.startTime).startOfDay()).getTime() == new Date(date.startOfDay()).getTime())
+                .filter(m => (timeslot.getHours() >= m.startTime.getHours() && timeslot.getHours() <= m.endTime.getHours() - 1));
         },
         checkMaintInTimeslot: function (timeslot, date){
-            return this.getMaintsInTimeSlot(timeslot, date).length > 0;
+            return this.getMaintsInTimeslot(timeslot, date).length > 0;
         },
         isFirstMaint: function (timeslot, date) {
             return this.checkMaintInTimeslot(timeslot, date)
@@ -148,22 +139,28 @@ const Calendar = {
         },
         isLastMaint: function (timeslot, date) {
             return this.checkMaintInTimeslot(timeslot, date)
-                && !this.checkMaintInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours()+1)), date)
+                && (!this.checkMaintInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours()+1)), date)
+                    || this.getMaintsInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours()+1)), date)[0] != this.getMaintsInTimeslot(timeslot, date)[0])
         },
         isMaintDone: function (timeslot, date) {
-            return this.getMaintsInTimeSlot(timeslot, date)[0].done
+            return this.getMaintsInTimeslot(timeslot, date)[0].done
         },
         setMaintDone: function (timeslot, date){
-            this.getMaintsInTimeSlot(timeslot, date)[0].done = true
+            this.getMaintsInTimeslot(timeslot, date)[0].done = true
         },
         getModalId: function (slotindex, dateindex){
             return "AddModal" + slotindex + dateindex;
         },
         clickedSlot: function (timeslot, date){
             if (this.checkMaintInTimeslot(timeslot, date)){
-                let maint = this.getMaintsInTimeSlot(timeslot, date)[0]
+                let maint = this.getMaintsInTimeslot(timeslot, date)[0]
                 this.$emit('clicked-maint', maint)
             }
+        },
+        addToMaintenances: function (m){
+            m.startTime = new Date(m.startTime)
+            m.endTime = new Date(new Date(m.startTime).setHours(m.startTime.getHours() + m.duration))
+            this.maintenances.push(m)
         },
         switchActiveAddOn: function (ti, di){
             let activeTi = this.activeAdd[ti]
@@ -189,7 +186,7 @@ const Calendar = {
         }
     },
     mounted(){
-        this.getMaintenancesFrom(this.$props.from)
+        this.getMaintenancesFrom()
         this.setWeekDates()
         this.setTimeSlots()
         this.initializeActiveAdd()

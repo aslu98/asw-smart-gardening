@@ -97,7 +97,7 @@ const CreateMaintenance = {
             description: "",
             gardens: {},
             completed: false,
-            maintenances: {}
+            maintenances: []
         }
     },
     methods: {
@@ -115,7 +115,9 @@ const CreateMaintenance = {
                 axios.post(DBURL + "/maintenances", maint)
                     .then(r => {
                         this.completed = true
-                        this.getMaintenances()
+                        let resmaint = r.data
+                        this.maintenances.push(resmaint)
+                        this.$emit('new-maint', resmaint)
                     })
                     .catch(error => {
                         console.log(error)
@@ -161,18 +163,20 @@ const CreateMaintenance = {
             return !check
         },
         checkOverlap: function (){
-            let checkAfter = this.maintenances
-                .filter(m => new Date(m.startTime).getDate() == new Date(this.date).getDate())
-                .filter(m => new Date(m.startTime).getHours() < new Date(new Date(this.date).setHours(this.hour + this.duration)).getHours())
-                .length > 0
-            let checkBefore = this.maintenances
-                .filter(m => new Date(m.startTime).getDate() == new Date(this.date).getDate())
-                .filter(m => new Date(new Date(this.date).setHours(this.hour)).getHours() > new Date(new Date(m.startTime).setHours((new Date(m.startTime)).getHours() + m.duration)).getHours())
-                .length > 0
-            if (checkAfter || checkBefore) {
+            let newmaint = {
+                start: new Date(new Date(this.date).setHours(this.hour)),
+                end: new Date(new Date(this.date).setHours(parseInt(this.hour) + parseInt(this.duration)))
+            }
+            let check =
+                this.maintenances
+                    .filter(m => new Date(new Date(m.startTime).startOfDay()).getTime() == new Date(new Date(newmaint.start).startOfDay()).getTime())
+                    .filter(m => (  (new Date(m.startTime).getHours() <= newmaint.start.getHours() && new Date(new Date(m.startTime).setHours(new Date(m.startTime).getHours() + m.duration)).getHours() > newmaint.start.getHours()) ||
+                                    (new Date(m.startTime).getHours() < newmaint.end.getHours() && new Date(new Date(m.startTime).setHours(new Date(m.startTime).getHours() + m.duration)).getHours() >= newmaint.end.getHours()))
+                    ).length > 0
+            if (check) {
                 this.errors.push("La manutezione non può essere registrata perchè si sovrappone con una manutenzione già presente.");
             }
-            return !(checkAfter || checkBefore)
+            return !check
         }
     },
     mounted() {
