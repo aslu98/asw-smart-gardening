@@ -70,8 +70,27 @@
     border-bottom: thin solid black !important;
 }
 
-.calendar-add-btn button{
+.calendar-add-btn button
+{
     font-size: 0.7em;
+}
+
+.calendar-done-btn button{
+    margin-left: 2.5em;
+    font-size: 0.5em;
+}
+
+.disabled{
+    background-color: #c5f4d6 !important;
+    border: 0 !important;
+    color: black !important;
+    font-size: 1em !important;
+    margin-left: 0.5em !important;
+}
+
+.disabled-div{
+    text-align: left;
+    width: 50%;
 }
 
 /*MEDIA QUERY*/
@@ -87,6 +106,11 @@
         padding-bottom: 2em;
         padding-left:0.3em;
         padding-top:0.2em;
+    }
+
+    .calendar-done-btn button{
+        margin-left: 1.5em;
+        font-size: 0.5em;
     }
 }
 
@@ -106,6 +130,11 @@
         padding-bottom: 2em;
         padding-left:0.3em;
         padding-top:0.2em;
+    }
+
+    .calendar-done-btn button{
+        margin-left: 1em;
+        font-size: 0.5em;
     }
 }
 
@@ -131,15 +160,21 @@
         padding-left:0.3em;
         padding-top:0.2em;
     }
+
+    .calendar-done-btn button{
+        margin-left: 0em;
+        font-size: 0.5em;
+    }
 }
 
-@media screen and (max-width:668px) {
+@media screen and (max-width:668px)  and (min-width:550px){
     .day-heading{
         font-size: 0.6em;
         text-align: center;
     }
 
-    .calendar-add-btn{
+    .calendar-add-btn,
+    calendar-done-btn{
         padding-left:0;
     }
 
@@ -154,4 +189,23 @@
         padding-left:0.3em;
         padding-top:0.2em;
     }
+
+    .calendar-done-btn button{
+        margin-left: 0.5em;
+        font-size: 0.5em;
+    }
 }
+
+@media screen and (max-width: 550px){
+    .calendar-done-btn button{
+        margin-left: 0em;
+        font-size: 0.5em;
+    }
+
+    .disabled{
+        background-color: #c5f4d6 !important;
+        border: 0 !important;
+        color: black !important;
+        font-size: 1em !important;
+        margin-left: 0em !important;
+    }}

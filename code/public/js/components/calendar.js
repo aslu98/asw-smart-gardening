@@ -44,8 +44,12 @@ const Calendar = {
                           <div class="col-6 mr-3">
                             <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
                           </div>
-                          <div class="col-6 px-0">
-                            <done-button v-if="isLastMaint(timeslot, date)"></done-button>
+                          <div class="col-6 px-0 calendar-done-btn">
+                            <done-button v-if="isLastMaint(timeslot, date) && !isMaintDone(timeslot,date)" 
+                                         :maint="getMaintsInTimeSlot(timeslot,date)[0]"
+                                         @maint-done="setMaintDone(timeslot,date)"></done-button>
+                            <done-button v-else-if="isLastMaint(timeslot, date) && isMaintDone(timeslot,date)"
+                                         :disabled="true"></done-button>
                           </div>
                         </div>
                     </div>
@@ -145,6 +149,12 @@ const Calendar = {
         isLastMaint: function (timeslot, date) {
             return this.checkMaintInTimeslot(timeslot, date)
                 && !this.checkMaintInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours()+1)), date)
+        },
+        isMaintDone: function (timeslot, date) {
+            return this.getMaintsInTimeSlot(timeslot, date)[0].done
+        },
+        setMaintDone: function (timeslot, date){
+            this.getMaintsInTimeSlot(timeslot, date)[0].done = true
         },
         clickedSlot: function (timeslot, date){
             if (this.checkMaintInTimeslot(timeslot, date)){

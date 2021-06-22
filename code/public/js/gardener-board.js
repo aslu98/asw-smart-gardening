@@ -11,7 +11,11 @@ const GardenerBoard = {
 				<div class= "row">
 					<h5 class="mt-3">Calendario di {{gardenerName}}</h5>
 				</div>
-				<gardener-calendar :from="'gardener'" @clicked-maint="showMaint" :gardener="this.$route.params.id"></gardener-calendar>
+				<gardener-calendar :from="'gardener'" 
+								   @clicked-maint="showMaint" 
+								   :gardener="this.$route.params.id">
+					
+				</gardener-calendar>
 			</div>
 			<div class="col-12 col-md-5">
 				<div v-if="!emptyMaint" class="row">
