@@ -20,7 +20,7 @@ const CreateMaintenance = {
                     <div class="bootstrap-select-wrapper">
                       <label class="control-label" :class="this.$props.from" for="garden">Giardino</label>
                       <select class="form-control form-control-sm" id="garden" name="garden" v-model="selectedgarden">
-                        <option v-for="garden in gardens" :value="garden._id" :selected="garden._id == getGardenId()">
+                        <option v-for="garden in gardens" :value="garden._id">
                           {{ garden.name }} - {{ garden.city }}
                         </option>
                       </select>
@@ -74,10 +74,7 @@ const CreateMaintenance = {
             default: new Date().toString()
         },
         garden: {
-            default: {
-                _id: "",
-                name: ""
-            }
+            default: {}
         },
         gardener: {
             required: true
@@ -120,14 +117,14 @@ const CreateMaintenance = {
                 })
                 .catch(error => (console.log(error)));
         },
-        getGardenId: function () {
-            return this.$props.garden._id
-        },
         setDateAndHour: function () {
             if(this.$props.datestr != "") {
                 this.date = new Date(this.$props.datestr).toISOString().split('T')[0]
             }
             this.hour = new Date(this.$props.timeslot).getHours()
+        },
+        setSelectedGarden: function() {
+            this.selectedgarden = this.$props.garden._id
         },
         checkGardenSelection: function(){
             let check = this.selectedgarden == ""
@@ -147,5 +144,6 @@ const CreateMaintenance = {
     mounted() {
         this.getGardens()
         this.setDateAndHour()
+        this.setSelectedGarden()
     }
 }
