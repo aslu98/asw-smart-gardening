@@ -47,6 +47,13 @@ module.exports = function(app) {
 	app.route('/api/gardener/:id')
 		.get(controller.gardener_info)
 
+	app.route('/api/login')
+		.post(controller.login)
+
+	app.route('/api/registration')
+		.post(controller.registration)
+		.get(controller.checkUsername)
+
 	app.use(controller.show_index);
 };
 

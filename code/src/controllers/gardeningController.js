@@ -4,6 +4,8 @@ Garden = require("../models/gardenModel.js")(mongoose);
 Sensor = require("../models/sensorModel.js")(mongoose);
 Maintenance = require("../models/maintenanceModel.js")(mongoose);
 
+const bcrypt = require('bcrypt');
+
 exports.show_index = function(req, res) {
 	res.sendFile(appRoot  + '/www/index.html');
 };
@@ -135,14 +137,6 @@ exports.create_maintenance = function(req, res) {
 		res.status(201).json(maint);
 	});
 };
-/* EXAMPLE of post request for create_maintenance
-axios.post("http://localhost:3000/api/maintenances", {
-				garden: "609412d316b7f0346c54a093",
-				startTime: new Date("2021-05-30T17:00:00.000"),
-				duration: 60,
-				done: false,
-				gardener: "60944e8316b7f0346c54a49d"})
-*/
 
 exports.update_sensor = function(req, res) {
 	Sensors.findOneAndUpdate(
@@ -165,6 +159,7 @@ exports.update_sensor = function(req, res) {
 		});
 };
 
+
 exports.gardener_info = function(req, res) {
 	Gardener.findById({_id: req.params.id}, function(err, gardener) {
 		if (err)
@@ -172,4 +167,28 @@ exports.gardener_info = function(req, res) {
 		res.json(gardener);
 	});
 };
+
+exports.login = function(req, res) {
+
+}
+
+exports.registration = function(req, res) {
+	let newGardenerTmp = req.body.params;
+	newGardenerTmp.salt = bcrypt.genSaltSync(10);
+	newGardenerTmp.password = bcrypt.hashSync(newGardenerTmp.password, newGardenerTmp.salt);
+
+	let newGardener = new Gardener(newGardenerTmp);
+	newGardener.save(function(err, gardener) {
+		if (err)
+			res.send(false);
+		res.status(201).send(true);
+	});
+}
+
+exports.checkUsername = function(req, res) {
+	let requestUser = req.query.userId;
+	Gardener.exists({user_id: requestUser }, function(err, result) {
+		res.send(result);
+	});
+}
 

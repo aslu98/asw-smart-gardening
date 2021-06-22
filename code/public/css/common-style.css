@@ -82,7 +82,7 @@ html, body {
     background-color: #1d9d61; /* Chiaro: #21b26f || Scuro: #1d9d61 */
 }
 
-#garden-info {
+#garden-info-sidebar {
     right: 2px;
     bottom: 0;
 }
@@ -92,7 +92,13 @@ html, body {
 @media screen and (max-width: 575px) {
 
     /* btn-sm di Bootstrap */
-    #form-button-container > button {
+    #form-button-container > input {
+        padding: .25rem .5rem;
+        font-size: .875rem;
+        border-radius: .2rem;
+    }
+
+    #form-button-container > a {
         padding: .25rem .5rem;
         font-size: .875rem;
         border-radius: .2rem;

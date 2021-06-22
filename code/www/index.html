@@ -35,20 +35,30 @@
     <script src="/static/js/lib/leaflet-sidebar.min.js"></script>
 
 	<!-- Vari. NON SO SE SONO DA TENERE COSÌ O È MEGLIO AGGIUNGERLI SOLO DOVE SERVONO-->
+    <!-- Componenti UTIL (usati dai componenti base) -->
     <script src="/static/js/components/create-maintenance.js"></script>
     <script src="/static/js/components/add-button.js"></script>
     <script src="/static/js/components/done-button.js"></script>
+
+    <!-- Componenti BASE (utilizzano altri componenti in minima parte) -->
     <script src="/static/js/components/meteo.js"></script>
     <script src="/static/js/components/sensors.js"></script>
     <script src="/static/js/components/todo.js"></script>
     <script src="/static/js/components/maintenance-card.js"></script>
     <script src="/static/js/components/gardens-in-need.js"></script>
     <script src="/static/js/components/calendar.js"></script>
+    <script src="/static/js/components/gardener-calendar.js"></script>
+    <script src="/static/js/components/registration-form.js"></script>
+    <script src="/static/js/404.js"></script>
+    <script src="/static/js/navbar.js"></script>
+
+    <!-- Componenti COMPOSTI (utilizzano componenti base per cui vanno importati SEMPRE DOPO quelli BASE) -->
     <script src="/static/js/garden-info.js"></script>
     <script src="/static/js/gardener-board.js"></script>
-	<script src="/static/js/404.js"></script>
-	<script src="/static/js/navbar.js"></script>
+    <script src="/static/js/home.js"></script>
 	<script src="/static/js/router.js"></script>
+
+    <!-- Vari -->
     <link href="/static/css/common-style.css" rel="stylesheet">
     <link href="/static/css/garden-info-style.css" rel="stylesheet">
     <link href="/static/css/gardener-board-style.css" rel="stylesheet">
@@ -57,11 +67,7 @@
 <body>
 <div id="gardening-app" class="container-fluid px-0">
     <Navbar></Navbar>
-    <div id="garden-info" class="leaflet-sidebar">
-        <Gardeninfo :gardenid="selectedGarden" @hidesidebar="closeSidebar"></Gardeninfo>
-    </div>
     <router-view></router-view>
-    <div id="mapid"></div>
 </div>
 
 <script>
@@ -69,91 +75,7 @@
         router,
         el: "#gardening-app",
         components: {
-            'Navbar': Navbar,
-            'Gardeninfo': GardenInfo
-        },
-        data() {
-            return {
-                gardens: [],
-                map: [],
-                sidebar: [],
-                showGardenDetails: false,
-                selectedGarden: ""
-            }
-        },
-        methods: {
-            init() {
-                this.createMap();
-                this.getAllGardens();
-            },
-            getAllGardens() {
-                axios
-                    .get("http://localhost:3000/api/gardens/")
-                    .then(response => {
-                        this.gardens = response.data;
-                        this.setGardensPointer();
-                    })
-                    .catch(error => (console.log(error)));
-            },
-            createMap() {
-                this.map = L.map('mapid').setView([44.107, 12.385], 13);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-                    maxZoom: 18
-                }).addTo(this.map);
-                this.createSidebar();
-            },
-            setGardensPointer() {
-                this.gardens.forEach(g => {
-                    let gardenIcon = L.icon({
-                        iconUrl: g.flagsOn > 1 ? '/static/img/icon-red.png' : g.flagsOn > 0 ? '/static/img/icon-orange.png' : '/static/img/icon-green.png',
-                        shadowUrl: '/static/img/icon-shadow.png',
-                        iconSize: [25, 41],
-                        iconAnchor: [12, 41],
-                        popupAnchor: [1, -34],
-                        shadowSize: [41, 41],
-                        shadowAnchor: [12, 41]
-                    });
-
-                    L.marker([g.lat, g.lon], {
-                        icon: gardenIcon,
-                        title: g.name})
-                        .addTo(this.map)
-                        .on('click', e => {
-                            this.openSidebar(g._id);
-                        });
-                });
-            },
-            createSidebar() {
-                this.sidebar = L.control.sidebar('garden-info', {
-                    closeButton: false,
-                    autopan: true,
-                    position: 'right'
-                }).addTo(this.map);
-                this.map.on('click', e => {
-                    if(this.showGardenDetails){
-                        this.closeSidebar();
-                    }
-                })
-            },
-            setShowGardenDetails(state) {
-                this.showGardenDetails = state;
-            },
-            closeSidebar() {
-                this.sidebar.hide();
-                this.setShowGardenDetails(false);
-                this.selectedGarden = "";
-            },
-            openSidebar(gardenId) {
-                if(this.selectedGarden !== gardenId){
-                    this.sidebar.show();
-                    this.setShowGardenDetails(true);
-                    this.selectedGarden = gardenId;
-                }
-            }
-        },
-        mounted() {
-            this.init();
+            'Navbar': Navbar
         }
     });
 </script>

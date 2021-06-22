@@ -3,11 +3,14 @@ module.exports = function(mongoose) {
     var GardenerSchema = new Schema({
         name:  String,
         surname: String,
-		telephone: Number,
+		telephone: String,
 		address: String,
-        birth: Date,
+        fiscal_code: String,
 		user_id: String,
-		password: String
+		password: String,
+        salt: String
+    }, {
+        versionKey: false
     });
     return mongoose.model('Gardener', GardenerSchema);
     //note on 'Gardener' -> 'gardeners'
