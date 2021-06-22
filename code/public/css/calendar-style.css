@@ -93,6 +93,14 @@
     width: 50%;
 }
 
+.form-error{
+    font-size: 0.8em;
+}
+
+.form-error-heading{
+    color:darkred;
+}
+
 /*MEDIA QUERY*/
 @media screen and (min-width:992px) and (max-width:1199px){
     .day-heading{

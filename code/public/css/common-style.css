@@ -55,6 +55,12 @@ p{
 }
 
 
+/*BOOTSTRAP INPUT HEIGHT BUG FIX*/
+input[type="date"]{
+    height: 1em;
+}
+
+
 /* ANDREA */
 html, body {
     height: 100%;

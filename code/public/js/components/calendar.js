@@ -14,7 +14,7 @@ const Calendar = {
     components:{
         "add-button": AddButton,
         "done-button": DoneButton,
-        "maintenance-modal": MaintenancePopUp,
+        "maintenance-modal": CreateMaintenance,
     },
     template:
         `
@@ -60,8 +60,8 @@ const Calendar = {
                         <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
                       </div>
                       <div class="col-6 pt-1 calendar-add-btn">
-                        <add-button v-if="activeAdd[slotindex][dateindex]"/>
-                        <maintenance-modal :timeslot="timeslot" :datestr="date" :gardener="getGardener()"></maintenance-modal>
+                        <maintenance-modal :timeslot="timeslot" :datestr="date" :gardener="getGardener()" :modalid="getModalId(slotindex, dateindex)"></maintenance-modal>
+                        <add-button v-if="activeAdd[slotindex][dateindex]" :modalid="getModalId(slotindex, dateindex)"/>
                       </div>
                     </div>
                   </td>
@@ -155,6 +155,9 @@ const Calendar = {
         },
         setMaintDone: function (timeslot, date){
             this.getMaintsInTimeSlot(timeslot, date)[0].done = true
+        },
+        getModalId: function (slotindex, dateindex){
+            return "AddModal" + slotindex + dateindex;
         },
         clickedSlot: function (timeslot, date){
             if (this.checkMaintInTimeslot(timeslot, date)){
