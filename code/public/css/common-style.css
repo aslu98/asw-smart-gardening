@@ -82,6 +82,13 @@ html, body {
     background-color: #1d9d61; /* Chiaro: #21b26f || Scuro: #1d9d61 */
 }
 
+.login-alert-error {
+    color: #842029;
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    border-radius: .25rem;
+}
+
 #garden-info-sidebar {
     right: 2px;
     bottom: 0;

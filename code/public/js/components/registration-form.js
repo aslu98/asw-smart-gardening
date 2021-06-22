@@ -139,7 +139,7 @@ const RegistrationForm = {
                                     if(userCreated) {
                                         this.registrationSuccess = "Utente creato con successo, ora verrai reindirizzato alla Home";
                                         this.redirecting = true;
-                                        setTimeout(() => {window.location = "http://localhost:3000/";}, 1000)
+                                        setTimeout(() => {this.$router.push('/')}, 1000)
                                     } else {
                                         this.registrationError = "Errore durante la registrazione, provare più tardi";
                                     }

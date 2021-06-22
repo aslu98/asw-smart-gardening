@@ -5,6 +5,8 @@ Sensor = require("../models/sensorModel.js")(mongoose);
 Maintenance = require("../models/maintenanceModel.js")(mongoose);
 
 const bcrypt = require('bcrypt');
+const PRIVATE_SECRET_KEY = '4972DD665B421C97CDE1A933E54AAC067464593A1773A6C9A8B378F5CFCBBAD68B5023307F65AAEF858A6CA70D2D979A0CF3DE487359B366EAB20F3C7BDBFDA4';
+const jwt = require('jsonwebtoken');
 
 exports.show_index = function(req, res) {
 	res.sendFile(appRoot  + '/www/index.html');
@@ -168,10 +170,6 @@ exports.gardener_info = function(req, res) {
 	});
 };
 
-exports.login = function(req, res) {
-
-}
-
 exports.registration = function(req, res) {
 	let newGardenerTmp = req.body.params;
 	newGardenerTmp.salt = bcrypt.genSaltSync(10);
@@ -185,10 +183,37 @@ exports.registration = function(req, res) {
 	});
 }
 
+exports.login = function(req, res) {
+	let userId = req.body.params.userId;
+	let password = req.body.params.password;
+	Gardener.findOne({user_id: userId}, 'user_id password salt', function(err, gardener) {
+		if(err || gardener == null){
+			res.send({
+				result: false
+			});
+		} else {
+			if(bcrypt.compareSync(password ,gardener.password)) {
+				let tmp = gardener.user_id;
+				let token = jwt.sign({user: tmp}, PRIVATE_SECRET_KEY, {
+					algorithm: 'HS512',
+					expiresIn: '2d'
+				});
+				res.send({
+					result: true,
+					token: token
+				});
+			} else {
+				res.send({
+					result: false
+				});
+			}
+		}
+	});
+}
+
 exports.checkUsername = function(req, res) {
 	let requestUser = req.query.userId;
 	Gardener.exists({user_id: requestUser }, function(err, result) {
 		res.send(result);
 	});
 }
-
