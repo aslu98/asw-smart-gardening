@@ -34,8 +34,7 @@ const GardenerBoard = {
 			maintenance:{},
 			garden:{},
 			emptyMaint: true,
-			token: "",
-			idGardener: ""
+			token: ""
 		}
 	},
 	methods: {
@@ -68,7 +67,6 @@ const GardenerBoard = {
 	mounted() {
 		if (localStorage.user && localStorage.idGardener) {
 			this.token = localStorage.user;
-			this.idGardener = localStorage.idGardener;
 			this.getGardenerName();
 		} else {
 			this.$router.replace('/').catch(err => {});

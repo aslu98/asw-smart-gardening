@@ -134,6 +134,17 @@
     background:#0f8850;
 }
 
+/*NOT LOGGED*/
+
+.not-logged{
+    border: thin darkred solid;
+    border-radius: 10px;
+}
+
+.not-logged-title{
+    color:darkred;
+}
+
 /*MEDIA QUERY*/
 @media screen and (min-width:992px) and (max-width:1199px){
     .p-weather-date{

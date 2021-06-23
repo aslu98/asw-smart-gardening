@@ -23,6 +23,14 @@ const GardenInfo = {
 									<button type="button" class="center btn btn-success" @click="openCalendar($props.gardenid)"> Open Calendar </button>
 								</div>
 							</div>
+							<div v-if="showNotLogged" class="row">
+								<div class="col-1"></div>
+								<div class="col-10 not-logged mt-3">
+									<h5 class="not-logged-title mt-1"> Errore! </h5>
+									<p class="mb-1">Devi effettuare il login per poter accedere al calendario.</p>
+								</div>
+								<div class="col-1"></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -31,7 +39,8 @@ const GardenInfo = {
 	`,
 	data() {
 		return {
-			garden: {}
+			garden: {},
+			showNotLogged: false
 		}
 	},
 	props: ['gardenid'],
@@ -54,12 +63,15 @@ const GardenInfo = {
 			this.$emit('hidesidebar');
 		},
 		openCalendar(id){
-			this.$router.push("/garden-board/"+id)
+			if(localStorage.user && localStorage.idGardener){
+				this.showNotLogged = false
+				this.$router.push("/garden-board/" + id)
+			} else {
+				this.showNotLogged = true
+			}
 		}
 	},
 	mounted() {
 		this.getGarden()
 	}
 }
-
-//@click="this.$router.push({ name: '/garden-board/' + $props.gardenid })
