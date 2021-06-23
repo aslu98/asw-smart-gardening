@@ -28,7 +28,9 @@ const Calendar = {
                 <tr v-for="(timeslot, slotindex) in timeslots">
                   <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot clickable"
                       v-on:click="clickedSlot(timeslot, date)">
-                    <maintenance-modal :timeslot="timeslot" :datestr="date" :gardener="getGardener()"
+                    <maintenance-modal v-if="from == 'garden'" :timeslot="timeslot" :datestr="date" :gardener="getGardener()" :garden="this.$route.params.id"
+                                       :modalid="getModalId(slotindex, dateindex)" @new-maint="addToMaintenances"></maintenance-modal>
+                    <maintenance-modal v-else :timeslot="timeslot" :datestr="date" :gardener="getGardener()"
                                        :modalid="getModalId(slotindex, dateindex)" @new-maint="addToMaintenances"></maintenance-modal>
                     <div v-if="checkMaintInTimeslot(timeslot,date)" class="maint-timeslot"
                          :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date)}">
