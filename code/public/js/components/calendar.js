@@ -25,15 +25,16 @@ const Calendar = {
                 </thead>
                 <tbody>
                 <tr v-for="(timeslot, slotindex) in timeslots">
-                  <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot clickable"
-                      v-on:click="clickedSlot(timeslot, date)">
+                  <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot container">
                     <maintenance-modal :timeslot="timeslot" 
                                        :datestr="date" 
                                        :gardener="getGardener()" 
                                        :garden="getGarden()"
                                        :modalid="getModalId(slotindex, dateindex)" 
                                        @new-maint="addToMaintenances"/>
-                    <div v-if="checkMaintInTimeslot(timeslot,date)" class="maint-timeslot"
+                    <div v-if="checkMaintInTimeslot(timeslot,date)"
+                         @click="clickedSlot(timeslot, date)"
+                         class="maint-timeslot clickable"
                          :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date)}">
                       <div class="row">
                         <div class="col-6 mr-3">
@@ -46,13 +47,13 @@ const Calendar = {
                         <div v-else class="col-6 px-0"></div>
                       </div>
                     </div>
-                    <div v-else class="no-maint-timeslot row"
-                         v-on:mouseover="switchActiveAddOn(slotindex, dateindex)"
-                         v-on:mouseleave="switchActiveAddOff(slotindex, dateindex)">
-                      <div class="col-7">
+                    <div v-else class="no-maint-timeslot row">
+                      <div class="col-6">
                         <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
                       </div>
-                      <div class="col-5 pt-1 calendar-add-btn">
+                      <div class="col-6 pt-2 calendar-add-btn"
+                           @mouseover="switchActiveAddOn(slotindex, dateindex)"
+                           @mouseleave="switchActiveAddOff(slotindex, dateindex)">
                         <add-button v-if="activeAdd[slotindex][dateindex]" 
                                     :modalid="getModalId(slotindex, dateindex)"/>
                       </div>
