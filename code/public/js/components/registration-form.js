@@ -156,5 +156,10 @@ const RegistrationForm = {
 
             }
         }
+    },
+    mounted() {
+        if (localStorage.user && localStorage.idGardener) {
+            this.$router.replace('/').catch(err => {});
+        }
     }
 }

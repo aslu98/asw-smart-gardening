@@ -23,7 +23,7 @@ const Navbar = {
                     </div>                    
                     <div id="form-button-container" class="col col-xl-4 col-5">
                         <input type="submit" value="Login" class="btn btn-success rounded-pill"/>
-                        <a href="/registration-form" class="btn btn-success rounded-pill">Registrati</a>
+                        <input type="button" @click="openRegistrationForm" value="Registrati" class="btn btn-success rounded-pill"/>
                     </div>
                 </div>
             </form>
@@ -32,7 +32,7 @@ const Navbar = {
                   
                 </div>-->
                 <div class="col-3 text-center">
-                    <input type="button" value="Board personale" class="btn btn-success rounded-pill">
+                    <input type="button" @click="openBoard" value="Board personale" class="btn btn-success rounded-pill">
                 </div>
                 <div class="col-3 text-center">
                     <input type="button" value="Le mio infomazioni" class="btn btn-success rounded-pill">
@@ -48,7 +48,8 @@ const Navbar = {
             usernameLogin: "",
             passwordLogin: "",
             loginError: "",
-            token: ""
+            token: "",
+            idGardener: ""
         };
     },
     methods: {
@@ -67,8 +68,14 @@ const Navbar = {
                         let token = res.data.token;
                         localStorage.user = token;
                         this.token = token;
+
+                        let id = res.data.id;
+                        localStorage.idGardener = id;
+                        this.idGardener = id;
+
                         this.usernameLogin = "";
                         this.passwordLogin = "";
+                        this.$router.replace('/').catch(err => {});
                     } else {
                         this.loginError = "Username o password errati";
                     }
@@ -80,11 +87,25 @@ const Navbar = {
         logout() {
             localStorage.user = "";
             this.token = "";
+            localStorage.idGardener = "";
+            this.idGardener = "";
+            this.$router.replace('/').catch(err => {});
+        },
+        openBoard() {
+            if(localStorage.user) {
+                this.$router.replace('/gardener-board/' + this.idGardener).catch(err => {});
+            }
+        },
+        openRegistrationForm() {
+            this.$router.replace('/registration-form').catch(err => {});
         }
     },
     mounted() {
         if (localStorage.user) {
             this.token = localStorage.user;
+        }
+        if (localStorage.idGardener) {
+            this.idGardener = localStorage.idGardener;
         }
     }
 }

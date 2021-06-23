@@ -37,12 +37,19 @@ const GardenerBoard = {
 			gardenerName: "",
 			maintenance:{},
 			garden:{},
-			emptyMaint: true
+			emptyMaint: true,
+			token: "",
+			idGardener: ""
 		}
 	},
 	methods: {
 		getGardenerName: function() {
-			axios.get(DBURL + "/gardener/" + this.$route.params.id)
+			axios
+				.get(DBURL + "/gardener/" + this.$route.params.id, {
+					headers: {
+						Authorization: this.token
+					}
+				})
 				.then(response => {
 					this.gardenerName = response.data.name + " " + response.data.surname
 				})
@@ -63,6 +70,12 @@ const GardenerBoard = {
 		}
 	},
 	mounted() {
-		this.getGardenerName()
+		if (localStorage.user && localStorage.idGardener) {
+			this.token = localStorage.user;
+			this.idGardener = localStorage.idGardener;
+			this.getGardenerName();
+		} else {
+			this.$router.replace('/').catch(err => {});
+		}
 	}
 }

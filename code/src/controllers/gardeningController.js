@@ -163,11 +163,18 @@ exports.update_sensor = function(req, res) {
 
 
 exports.gardener_info = function(req, res) {
-	Gardener.findById({_id: req.params.id}, function(err, gardener) {
-		if (err)
-			res.send(err);
-		res.json(gardener);
-	});
+	let authResult = auth(req);
+	if(authResult.isValidToken) {
+		let token = authResult.token;
+		Gardener.findOne({user_id: token.user}, function(err, gardener) {
+			if (err) {
+				res.send(err);
+			}
+			res.json(gardener);
+		});
+	} else {
+		res.status(502).send("Accesso non autorizzato");
+	}
 };
 
 exports.registration = function(req, res) {
@@ -193,14 +200,14 @@ exports.login = function(req, res) {
 			});
 		} else {
 			if(bcrypt.compareSync(password ,gardener.password)) {
-				let tmp = gardener.user_id;
-				let token = jwt.sign({user: tmp}, PRIVATE_SECRET_KEY, {
+				let token = jwt.sign({user: gardener.user_id, id: gardener._id}, PRIVATE_SECRET_KEY, {
 					algorithm: 'HS512',
 					expiresIn: '2d'
 				});
 				res.send({
 					result: true,
-					token: token
+					token: token,
+					id: gardener._id
 				});
 			} else {
 				res.send({
@@ -216,4 +223,31 @@ exports.checkUsername = function(req, res) {
 	Gardener.exists({user_id: requestUser }, function(err, result) {
 		res.send(result);
 	});
+}
+
+function auth(req) {
+	const token = req.headers['authorization'];
+	let res;
+
+	if(token == null) {
+		res = {
+			isValidToken: false,
+			token: ""
+		};
+	}
+
+	try {
+		const decodedToken = jwt.verify(token, PRIVATE_SECRET_KEY);
+		res = {
+			isValidToken: true,
+			token: decodedToken
+		}
+	} catch (e) {
+		res = {
+			isValidToken: false,
+			token: ""
+		};
+	}
+
+	return res;
 }
