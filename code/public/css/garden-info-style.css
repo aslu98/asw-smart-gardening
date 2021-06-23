@@ -8,19 +8,19 @@
 }
 
 .garden-info-back{
-    margin-top: 10px;
+    margin-top: 0.5em;
 }
 
 .card-title{
     margin-bottom: 0;
     font-weight: bolder;
-    font-size: 25px;
+    font-size: 1.5em;
 }
 
 .empty-card{
     margin:1em;
     text-align: center;
-    font-size:1.5em;
+    font-size:1.2em;
     color:dimgrey;
 }
 
@@ -33,17 +33,15 @@
 
 .sensors-table > tbody > tr > td,
 .sensors-table> tbody > tr > th {
-    border:thin solid #1d9d61;
+    border:none;
+    border-bottom:thin solid lightgray;
     border-radius: 10px;
-    border-top:none;
-    border-right:none;
     margin-left: 1%;
     margin-right: 1%;
 }
 
 .sensors-scrollbar {
     border:thin solid #1d9d61;
-    border-left:none;
     height: 12em;
     overflow: auto;
     display: block;
