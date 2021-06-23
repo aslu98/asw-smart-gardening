@@ -51,7 +51,7 @@ const CreateMaintenance = {
                       </div>
                     <div class="col-1"></div>
                     <div class="pt-5 pb-3 col-1 form-check">
-                      <input type="checkbox" id="done" class="form-check-input" name="done" :checked="done">
+                      <input type="checkbox" id="done" class="form-check-input" name="done" v-model="done">
                       <label class="form-check-label" for="done">Done</label>
                     </div>
                   </div>
@@ -108,6 +108,7 @@ const CreateMaintenance = {
     methods: {
         registerNewMaint: function () {
             this.errors = []
+            console.log(this.done)
             if (this.checkGardenSelection() & this.checkDuration() & this.checkOverlap()){
                 let maint = {
                     garden: this.selectedgarden,
