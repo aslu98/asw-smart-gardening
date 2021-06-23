@@ -3,7 +3,7 @@ const GardenBoard = {
 		'meteo': Meteo,
 		'maintenance-card': MaintenanceCard,
 		'sensors': Sensors,
-		'gardener-calendar': Calendar,
+		'garden-calendar': Calendar,
 		'garden-card': GardenCard
 	},
 	template: `
@@ -12,11 +12,10 @@ const GardenBoard = {
 				<div class= "row mt-2">
 					<h5>Calendario </h5>
 				</div>
-				<gardener-calendar :from="'garden'" 
+				<garden-calendar :from="'garden'" 
 								   @clicked-maint="showMaint" 
-								   :gardener="'60944e8316b7f0346c54a49d'"> <!--put logged gardener or can't click on open-calendar"-->
-					
-				</gardener-calendar>
+								   :gardener="'60944e8316b7f0346c54a49d'"
+								   :garden="garden"/> <!--put logged gardener or can't click on open-calendar"-->
 			</div>
 			<div class="col-12 col-md-5 garden-board-components">
 				<garden-card :garden="garden" @hide-info="goBack"/>

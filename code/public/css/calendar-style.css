@@ -80,17 +80,9 @@
     font-size: 0.5em;
 }
 
-.disabled{
-    background-color: #c5f4d6 !important;
-    border: 0 !important;
+.active{
     color: black !important;
-    font-size: 1em !important;
-    margin-left: 0.5em !important;
-}
-
-.disabled-div{
-    text-align: left;
-    width: 50%;
+    background-color: #c5f4d6 !important;
 }
 
 /* FORM CREATE MAINT */
@@ -218,11 +210,4 @@
         margin-left: 0em;
         font-size: 0.5em;
     }
-
-    .disabled{
-        background-color: #c5f4d6 !important;
-        border: 0 !important;
-        color: black !important;
-        font-size: 1em !important;
-        margin-left: 0em !important;
-    }}
+}

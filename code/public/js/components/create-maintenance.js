@@ -77,19 +77,24 @@ const CreateMaintenance = {
             default: new Date().toString()
         },
         garden: {
-            default: {}
+            default: ""
         },
         gardener: {
             required: true
         },
         modalid: {}
     },
+    watch:{
+        garden(n, o){
+            this.setSelectedGarden()
+        }
+    },
     data() {
         return {
             errors: [],
             minhour: 7,
             maxhour: 20,
-            selectedgarden:"",
+            selectedgarden: "",
             date: "",
             hour: 7,
             duration: "",
@@ -133,9 +138,16 @@ const CreateMaintenance = {
                 .catch(error => (console.log(error)));
         },
         getMaintenances: function() {
-            axios.get(DBURL + "/maintenances")
+            axios.get(DBURL + "/maintenances/gardener/" + this.$props.gardener)
                 .then(response => {
-                    this.maintenances = response.data
+                    this.maintenances = new Array(response.data)
+                })
+                .catch(error => (console.log(error)));
+        },
+        getMaintenancesOfGarden: function() {
+            axios.get(DBURL + "/maintenances/garden/" + this.$props.garden._id + "/gardener/" + this.$props.gardener)
+                .then(response => {
+                    this.maintenances = new Array(response.data)
                 })
                 .catch(error => (console.log(error)));
         },
@@ -144,7 +156,10 @@ const CreateMaintenance = {
             this.hour = new Date(this.$props.timeslot).getHours()
         },
         setSelectedGarden: function() {
-            this.selectedgarden = this.$props.garden._id
+            if (this.$props.garden != ""){
+                this.selectedgarden = this.$props.garden._id
+                this.getMaintenancesOfGarden()
+            }
         },
         checkGardenSelection: function(){
             let check = this.selectedgarden == ""
@@ -180,7 +195,7 @@ const CreateMaintenance = {
     mounted() {
         this.getGardens()
         this.getMaintenances()
-        this.setDateAndHour()
         this.setSelectedGarden()
+        this.setDateAndHour()
     }
 }
