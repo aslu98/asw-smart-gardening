@@ -2,7 +2,7 @@ const CreateMaintenance = {
     template: `
       <div class="create-maintenance">
       <div class="modal fade" :id="this.$props.modalid" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-           aria-labelledby="staticBackdropLabel" aria-hidden="true">
+           aria-labelledby="staticBackdropLabel" aria-hidden="true" @hidden="this.completed = false">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -140,23 +140,26 @@ const CreateMaintenance = {
         getMaintenances: function() {
             axios.get(DBURL + "/maintenances/gardener/" + this.$props.gardener)
                 .then(response => {
-                    this.maintenances = new Array(response.data)
+                    this.maintenances = response.data
                 })
                 .catch(error => (console.log(error)));
         },
         getMaintenancesOfGarden: function() {
-            axios.get(DBURL + "/maintenances/garden/" + this.$props.garden._id + "/gardener/" + this.$props.gardener)
-                .then(response => {
-                    this.maintenances = new Array(response.data)
-                })
-                .catch(error => (console.log(error)));
+            if (this.$props.garden._id != undefined) {
+                axios.get(DBURL + "/maintenances/garden/" + this.$props.garden._id + "/gardener/" + this.$props.gardener)
+                    .then(response => {
+                        this.maintenances =  []
+                        this.maintenances = response.data
+                    })
+                    .catch(error => (console.log(error)));
+            }
         },
         setDateAndHour: function () {
             this.date = new Date(this.$props.datestr).toISOString().split('T')[0]
             this.hour = new Date(this.$props.timeslot).getHours()
         },
         setSelectedGarden: function() {
-            if (this.$props.garden != ""){
+            if (this.$props.garden._id != undefined){
                 this.selectedgarden = this.$props.garden._id
                 this.getMaintenancesOfGarden()
             }
