@@ -155,7 +155,6 @@ exports.change_maintenance_state = function(req, res) {
 	});
 };
 
-
 exports.create_maintenance = function(req, res) {
 	var new_maintenance = new Maintenance(req.body);
 	new_maintenance.save(function(err, maint) {
@@ -186,19 +185,19 @@ exports.update_sensor = function(req, res) {
 		});
 };
 
-
 exports.gardener_info = function(req, res) {
-	let authResult = auth(req);
+	let userId = req.params.id;
+	let authResult = auth(req, userId);
 	if(authResult.isValidToken) {
 		let token = authResult.token;
 		Gardener.findOne({user_id: token.user}, function(err, gardener) {
 			if (err) {
-				res.send(err);
+				res.status(500).send(err);
 			}
 			res.json(gardener);
 		});
 	} else {
-		res.status(502).send("Accesso non autorizzato");
+		res.status(401).send("Accesso non autorizzato");
 	}
 };
 
@@ -250,27 +249,31 @@ exports.checkUsername = function(req, res) {
 	});
 }
 
-function auth(req) {
+function auth(req, user) {
 	const token = req.headers['authorization'];
 	let res;
 
 	if(token == null) {
 		res = {
-			isValidToken: false,
-			token: ""
+			isValidToken: false
 		};
 	}
 
 	try {
 		const decodedToken = jwt.verify(token, PRIVATE_SECRET_KEY);
-		res = {
-			isValidToken: true,
-			token: decodedToken
+		if(decodedToken.user === user) {
+			res = {
+				isValidToken: true,
+				token: decodedToken
+			}
+		} else {
+			res = {
+				isValidToken: false
+			}
 		}
 	} catch (e) {
 		res = {
-			isValidToken: false,
-			token: ""
+			isValidToken: false
 		};
 	}
 
