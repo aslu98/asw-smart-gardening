@@ -6,7 +6,7 @@ const CreateMaintenance = {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title m-0 ml-4" id="exampleModalLabel"> Crea manutenzione</h5>
+              <h5 class="modal-title m-0 ml-4"> Crea manutenzione</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form v-if="!this.completed" name="createMaint" method="post" @submit.prevent="registerNewMaint">

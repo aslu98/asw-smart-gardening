@@ -14,7 +14,7 @@ const GardenBoard = {
 				</div>
 				<garden-calendar :from="'garden'" 
 								   @clicked-maint="showMaint" 
-								   :gardener="'60944e8316b7f0346c54a49d'"
+								   :gardener=localStorage.idGardener
 								   :garden="garden"/> <!--put logged gardener or can't click on open-calendar"-->
 			</div>
 			<div class="col-12 col-md-5 garden-board-components">

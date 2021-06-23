@@ -56,61 +56,73 @@ exports.gardens_in_need = function(req, res) {
 };
 
 exports.sensors_of_garden = function(req, res) {
-	Sensor.find({garden: req.params.id.toObjectId()})
-		.sort({'flagOn': -1, 'API': 1})
-		.exec(function(err, sensor) {
-		if (err || sensor == null)
-			res.send(err);
-		res.json(sensor);
-	});
+	if (req.params.id != "undefined") {
+		Sensor.find({garden: req.params.id.toObjectId()})
+			.sort({'flagOn': -1, 'API': 1})
+			.exec(function (err, sensor) {
+				if (err || sensor == null)
+					res.send(err);
+				res.json(sensor);
+			});
+	}
 };
 
 exports.on_sensors_of_garden = function(req, res) {
-	Sensor.find({garden: req.params.id.toObjectId(), flagOn: true})
-		.sort({'flagOn': -1, 'API': 1})
-		.exec(function(err, sensor) {
-			if (err || sensor == null)
-				res.send(err);
-			res.json(sensor);
-		});
+	if (req.params.id != "undefined") {
+		Sensor.find({garden: req.params.id.toObjectId(), flagOn: true})
+			.sort({'flagOn': -1, 'API': 1})
+			.exec(function (err, sensor) {
+				if (err || sensor == null)
+					res.send(err);
+				res.json(sensor);
+			});
+	}
 };
 
 exports.next_on_garden = function(req, res) {
-	Maintenance.find({garden: req.params.id.toObjectId(), startTime: {$gte: new Date()}})
-		.sort({'startTime': 1})
-		.limit(parseInt(req.params.n))
-		.exec( function(err, maint) {
-		if (err || maint == null) {
-			res.send(err);
-		}
-		else {
-			res.json(maint);
-		}
-	});
+	if (req.params.id != "undefined") {
+		Maintenance.find({garden: req.params.id.toObjectId(), startTime: {$gte: new Date()}})
+			.sort({'startTime': 1})
+			.limit(parseInt(req.params.n))
+			.exec( function(err, maint) {
+			if (err || maint == null) {
+				res.send(err);
+			}
+			else {
+				res.json(maint);
+			}
+		});
+	}
 };
 
 exports.calendar_of_garden = function(req, res) {
-	Maintenance.find({garden: req.params.id.toObjectId()}, function(err, maint) {
-		if (err || maint == null)
-			res.send(err);
-		res.json(maint);
-	});
+	if (req.params.id != "undefined") {
+		Maintenance.find({garden: req.params.id.toObjectId()}, function (err, maint) {
+			if (err || maint == null)
+				res.send(err);
+			res.json(maint);
+		});
+	}
 };
 
 exports.calendar_of_gardener = function(req, res) {
-	Maintenance.find({gardener: req.params.id.toObjectId()}, function(err, maints) {
-		if (err || maints == null)
-			res.send(err);
-		res.json(maints);
-	});
+	if (req.params.id != "undefined"){
+		Maintenance.find({gardener: req.params.id.toObjectId()}, function(err, maints) {
+			if (err || maints == null)
+				res.send(err);
+			res.json(maints);
+		});
+	}
 };
 
 exports.calendar_of_garden_and_gardener = function(req, res) {
-	Maintenance.find({gardener: req.params.gardenerid.toObjectId(), garden: req.params.gardenid.toObjectId()}, function(err, maints) {
-		if (err || maints == null)
-			res.send(err);
-		res.json(maints);
-	});
+	if (req.params.gardenerid != "undefined" && req.params.gardenid != "undefined"){
+		Maintenance.find({gardener: req.params.gardenerid.toObjectId(), garden: req.params.gardenid.toObjectId()}, function(err, maints) {
+			if (err || maints == null)
+				res.send(err);
+			res.json(maints);
+		});
+	}
 };
 
 exports.garden_info = function(req, res) {
