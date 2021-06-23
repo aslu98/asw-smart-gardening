@@ -1,7 +1,7 @@
 const Navbar = {
     template: `
         <nav class="navbar px-2">
-            <div id="logo-container" class="col-xxl-7 col-lg-4 col-sm-12 col-12">
+            <div id="logo-container" class="col-xxl-7 col-lg-4 col-sm-12 col-12 ps-2">
                 <a href="/" id="main-title">
                     <img src="/static/img/GardenCareSmall.png" alt="GardenCare Logo">
                 </a>
@@ -27,15 +27,9 @@ const Navbar = {
                     </div>
                 </div>
             </form>
-            <div v-else class="row col-xxl-5 col-lg-8 col-sm-12 col-12 d-flex justify-content-around mx-0">
-<!--                <div class="col-3 text-center">
-                  
-                </div>-->
+            <div v-else class="row col-xxl-5 col-lg-8 col-sm-12 col-12 d-flex justify-content-end mx-0">
                 <div class="col-3 text-center">
-                    <input type="button" @click="openBoard" value="Board personale" class="btn btn-success rounded-pill">
-                </div>
-                <div class="col-3 text-center">
-                    <input type="button" value="Le mio infomazioni" class="btn btn-success rounded-pill">
+                    <input type="button" @click="openGardenerBoard" value="Manutenzioni" class="btn btn-success rounded-pill">
                 </div>
                 <div class="col-3 text-center">
                     <input type="button" value="Logout" @click="logout" class="btn btn-danger rounded-pill">
@@ -91,7 +85,7 @@ const Navbar = {
             this.idGardener = "";
             this.$router.replace('/').catch(err => {});
         },
-        openBoard() {
+        openGardenerBoard() {
             if(localStorage.user) {
                 this.$router.replace('/gardener-board/' + this.idGardener).catch(err => {});
             }
