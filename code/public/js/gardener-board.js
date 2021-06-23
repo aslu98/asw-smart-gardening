@@ -18,14 +18,15 @@ const GardenerBoard = {
 			</div>
 			<div class="col-12 col-md-5">
 				<div v-if="!emptyMaint" class="row mt-3">
-					<maintenance-card :garden="garden" :maintenance="maintenance" :from="'gardener'"/>
+					<maintenance-card :garden="garden" :maintenance="maintenance" :from="'gardener'"
+									  @delete-maint="sendToCalendarDeleted"/>
 				</div>
 				<div v-if="!emptyMaint" class="row">
 					<meteo :garden="garden"/>
 				</div>
 				<div>
 					<gardens-in-need :gardener="this.$route.params.id"
-									 @maint-to-calendar="sendToCalendar"/>
+									 @maint-to-calendar="sendToCalendarNew"/>
 				</div>
 			</div>
 		</div>
@@ -36,6 +37,7 @@ const GardenerBoard = {
 			maintenance:{},
 			garden:{},
 			new_maint:"",
+			deleted_maintenance: "",
 			emptyMaint: true,
 			token: ""
 		}
@@ -66,8 +68,11 @@ const GardenerBoard = {
 			this.emptyMaint = false
 			this.getGarden()
 		},
-		sendToCalendar: function(maint){
+		sendToCalendarNew: function(maint){
 			this.new_maint = maint;
+		},
+		sendToCalendarDeleted: function (maint){
+			this.deleted_maintenance = maint
 		}
 	},
 	mounted() {

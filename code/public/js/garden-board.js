@@ -12,10 +12,11 @@ const GardenBoard = {
 				<div class= "row mt-2">
 					<h5>Calendario </h5>
 				</div>
-				<garden-calendar :from="'garden'" 
-								   @clicked-maint="showMaint" 
-								   :gardener=localStorage.idGardener
-								   :garden="garden"/> <!--put logged gardener or can't click on open-calendar"-->
+				<garden-calendar :from="'garden'"
+								 :gardener=localStorage.idGardener
+								 :garden="garden"
+								 :deleted_maint="deleted_maintenance"
+								 @clicked-maint="showMaint" />
 			</div>
 			<div class="col-12 col-md-5 garden-board-components">
 				<garden-card :garden="garden" @hide-info="goBack"/>
@@ -25,7 +26,7 @@ const GardenBoard = {
 				<meteo :garden="garden"></meteo>
 				<div v-if="!emptyMaint" class="row">
 					<hr class="green-hr"/>
-					<maintenance-card :garden="garden" :maintenance="maintenance"></maintenance-card>
+					<maintenance-card :garden="garden" :maintenance="maintenance" @delete-maint="sendToCalendar"></maintenance-card>
 				</div>
 			</div>
 		</div>
@@ -34,6 +35,7 @@ const GardenBoard = {
 		return {
 			gardenerName: "",
 			maintenance:{},
+			deleted_maintenance:{},
 			garden:{_id:""},
 			emptyMaint: true
 		}
@@ -53,6 +55,9 @@ const GardenBoard = {
 		},
 		goBack: function (){
 			this.$router.go(-1)
+		},
+		sendToCalendar: function (maint){
+			this.deleted_maintenance = maint
 		}
 	},
 	mounted() {

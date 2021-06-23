@@ -64,6 +64,11 @@ label.control-label, label.check-label, .form-check-input{
     align-items: center;
 }
 
+.btn-delete-maint{
+    font-size: 0.8em;
+    border-radius: 25px;
+}
+
 /*MEDIA QUERY*/
 @media screen and (min-width:992px) and (max-width:1199px){
     .gardens-in-need-card{

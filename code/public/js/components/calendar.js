@@ -1,7 +1,7 @@
 const Calendar = {
     components:{
         "add-button": AddButton,
-        "maintenance-modal": CreateMaintenance,
+        "create-maintenance": CreateMaintenance
     },
     template:
         `
@@ -26,7 +26,7 @@ const Calendar = {
                 <tbody>
                 <tr v-for="(timeslot, slotindex) in timeslots">
                   <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot container">
-                    <maintenance-modal :timeslot="timeslot" 
+                    <create-maintenance :timeslot="timeslot" 
                                        :datestr="date" 
                                        :gardener="getGardener()" 
                                        :garden="getGarden()"
@@ -95,11 +95,17 @@ const Calendar = {
         },
         new_maint:{
             default: ""
+        },
+        deleted_maint:{
+            default: ""
         }
     },
     watch: {
         new_maint(n, o){
             this.addToMaintenances(n)
+        },
+        deleted_maint(n, o){
+            this.removeFromMaintenances(n)
         }
     },
     methods: {
@@ -182,6 +188,9 @@ const Calendar = {
             m.startTime = new Date(m.startTime)
             m.endTime = new Date(new Date(m.startTime).setHours(m.startTime.getHours() + m.duration))
             this.maintenances.push(m)
+        },
+        removeFromMaintenances: function (m){
+            this.maintenances.remove(m)
         },
         switchActiveAddOn: function (ti, di){
             let activeTi = this.activeAdd[ti]
