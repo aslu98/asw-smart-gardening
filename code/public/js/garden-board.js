@@ -19,7 +19,7 @@ const GardenBoard = {
 				</gardener-calendar>
 			</div>
 			<div class="col-12 col-md-5 garden-board-components">
-				<garden-card :garden="garden" @hide-info=""/>
+				<garden-card :garden="garden" @hide-info="goBack"/>
 				<hr class="green-hr"/>
 				<sensors :gardenid="this.garden._id"></sensors>
 				<hr class="green-hr"/>
@@ -51,6 +51,9 @@ const GardenBoard = {
 		showMaint: function(maint) {
 			this.maintenance = maint
 			this.emptyMaint = false
+		},
+		goBack: function (){
+			this.$router.go(-1)
 		}
 	},
 	mounted() {

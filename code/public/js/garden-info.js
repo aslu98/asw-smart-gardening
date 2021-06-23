@@ -20,7 +20,7 @@ const GardenInfo = {
 							<to-do :gardenid="$props.gardenid"/>
 							<div class="row">
 								<div class="mx-auto open-calendar-btn">
-									<button type="button" class="center btn btn-success"> Open Calendar </button>
+									<button type="button" class="center btn btn-success" @click="openCalendar($props.gardenid)"> Open Calendar </button>
 								</div>
 							</div>
 						</div>
@@ -52,6 +52,9 @@ const GardenInfo = {
 		},
 		hideInfo() {
 			this.$emit('hidesidebar');
+		},
+		openCalendar(id){
+			this.$router.push("/garden-board/"+id)
 		}
 	},
 	mounted() {
