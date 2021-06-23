@@ -105,6 +105,14 @@ exports.calendar_of_gardener = function(req, res) {
 	});
 };
 
+exports.calendar_of_garden_and_gardener = function(req, res) {
+	Maintenance.find({gardener: req.params.gardenerid.toObjectId(), garden: req.params.gardenid.toObjectId()}, function(err, maints) {
+		if (err || maints == null)
+			res.send(err);
+		res.json(maints);
+	});
+};
+
 exports.garden_info = function(req, res) {
 	Garden.findById({_id: req.params.id}, function(err, garden) {
 		if (err)
@@ -115,6 +123,23 @@ exports.garden_info = function(req, res) {
 
 exports.maintenance_done = function(req, res) {
 	Maintenance.findOneAndUpdate({_id: req.params.id}, {done:true}, {new: true}, function(err, maint) {
+		if (err)
+			res.send(err);
+		else{
+			if(maint==null){
+				res.status(404).send({
+					description: 'Maintenance not found'
+				});
+			}
+			else{
+				res.json(maint);
+			}
+		}
+	});
+};
+
+exports.change_maintenance_state = function(req, res) {
+	Maintenance.findOneAndUpdate({_id: req.params.id}, { done: req.params.state }, {new: true}, function(err, maint) {
 		if (err)
 			res.send(err);
 		else{

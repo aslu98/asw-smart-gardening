@@ -1,7 +1,6 @@
 const Calendar = {
     components:{
         "add-button": AddButton,
-        "done-button": DoneButton,
         "maintenance-modal": CreateMaintenance,
     },
     template:
@@ -28,31 +27,34 @@ const Calendar = {
                 <tr v-for="(timeslot, slotindex) in timeslots">
                   <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot clickable"
                       v-on:click="clickedSlot(timeslot, date)">
-                    <maintenance-modal :timeslot="timeslot" :datestr="date" :gardener="getGardener()"
-                                       :modalid="getModalId(slotindex, dateindex)" @new-maint="addToMaintenances"></maintenance-modal>
+                    <maintenance-modal :timeslot="timeslot" 
+                                       :datestr="date" 
+                                       :gardener="getGardener()" 
+                                       :garden="getGarden()"
+                                       :modalid="getModalId(slotindex, dateindex)" 
+                                       @new-maint="addToMaintenances"/>
                     <div v-if="checkMaintInTimeslot(timeslot,date)" class="maint-timeslot"
                          :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date)}">
                       <div class="row">
                         <div class="col-6 mr-3">
                           <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
                         </div>
-                        <div class="col-6 px-0 calendar-done-btn">
-                          <done-button v-if="isLastMaint(timeslot, date) && !isMaintDone(timeslot,date)"
-                                       :maint="getMaintsInTimeslot(timeslot,date)[0]"
-                                       @maint-done="setMaintDone(timeslot,date)"></done-button>
-                          <done-button v-else-if="isLastMaint(timeslot, date) && isMaintDone(timeslot,date)"
-                                       :disabled="true"></done-button>
+                        <div v-if="isLastMaint(timeslot, date)" class="col-6 px-0 calendar-done-btn" @click="changeMaintState(timeslot,date)">
+                          <button type="button" class="btn btn-success p-1 py-0 mt-1"
+                                               :class="{'active': !isMaintDone(timeslot,date)}"> ✓ </button>
                         </div>
+                        <div v-else class="col-6 px-0"></div>
                       </div>
                     </div>
                     <div v-else class="no-maint-timeslot row"
                          v-on:mouseover="switchActiveAddOn(slotindex, dateindex)"
                          v-on:mouseleave="switchActiveAddOff(slotindex, dateindex)">
-                      <div class="col-6">
+                      <div class="col-7">
                         <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
                       </div>
-                      <div class="col-6 pt-1 calendar-add-btn">
-                        <add-button v-if="activeAdd[slotindex][dateindex]" :modalid="getModalId(slotindex, dateindex)"/>
+                      <div class="col-5 pt-1 calendar-add-btn">
+                        <add-button v-if="activeAdd[slotindex][dateindex]" 
+                                    :modalid="getModalId(slotindex, dateindex)"/>
                       </div>
                     </div>
                   </td>
@@ -73,10 +75,11 @@ const Calendar = {
             maintenances: [],
             weekDates: [new Date()],
             timeslots: [],
-            weekday_options: { weekday: 'long'},
+            weekday_options: {weekday: 'long'},
             day_options: {day: 'numeric', month: 'short'},
             time_options: {hour: '2-digit'},
-            gardener: ""
+            gardener: "",
+            garden: ""
         }
     },
     props: {
@@ -85,6 +88,9 @@ const Calendar = {
         },
         from: {
             required: true
+        },
+        garden:{
+            default:{}
         }
     },
     methods: {
@@ -118,6 +124,9 @@ const Calendar = {
         getGardener: function () {
             return this.$props.gardener
         },
+        getGarden: function (){
+            return this.$props.garden
+        },
         initializeActiveAdd: function () {
             for (let i= 0 ; i < this.timeslots.length; i++){
                 this.activeAdd[i] = []
@@ -145,8 +154,11 @@ const Calendar = {
         isMaintDone: function (timeslot, date) {
             return this.getMaintsInTimeslot(timeslot, date)[0].done
         },
-        setMaintDone: function (timeslot, date){
-            this.getMaintsInTimeslot(timeslot, date)[0].done = true
+        changeMaintState: function (timeslot, date){
+            let maint = this.getMaintsInTimeslot(timeslot, date)[0]
+            maint.done = !maint.done
+            axios.get(DBURL + "/maintenances/" + maint._id + "/done/" + maint.done.toString())
+                .catch(error => (console.log(error)));
         },
         getModalId: function (slotindex, dateindex){
             return "AddModal" + slotindex + dateindex;

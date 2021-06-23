@@ -35,14 +35,17 @@ module.exports = function(app) {
 	app.route('/api/maintenances/gardener/:id')
 		.get(controller.calendar_of_gardener)
 
+	app.route('/api/maintenances/garden/:gardenid/gardener/:gardenerid')
+		.get(controller.calendar_of_garden_and_gardener)
+
 	app.route('/api/maintenances/garden/:id/next/:n')
 		.get(controller.next_on_garden)
 
 	app.route('/api/maintenances/garden/:id')
 		.get(controller.calendar_of_garden)
 
-	app.route('/api/maintenances/:id/done')
-		.get(controller.maintenance_done)
+	app.route('/api/maintenances/:id/done/:state')
+		.get(controller.change_maintenance_state)
 
 	app.route('/api/gardener/:id')
 		.get(controller.gardener_info)

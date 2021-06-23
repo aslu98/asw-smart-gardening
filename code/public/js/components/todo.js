@@ -49,7 +49,7 @@ const Todo = {
                             this.maints[i].weekday = this.maints[i].weekday[0].toUpperCase() + this.maints[i].weekday.substr(1)
                             this.maints[i].date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
                             this.maints[i].from_to = date.toISOString().substr(11, 5) + " - "
-                            date.setMinutes(date.getMinutes() + (this.maints[i].duration))
+                            date.setHours(date.getHours() + (this.maints[i].duration))
                             this.maints[i].from_to += date.toISOString().substr(11, 5)
                             this.maints[i].last = i != this.maints.length - 1
                         }
