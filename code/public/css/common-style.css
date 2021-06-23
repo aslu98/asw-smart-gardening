@@ -96,7 +96,7 @@ html, body {
 
 /* Media query */
 
-@media screen and (max-width: 596px) {
+@media screen and (max-width: 575px) {
 
     /* btn-sm di Bootstrap */
     #form-button-container > input {
@@ -137,13 +137,13 @@ html, body {
 @media screen and (max-width: 1399px) {
 
     #logo-container {
-        justify-content: center;
+        text-align: center;
     }
 }
 
 @media screen and (min-width: 1400px) {
 
     #logo-container {
-        justify-content: space-between;
+        text-align: end;
     }
 }
