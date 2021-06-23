@@ -140,9 +140,7 @@ const CreateMaintenance = {
                 .catch(error => (console.log(error)));
         },
         setDateAndHour: function () {
-            if(this.$props.datestr != "") {
-                this.date = new Date(this.$props.datestr).toISOString().split('T')[0]
-            }
+            this.date = new Date(this.$props.datestr).toISOString().split('T')[0]
             this.hour = new Date(this.$props.timeslot).getHours()
         },
         setSelectedGarden: function() {

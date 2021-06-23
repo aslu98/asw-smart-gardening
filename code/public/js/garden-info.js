@@ -1,5 +1,6 @@
 const GardenInfo = {
 	components: {
+		'garden-card': GardenCard,
 		'sensors': Sensors,
 		'meteo': Meteo,
 		'to-do': Todo
@@ -9,22 +10,14 @@ const GardenInfo = {
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card-body">
-						<div class="row">
-							<div class="col-10">
-								<h5 class="card-title text-center"> {{ garden.name }}</h5>
-								<p class="card-text text-center"> {{ garden.city }} </p>
-							</div>
-							<div class="col-2 garden-info-back">
-								<i class="fas fa-chevron-circle-right fa-2x" style="cursor: pointer" @click="hideInfo"></i>
-							</div>
-						</div>
+						<garden-card :garden="garden" @hide-info="hideInfo"/>
 						<div class="garden-info-components">
 							<hr class="green-hr"/>
-							<sensors :gardenid="$props.gardenid"></sensors>
+							<sensors :gardenid="$props.gardenid"/>
 							<hr class="green-hr"/>
-							<meteo :garden="garden"></meteo>
+							<meteo :garden="garden"/>
 							<hr class="green-hr"/>
-							<to-do :gardenid="$props.gardenid"></to-do>
+							<to-do :gardenid="$props.gardenid"/>
 							<div class="row">
 								<div class="mx-auto open-calendar-btn">
 									<button type="button" class="center btn btn-success"> Open Calendar </button>
@@ -65,3 +58,5 @@ const GardenInfo = {
 		this.getGarden()
 	}
 }
+
+//@click="this.$router.push({ name: '/garden-board/' + $props.gardenid })

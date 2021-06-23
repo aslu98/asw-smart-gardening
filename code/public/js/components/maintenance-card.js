@@ -1,9 +1,10 @@
 const MaintenanceCard = {
     template: `
       <div>
-        <h6 class="mt-3"> Manutenzione selezionata </h6>
+        <h6> Manutenzione selezionata </h6>
 		<div v-if="this.maintenance != {} " class="maintenance-card center mb-4">
-		    <div class="row">
+		  <div v-if="this.$props.from == 'gardener'">
+            <div class="row">
               <div class="col-3 grey-state grey-label">
                   WHERE
               </div>
@@ -19,7 +20,8 @@ const MaintenanceCard = {
                 <p>{{garden.city}}</p>
               </div>
             </div>
-            <div class="row">
+          </div>
+          <div class="row">
               <div class="col-3 grey-state grey-label">
                 TO DO
               </div>
@@ -57,12 +59,11 @@ const MaintenanceCard = {
         }
     },
     props: {
-        'garden':{
-            required: true
-        },
+        'garden':{},
         'maintenance': {
             required: true
-        }
+        },
+        from:{}
     },
     watch: {
         garden(n, o) {

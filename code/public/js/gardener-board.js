@@ -13,13 +13,11 @@ const GardenerBoard = {
 				</div>
 				<gardener-calendar :from="'gardener'" 
 								   @clicked-maint="showMaint" 
-								   :gardener="this.$route.params.id">
-					
-				</gardener-calendar>
+								   :gardener="this.$route.params.id"></gardener-calendar>
 			</div>
 			<div class="col-12 col-md-5">
-				<div v-if="!emptyMaint" class="row">
-					<maintenance-card :garden="garden" :maintenance="maintenance"></maintenance-card>
+				<div v-if="!emptyMaint" class="row mt-3">
+					<maintenance-card :garden="garden" :maintenance="maintenance" :from="'gardener'"></maintenance-card>
 				</div>
 				<div v-if="!emptyMaint" class="row">
 					<meteo :garden="garden"></meteo>
@@ -28,8 +26,6 @@ const GardenerBoard = {
 					<gardens-in-need :gardener="this.$route.params.id"></gardens-in-need>
 				</div>
 			</div>
-		
-		
 		</div>
 	`,
 	data() {
