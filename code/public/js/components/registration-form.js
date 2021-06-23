@@ -119,9 +119,8 @@ const RegistrationForm = {
                     .then(res => {
                         let existingUser = res.data;
                         if(existingUser) {
-                            existingError = true;
                             this.userError = "Nome utente non disponibile";
-                        } else {
+                        } else if (!existingError){
                             axios
                                 .post(DBURL + '/registration', {
                                     params: {
