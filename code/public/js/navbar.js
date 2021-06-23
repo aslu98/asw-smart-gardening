@@ -35,7 +35,7 @@ const Navbar = {
                     <input type="button" @click="openBoard" value="Board personale" class="btn btn-success rounded-pill">
                 </div>
                 <div class="col-3 text-center">
-                    <input type="button" value="Le mio infomazioni" class="btn btn-success rounded-pill">
+                    <input type="button" value="Le mie informazioni" class="btn btn-success rounded-pill">
                 </div>
                 <div class="col-3 text-center">
                     <input type="button" value="Logout" @click="logout" class="btn btn-danger rounded-pill">
