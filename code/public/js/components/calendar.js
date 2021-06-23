@@ -28,7 +28,7 @@ const Calendar = {
                 <tr v-for="(timeslot, slotindex) in timeslots">
                   <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot clickable"
                       v-on:click="clickedSlot(timeslot, date)">
-                    <maintenance-modal v-if="from == 'garden'" :timeslot="timeslot" :datestr="date" :gardener="getGardener()" :garden="this.$route.params.id"
+                    <maintenance-modal v-if="from == 'garden'" :timeslot="timeslot" :datestr="date" :gardener="getGardener()" :garden="getGarden()"
                                        :modalid="getModalId(slotindex, dateindex)" @new-maint="addToMaintenances"></maintenance-modal>
                     <maintenance-modal v-else :timeslot="timeslot" :datestr="date" :gardener="getGardener()"
                                        :modalid="getModalId(slotindex, dateindex)" @new-maint="addToMaintenances"></maintenance-modal>
@@ -119,6 +119,11 @@ const Calendar = {
         },
         getGardener: function () {
             return this.$props.gardener
+        },
+        getGarden: function(){
+            if (this.$props.from == 'garden') {
+                return this.$route.params.id
+            }
         },
         initializeActiveAdd: function () {
             for (let i= 0 ; i < this.timeslots.length; i++){
