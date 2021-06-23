@@ -200,5 +200,6 @@ const CreateMaintenance = {
         this.getMaintenances()
         this.setSelectedGarden()
         this.setDateAndHour()
+        document.addEventListener('show.bs.modal', (e) => (this.completed = false))
     }
 }
