@@ -2,7 +2,7 @@ const Sensors = {
     template:`
       <div class="sensors-template">
       <h6>Sensors</h6>
-      <div v-if="nothing"> <p class="empty-card"> No sensors here! </p> </div>
+      <div v-if="nothing"> <p class="empty-card"> Nessun sensore collegato! </p> </div>
       <div v-else class="card sensors-scrollbar">
         <table class="table sensors-table">
           <tbody>
@@ -23,7 +23,7 @@ const Sensors = {
     `,
     data() {
         return {
-            nothing: false,
+            nothing: true,
             sensors: []
         }
     },
@@ -40,8 +40,12 @@ const Sensors = {
             if(this.$props.gardenid !== "") {
                 axios.get(DBURL + "/sensors/garden/" + this.$props.gardenid)
                     .then(response => {
-                        this.nothing = false
-                        this.sensors = response.data
+                        if (response.data.length > 0) {
+                            this.nothing = false
+                            this.sensors = response.data
+                        } else {
+                            this.nothing = true
+                        }
                     })
                     .catch(error => {
                         this.nothing = true

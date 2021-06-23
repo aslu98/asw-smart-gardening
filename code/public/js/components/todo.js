@@ -3,7 +3,7 @@ const Todo = {
       <div class="to-do-template">
       <h6>TO DO</h6>
       <div class="to-do-card green-border">
-        <div v-if="nothing"> <p class="empty-card"> Nothing to do! </p> </div>
+        <div v-if="nothing"> <p class="empty-card"> Nessuna manutenzione presente! </p> </div>
         <div v-else v-for="maint in maints" class="to-do-maint text-center">
           <div class="row to-do-date">
             <div class="col-4"> {{maint.weekday}} </div>
@@ -20,7 +20,7 @@ const Todo = {
     `,
     data(){
         return {
-            nothing: false,
+            nothing: true,
             n: 2,
             maints: [],
             weekday_options: {weekday: 'long'},
@@ -41,17 +41,21 @@ const Todo = {
             if(this.$props.gardenid !== "") {
                 axios.get(DBURL + "/maintenances/garden/" + this.$props.gardenid + "/next/" + this.n)
                     .then(response => {
-                        this.nothing = false;
-                        this.maints = response.data
-                        for (let i = 0; i < this.maints.length; i++) {
-                            let date = new Date(this.maints[i].startTime)
-                            this.maints[i].weekday = date.toLocaleDateString("it-IT", this.weekday_options).toString()
-                            this.maints[i].weekday = this.maints[i].weekday[0].toUpperCase() + this.maints[i].weekday.substr(1)
-                            this.maints[i].date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
-                            this.maints[i].from_to = date.toISOString().substr(11, 5) + " - "
-                            date.setHours(date.getHours() + (this.maints[i].duration))
-                            this.maints[i].from_to += date.toISOString().substr(11, 5)
-                            this.maints[i].last = i != this.maints.length - 1
+                        if (response.data.length > 0) {
+                            this.nothing = false;
+                            this.maints = response.data
+                            for (let i = 0; i < this.maints.length; i++) {
+                                let date = new Date(this.maints[i].startTime)
+                                this.maints[i].weekday = date.toLocaleDateString("it-IT", this.weekday_options).toString()
+                                this.maints[i].weekday = this.maints[i].weekday[0].toUpperCase() + this.maints[i].weekday.substr(1)
+                                this.maints[i].date = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
+                                this.maints[i].from_to = date.toISOString().substr(11, 5) + " - "
+                                date.setHours(date.getHours() + (this.maints[i].duration))
+                                this.maints[i].from_to += date.toISOString().substr(11, 5)
+                                this.maints[i].last = i != this.maints.length - 1
+                            }
+                        } else {
+                            this.nothing = true;
                         }
                     })
                     .catch(error => {
