@@ -46,7 +46,7 @@
     margin: 0.2em !important;
 }
 
-label.control-label{
+label.control-label, label.check-label, .form-check-input{
     font-size: 14px !important;
 }
 

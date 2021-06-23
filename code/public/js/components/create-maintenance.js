@@ -2,12 +2,12 @@ const CreateMaintenance = {
     template: `
       <div class="create-maintenance">
       <div class="modal fade" :id="this.$props.modalid" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-           aria-labelledby="staticBackdropLabel" aria-hidden="true" @hidden="this.completed = false">
+           aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title m-0 ml-4"> Crea manutenzione</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form v-if="!this.completed" name="createMaint" method="post" @submit.prevent="registerNewMaint">
               <div class="modal-body">
@@ -52,7 +52,7 @@ const CreateMaintenance = {
                     <div class="col-1"></div>
                     <div class="pt-5 pb-3 col-1 form-check">
                       <input type="checkbox" id="done" class="form-check-input" name="done" v-model="done">
-                      <label class="form-check-label" for="done">Done</label>
+                      <label class="check-label" for="done">Done</label>
                     </div>
                   </div>
                 </div>
@@ -87,7 +87,7 @@ const CreateMaintenance = {
     watch:{
         garden(n, o){
             this.setSelectedGarden()
-        }
+        },
     },
     data() {
         return {
@@ -100,15 +100,14 @@ const CreateMaintenance = {
             duration: "",
             done: false,
             description: "",
+            completed:false,
             gardens: {},
-            completed: false,
             maintenances: []
         }
     },
     methods: {
         registerNewMaint: function () {
             this.errors = []
-            console.log(this.done)
             if (this.checkGardenSelection() & this.checkDuration() & this.checkOverlap()){
                 let maint = {
                     garden: this.selectedgarden,

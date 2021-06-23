@@ -30,7 +30,7 @@ const Calendar = {
                                        :datestr="date" 
                                        :gardener="getGardener()" 
                                        :garden="getGarden()"
-                                       :modalid="getModalId(slotindex, dateindex)" 
+                                       :modalid="getModalId(slotindex, dateindex)"
                                        @new-maint="addToMaintenances"/>
                     <div v-if="checkMaintInTimeslot(timeslot,date)"
                          @click="clickedSlot(timeslot, date)"
@@ -92,6 +92,14 @@ const Calendar = {
         },
         garden:{
             default:{}
+        },
+        new_maint:{
+            default: ""
+        }
+    },
+    watch: {
+        new_maint(n, o){
+            this.addToMaintenances(n)
         }
     },
     methods: {
