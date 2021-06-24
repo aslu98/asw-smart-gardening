@@ -197,7 +197,7 @@ exports.update_sensor = function(req, res) {
 exports.garden_add_flag = function (req, res) {
 	Garden.findOneAndUpdate(
 		{_id: req.params.id},
-		{done:true},
+		{$inc: { flagsOn: 1}},
 		{new: true}, function(err, garden) {
 				if (err)
 					res.send(err);
@@ -208,7 +208,7 @@ exports.garden_add_flag = function (req, res) {
 exports.garden_remove_flag = function (req, res) {
 	Garden.findOneAndUpdate(
 		{_id: req.params.id},
-		{done:true},
+		{$inc: {flagsOn: -1}},
 		{new: true}, function(err, garden) {
 			if (err)
 				res.send(err);

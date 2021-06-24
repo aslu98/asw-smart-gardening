@@ -1,7 +1,7 @@
 const Sensors = {
     template:`
       <div class="sensors-template">
-      <h6>Sensors</h6>
+      <h6>Sensori</h6>
       <div v-if="nothing"> <p class="empty-card"> Nessun sensore collegato! </p> </div>
       <div v-else class="card sensors-scrollbar">
         <table class="table sensors-table">

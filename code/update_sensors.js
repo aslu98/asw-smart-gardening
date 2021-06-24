@@ -35,11 +35,21 @@ function update_sensors(){
                         }
                         axios.post(DBURL +'/sensors', body)
                             .then(_ => {
-                                console.log("updated sensors: " + ++updated_sensors)
+                                updated_sensors++
+                                if (updated_sensors == sensors.length){
+                                    console.log("All sensors updated")
+                                }
                             })
                             .catch(error => (console.log(error)));
                         if (body.flagOn != sensors[i].flagOn){
-
+                            console.log("new flag")
+                            if (body.flagOn){
+                                axios.get(DBURL + "/gardens/"+ sensors[i].garden +"/addFlag")
+                                    .catch(error => (console.log(error)));
+                            } else {
+                                axios.get(DBURL + "/gardens/"+ sensors[i].garden +"/removeFlag")
+                                    .catch(error => (console.log(error)));
+                            }
                         }
                     })
                     .catch(error => (console.log(error)));

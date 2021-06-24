@@ -200,7 +200,6 @@ const Calendar = {
             }
         },
         checkPrev: function (timeslot, date){
-            console.log(this.isFirstMaint(timeslot, date))
             if (!this.isFirstMaint(timeslot, date)){
                 let prevTs = new Date(new Date(timeslot).setHours(timeslot.getHours()-1))
                 if (this.checkMaintInTimeslot(prevTs, date)){
