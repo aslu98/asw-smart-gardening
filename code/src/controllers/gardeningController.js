@@ -57,7 +57,7 @@ exports.gardens_in_need = function(req, res) {
 
 exports.sensors_of_garden = function(req, res) {
 		Sensor.find({garden: req.params.id})
-			.sort({'flagOn': -1, 'API': 1})
+			.sort({'flagOn': -1, 'API': 1, 'fieldname':1})
 			.exec(function (err, sensor) {
 				if (err || sensor == null)
 					res.send(err);

@@ -4,14 +4,25 @@ const DBURL = "http://localhost:3000/api"
 const flag_options = [
     {
         fieldname: "Temperature",
-        max_value: 30,
-        min_value: 5,
-    },
-    {
+        max_value: 28,
+        min_value: 7,
+    }, {
         fieldname: "Humidity",
         max_value: 65,
         min_value: 35,
-    }
+    }, {
+        fieldname: "TVOC",
+        max_value: 10,
+        min_value: 0,
+    }, {
+        fieldname: "O2",
+        max_value: 21.5,
+        min_value: 20,
+    },{
+        fieldname: "Gamma",
+        max_value: 22.5,
+        min_value: 0,
+    },
 ]
 
 function update_sensors(){
@@ -25,7 +36,7 @@ function update_sensors(){
                     + sensors[i].API + "/fields/"
                     + sensors[i].APIfield + "/last.json")
                     .then(update_response => {
-                        let value = parseInt(update_response.data[sensors[i].APIfield]).toFixed(0)
+                        let value = parseFloat(update_response.data[sensors[i].APIfield]).toFixed(1)
                         let opt = flag_options.filter(o => o.fieldname == sensors[i].fieldname)[0]
                         let body = {
                             API: sensors[i].API,
@@ -40,7 +51,7 @@ function update_sensors(){
                                     console.log("All sensors updated")
                                 }
                             })
-                            .catch(error => (console.log(error)));
+                            .catch(error => console.log("thingspeak API error"));
                         if (body.flagOn != sensors[i].flagOn){
                             console.log("new flag")
                             if (body.flagOn){
