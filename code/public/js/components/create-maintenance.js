@@ -7,7 +7,7 @@ const CreateMaintenance = {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title m-0 ml-4"> Crea manutenzione</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form v-if="!this.completed" name="createMaint" method="post" @submit.prevent="registerNewMaint">
               <div class="modal-body">
@@ -51,8 +51,8 @@ const CreateMaintenance = {
                       </div>
                     <div class="col-1"></div>
                     <div class="pt-5 pb-3 col-1 form-check">
-                      <input type="checkbox" id="done" class="form-check-input" name="done" :checked="done">
-                      <label class="form-check-label" for="done">Done</label>
+                      <input type="checkbox" id="done" class="form-check-input" name="done" v-model="done">
+                      <label class="check-label" for="done">Done</label>
                     </div>
                   </div>
                 </div>
@@ -87,7 +87,7 @@ const CreateMaintenance = {
     watch:{
         garden(n, o){
             this.setSelectedGarden()
-        }
+        },
     },
     data() {
         return {
@@ -100,8 +100,8 @@ const CreateMaintenance = {
             duration: "",
             done: false,
             description: "",
+            completed:false,
             gardens: {},
-            completed: false,
             maintenances: []
         }
     },
@@ -140,23 +140,26 @@ const CreateMaintenance = {
         getMaintenances: function() {
             axios.get(DBURL + "/maintenances/gardener/" + this.$props.gardener)
                 .then(response => {
-                    this.maintenances = new Array(response.data)
+                    this.maintenances = response.data
                 })
                 .catch(error => (console.log(error)));
         },
         getMaintenancesOfGarden: function() {
-            axios.get(DBURL + "/maintenances/garden/" + this.$props.garden._id + "/gardener/" + this.$props.gardener)
-                .then(response => {
-                    this.maintenances = new Array(response.data)
-                })
-                .catch(error => (console.log(error)));
+            if (this.$props.garden._id != undefined) {
+                axios.get(DBURL + "/maintenances/garden/" + this.$props.garden._id + "/gardener/" + this.$props.gardener)
+                    .then(response => {
+                        this.maintenances =  []
+                        this.maintenances = response.data
+                    })
+                    .catch(error => (console.log(error)));
+            }
         },
         setDateAndHour: function () {
             this.date = new Date(this.$props.datestr).toISOString().split('T')[0]
             this.hour = new Date(this.$props.timeslot).getHours()
         },
         setSelectedGarden: function() {
-            if (this.$props.garden != ""){
+            if (this.$props.garden._id != undefined){
                 this.selectedgarden = this.$props.garden._id
                 this.getMaintenancesOfGarden()
             }
@@ -197,5 +200,6 @@ const CreateMaintenance = {
         this.getMaintenances()
         this.setSelectedGarden()
         this.setDateAndHour()
+        document.addEventListener('show.bs.modal', (e) => (this.completed = false))
     }
 }

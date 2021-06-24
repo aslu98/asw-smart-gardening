@@ -1,7 +1,7 @@
 const Calendar = {
     components:{
         "add-button": AddButton,
-        "maintenance-modal": CreateMaintenance,
+        "create-maintenance": CreateMaintenance
     },
     template:
         `
@@ -25,19 +25,20 @@ const Calendar = {
                 </thead>
                 <tbody>
                 <tr v-for="(timeslot, slotindex) in timeslots">
-                  <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot clickable"
-                      v-on:click="clickedSlot(timeslot, date)">
-                    <maintenance-modal :timeslot="timeslot" 
+                  <td v-for="(date, dateindex) in weekDates" class="calendar-timeslot container">
+                    <create-maintenance :timeslot="timeslot" 
                                        :datestr="date" 
                                        :gardener="getGardener()" 
                                        :garden="getGarden()"
-                                       :modalid="getModalId(slotindex, dateindex)" 
+                                       :modalid="getModalId(slotindex, dateindex)"
                                        @new-maint="addToMaintenances"/>
-                    <div v-if="checkMaintInTimeslot(timeslot,date)" class="maint-timeslot"
-                         :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date)}">
+                    <div v-if="checkMaintInTimeslot(timeslot,date)"
+                         @click="clickedSlot(timeslot, date)"
+                         class="maint-timeslot clickable"
+                         :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date), 'clicked-maint': isClicked(timeslot, date)}">
                       <div class="row">
                         <div class="col-6 mr-3">
-                          <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
+                          <p :class="{'clicked-maint-p': isClicked(timeslot, date)}">{{timeslot.toLocaleTimeString("it-IT", time_options).toString()}}</p>
                         </div>
                         <div v-if="isLastMaint(timeslot, date)" class="col-6 px-0 calendar-done-btn" @click="changeMaintState(timeslot,date)">
                           <button type="button" class="btn btn-success p-1 py-0 mt-1"
@@ -46,13 +47,13 @@ const Calendar = {
                         <div v-else class="col-6 px-0"></div>
                       </div>
                     </div>
-                    <div v-else class="no-maint-timeslot row"
-                         v-on:mouseover="switchActiveAddOn(slotindex, dateindex)"
-                         v-on:mouseleave="switchActiveAddOff(slotindex, dateindex)">
-                      <div class="col-7">
+                    <div v-else class="no-maint-timeslot row">
+                      <div class="col-6">
                         <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
                       </div>
-                      <div class="col-5 pt-1 calendar-add-btn">
+                      <div class="col-6 pt-2 calendar-add-btn"
+                           @mouseover="switchActiveAddOn(slotindex, dateindex)"
+                           @mouseleave="switchActiveAddOff(slotindex, dateindex)">
                         <add-button v-if="activeAdd[slotindex][dateindex]" 
                                     :modalid="getModalId(slotindex, dateindex)"/>
                       </div>
@@ -79,7 +80,8 @@ const Calendar = {
             day_options: {day: 'numeric', month: 'short'},
             time_options: {hour: '2-digit'},
             gardener: "",
-            garden: ""
+            garden: "",
+            clicked: []
         }
     },
     props: {
@@ -91,6 +93,20 @@ const Calendar = {
         },
         garden:{
             default:{}
+        },
+        new_maint:{
+            default: ""
+        },
+        deleted_maint:{
+            default: ""
+        }
+    },
+    watch: {
+        new_maint(n, o){
+            this.addToMaintenances(n)
+        },
+        deleted_maint(n, o){
+            this.removeFromMaintenances(n)
         }
     },
     methods: {
@@ -167,12 +183,42 @@ const Calendar = {
             if (this.checkMaintInTimeslot(timeslot, date)){
                 let maint = this.getMaintsInTimeslot(timeslot, date)[0]
                 this.$emit('clicked-maint', maint)
+                this.clicked = []
+                this.clicked.push({timeslot: timeslot, date: date})
+                this.checkNext(timeslot, date)
+                this.checkPrev(timeslot, date)
             }
+        },
+        checkNext: function (timeslot, date){
+            if (!this.isLastMaint(timeslot, date)){
+                let nextTs = new Date(new Date(timeslot).setHours(timeslot.getHours()+1))
+                if (this.checkMaintInTimeslot(nextTs, date)){
+                    this.clicked.push({timeslot: nextTs, date: date})
+                    this.checkNext(nextTs, date)
+                }
+            }
+        },
+        checkPrev: function (timeslot, date){
+            if (!this.isFirstMaint(timeslot, date)){
+                let prevTs = new Date(new Date(timeslot).setHours(timeslot.getHours()-1))
+                if (this.checkMaintInTimeslot(prevTs, date)){
+                    this.clicked.push({timeslot: prevTs, date: date})
+                    this.checkPrev(prevTs, date)
+                }
+            }
+        },
+        isClicked: function (timeslot, date){
+            return  this.clicked.filter(c => c.timeslot.getHours() == timeslot.getHours()
+                && new Date(new Date(c.date).startOfDay()).getTime() == new Date(date.startOfDay()).getTime())
+                .length > 0
         },
         addToMaintenances: function (m){
             m.startTime = new Date(m.startTime)
             m.endTime = new Date(new Date(m.startTime).setHours(m.startTime.getHours() + m.duration))
             this.maintenances.push(m)
+        },
+        removeFromMaintenances: function (m){
+            this.maintenances.remove(m)
         },
         switchActiveAddOn: function (ti, di){
             let activeTi = this.activeAdd[ti]

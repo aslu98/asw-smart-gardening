@@ -57,6 +57,9 @@ module.exports = function(app) {
 		.post(controller.registration)
 		.get(controller.checkUsername)
 
+	app.route('/api/maintenance/:id')
+		.delete(controller.delete_maintenance)
+
 	app.use(controller.show_index);
 };
 

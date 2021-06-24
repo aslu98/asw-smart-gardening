@@ -11,19 +11,22 @@ const GardenerBoard = {
 				<div class= "row">
 					<h5 class="mt-3">Calendario di {{gardenerName}}</h5>
 				</div>
-				<gardener-calendar :from="'gardener'" 
-								   @clicked-maint="showMaint" 
-								   :gardener="this.$route.params.id"></gardener-calendar>
+				<gardener-calendar :from="'gardener'"
+								   :gardener="this.$route.params.id"
+								   :new_maint="this.new_maint"
+								   @clicked-maint="showMaint"/>
 			</div>
 			<div class="col-12 col-md-5">
 				<div v-if="!emptyMaint" class="row mt-3">
-					<maintenance-card :garden="garden" :maintenance="maintenance" :from="'gardener'"></maintenance-card>
+					<maintenance-card :garden="garden" :maintenance="maintenance" :from="'gardener'"
+									  @delete-maint="sendToCalendarDeleted"/>
 				</div>
 				<div v-if="!emptyMaint" class="row">
-					<meteo :garden="garden"></meteo>
+					<meteo :garden="garden"/>
 				</div>
 				<div>
-					<gardens-in-need :gardener="this.$route.params.id"></gardens-in-need>
+					<gardens-in-need :gardener="this.$route.params.id"
+									 @maint-to-calendar="sendToCalendarNew"/>
 				</div>
 			</div>
 		</div>
@@ -33,6 +36,8 @@ const GardenerBoard = {
 			gardenerName: "",
 			maintenance:{},
 			garden:{},
+			new_maint:"",
+			deleted_maintenance: "",
 			emptyMaint: true,
 			token: ""
 		}
@@ -62,6 +67,13 @@ const GardenerBoard = {
 			this.maintenance = maint
 			this.emptyMaint = false
 			this.getGarden()
+		},
+		sendToCalendarNew: function(maint){
+			this.new_maint = maint;
+		},
+		sendToCalendarDeleted: function (maint){
+			this.emptyMaint = true
+			this.deleted_maintenance = maint
 		}
 	},
 	mounted() {

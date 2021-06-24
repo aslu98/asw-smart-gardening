@@ -49,8 +49,11 @@ const GardensInNeed = {
                     </div>
                   </div>
                 </div>
-                <add-button :modalid="getModalId(gindex)"> </add-button>
-                <maintenance-modal :gardener="getGardener()" :garden="garden" :modalid="getModalId(gindex)"></maintenance-modal>
+                <add-button :modalid="getModalId(gindex)"/>
+                <maintenance-modal :gardener="getGardener()" 
+                                   :garden="garden" 
+                                   :modalid="getModalId(gindex)"
+                                   @new-maint="sendToCalendar"/>
                 <hr class="green-hr"/>
               </div>
             </div>
@@ -59,7 +62,8 @@ const GardensInNeed = {
     data() {
         return {
             nothing: true,
-            gardens: []
+            gardens: [],
+            maint_creation_completed: false,
         }
     },
     props: {
@@ -110,6 +114,9 @@ const GardensInNeed = {
         },
         getModalId: function(gindex){
             return "modalGarden" + gindex;
+        },
+        sendToCalendar: function(maint){
+            this.$emit('maint-to-calendar', maint)
         }
     },
     mounted() {

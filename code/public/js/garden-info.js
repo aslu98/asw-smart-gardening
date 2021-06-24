@@ -20,7 +20,7 @@ const GardenInfo = {
 							<to-do :gardenid="$props.gardenid"/>
 							<div class="row">
 								<div class="mx-auto open-calendar-btn">
-									<button type="button" class="center btn btn-success" @click="openCalendar($props.gardenid)"> Open Calendar </button>
+									<button type="button" class="center btn btn-success" @click="openCalendar($props.gardenid)"> Apri il calendario </button>
 								</div>
 							</div>
 							<div v-if="showNotLogged" class="row">

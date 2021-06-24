@@ -1,15 +1,27 @@
 const MaintenanceCard = {
+    components: {
+        "delete-maintenance": DeleteMaintenance
+    },
     template: `
-      <div>
-        <h6> Manutenzione selezionata </h6>
-		<div v-if="this.maintenance != {} " class="maintenance-card center mb-4">
-		  <div v-if="this.$props.from == 'gardener'">
+      <div class="mb-3">
+        <div class="row">
+          
+          <div class="col-8">
+            <h6> Manutenzione selezionata </h6>
+          </div>
+          <div class="col-4">
+              <delete-maintenance :maint="$props.maintenance" @delete-maint="sendToCalendar"/>
+              <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" class="center btn btn-danger btn-delete-maint py-0"> Elimina </button>
+          </div>
+        </div>
+		<div v-if="$props.maintenance != {} " class="maintenance-card center">
+		  <div v-if="$props.from == 'gardener'">
             <div class="row">
               <div class="col-3 grey-state grey-label">
                   WHERE
               </div>
               <div class="col-9 gardener-info">
-                <p>{{garden.name}}</p>
+                <p>{{$props.garden.name}}</p>
               </div>
             </div>
             <div class="row">
@@ -17,7 +29,7 @@ const MaintenanceCard = {
                 CITY
               </div>
               <div class="col-9 gardener-info">
-                <p>{{garden.city}}</p>
+                <p>{{$props.garden.city}}</p>
               </div>
             </div>
           </div>
@@ -26,7 +38,7 @@ const MaintenanceCard = {
                 TO DO
               </div>
               <div class="col-9 gardener-info">
-                <p>{{maintenance.description}}</p>
+                <p>{{$props.maintenance.description}}</p>
               </div>
             </div>
             <div class="row">
@@ -34,7 +46,7 @@ const MaintenanceCard = {
                 DONE
               </div>
               <div class="col-1 gardener-info">
-                <p v-if="maintenance.done"> SI </p>
+                <p v-if="$props.maintenance.done"> SI </p>
                 <p v-else> NO </p>
               </div>
               <div class="col-5 grey-state grey-label">
@@ -53,8 +65,6 @@ const MaintenanceCard = {
 	`,
     data() {
         return {
-            garden:{},
-            maintenance:{},
             inneed:"green"
         }
     },
@@ -67,7 +77,6 @@ const MaintenanceCard = {
     },
     watch: {
         garden(n, o) {
-            this.garden = n
             if (this.garden.flagsOn == 0){
                 this.inneed = "green"
             } else if (this.garden.flagsOn == 1){
@@ -75,9 +84,11 @@ const MaintenanceCard = {
             } else {
                 this.inneed = "red"
             }
-        },
-        maintenance(n, o) {
-            this.maintenance = n
+        }
+    },
+    methods:{
+        sendToCalendar: function(maint){
+            this.$emit('delete-maint', maint)
         }
     }
 }

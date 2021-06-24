@@ -176,6 +176,17 @@ exports.create_maintenance = function(req, res) {
 	});
 };
 
+
+exports.delete_maintenance = function(req, res) {
+	if (req.params.id != "undefined") {
+		Maintenance.deleteOne({_id: req.params.id.toObjectId()}, function(err, r) {
+			if (err)
+				res.send(err);
+			res.send(r);
+		})
+	}
+};
+
 exports.update_sensor = function(req, res) {
 	Sensors.findOneAndUpdate(
 		{API: req.params.API, fieldname: req.params.fieldname},
