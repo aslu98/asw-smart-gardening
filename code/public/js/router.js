@@ -8,6 +8,7 @@ const router = new VueRouter({
         { path: '/gardener-board/:id', name: 'Gardener', component: GardenerBoard },
         { path: '/garden-board/:id', name: 'Garden', component: GardenBoard },
         { path: '/404', component: NotFound },
+        { path: '/401', component: Unauthorized },
         { path: '*', redirect: '/404' }
     ]
 })
