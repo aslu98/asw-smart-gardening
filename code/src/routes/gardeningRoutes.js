@@ -10,11 +10,18 @@ module.exports = function(app) {
 	app.route('/api/gardens/:id')
 		.get(controller.garden_info)
 
+	app.route('/api/gardens/:id/addFlag')
+		.get(controller.garden_add_flag)
+
+	app.route('/api/gardens/:id/removeFlag')
+		.get(controller.garden_remove_flag)
+
 	app.route('/api/gardeners')
 		.get(controller.list_gardeners)
 
 	app.route('/api/sensors')
 		.get(controller.list_sensors)
+		.post(controller.update_sensor)
 
 	app.route('/api/maintenances')
 		.get(controller.list_maintenances)

@@ -1,11 +1,5 @@
 const axios = require('axios');
-const express = require('express');
 const DBURL = "http://localhost:3000/api"
-const controller = require('./src/controllers/gardeningController');
-
-const update_app = express();
-update_app.route('/api/sensors/:API/:APIfield/:value')
-    .get(controller.update_sensor)
 
 const flag_options = [
     {
@@ -23,7 +17,7 @@ const flag_options = [
 function update_sensors(){
     let updated_sensors = 0;
 
-    axios.get(DBURL + "/sensors/")
+    axios.get(DBURL + "/sensors")
         .then(sensors_response => {
             let sensors = sensors_response.data
             for (let i = 0; i < sensors.length; i++){
@@ -32,14 +26,21 @@ function update_sensors(){
                     + sensors[i].APIfield + "/last.json")
                     .then(update_response => {
                         let value = parseInt(update_response.data[sensors[i].APIfield]).toFixed(0)
-                        axios.get(DBURL +'/sensors/'
-                            + sensors[i].API +'/'
-                            + sensors[i].APIfield+'/'
-                            + value)
-                            .then(updated_sensor_response => {
+                        let opt = flag_options.filter(o => o.fieldname == sensors[i].fieldname)[0]
+                        let body = {
+                            API: sensors[i].API,
+                            APIfield: sensors[i].APIfield,
+                            value: value,
+                            flagOn: (value > opt.max_value || value < opt.min_value)
+                        }
+                        axios.post(DBURL +'/sensors', body)
+                            .then(_ => {
                                 console.log("updated sensors: " + ++updated_sensors)
                             })
                             .catch(error => (console.log(error)));
+                        if (body.flagOn != sensors[i].flagOn){
+
+                        }
                     })
                     .catch(error => (console.log(error)));
             }

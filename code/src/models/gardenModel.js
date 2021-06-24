@@ -7,8 +7,7 @@ module.exports = function(mongoose) {
         lat: Number,
         lon: Number,
 		sensors: [{ type : mongoose.Types.ObjectId, ref: 'Sensor' }],
-        flagsOn: Number,
-		sensorsWithFlag: [{ type : mongoose.Types.ObjectId, ref: 'Sensor' }]
+        flagsOn: Number
     });
     return mongoose.model('Garden', gardenSchema, 'gardens');
 };

@@ -160,12 +160,13 @@ const Calendar = {
         },
         isFirstMaint: function (timeslot, date) {
             return this.checkMaintInTimeslot(timeslot, date)
-                && !this.checkMaintInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours() - 1)), date)
+                && (!this.checkMaintInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours() - 1)), date)
+                    || this.getMaintsInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours() - 1)), date)[0] != this.getMaintsInTimeslot(timeslot, date)[0])
         },
         isLastMaint: function (timeslot, date) {
             return this.checkMaintInTimeslot(timeslot, date)
-                && (!this.checkMaintInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours()+1)), date)
-                    || this.getMaintsInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours()+1)), date)[0] != this.getMaintsInTimeslot(timeslot, date)[0])
+                && (!this.checkMaintInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours() + 1)), date)
+                    || this.getMaintsInTimeslot(new Date(new Date(timeslot).setHours(timeslot.getHours() + 1)), date)[0] != this.getMaintsInTimeslot(timeslot, date)[0])
         },
         isMaintDone: function (timeslot, date) {
             return this.getMaintsInTimeslot(timeslot, date)[0].done
@@ -199,6 +200,7 @@ const Calendar = {
             }
         },
         checkPrev: function (timeslot, date){
+            console.log(this.isFirstMaint(timeslot, date))
             if (!this.isFirstMaint(timeslot, date)){
                 let prevTs = new Date(new Date(timeslot).setHours(timeslot.getHours()-1))
                 if (this.checkMaintInTimeslot(prevTs, date)){

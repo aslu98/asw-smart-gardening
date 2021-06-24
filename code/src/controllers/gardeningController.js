@@ -56,32 +56,30 @@ exports.gardens_in_need = function(req, res) {
 };
 
 exports.sensors_of_garden = function(req, res) {
-	if (req.params.id != "undefined") {
-		Sensor.find({garden: req.params.id.toObjectId()})
+		Sensor.find({garden: req.params.id})
 			.sort({'flagOn': -1, 'API': 1})
 			.exec(function (err, sensor) {
 				if (err || sensor == null)
 					res.send(err);
 				res.json(sensor);
 			});
-	}
 };
 
 exports.on_sensors_of_garden = function(req, res) {
-	if (req.params.id != "undefined") {
-		Sensor.find({garden: req.params.id.toObjectId(), flagOn: true})
+
+		Sensor.find({garden: req.params.id, flagOn: true})
 			.sort({'flagOn': -1, 'API': 1})
 			.exec(function (err, sensor) {
 				if (err || sensor == null)
 					res.send(err);
 				res.json(sensor);
 			});
-	}
+
 };
 
 exports.next_on_garden = function(req, res) {
-	if (req.params.id != "undefined") {
-		Maintenance.find({garden: req.params.id.toObjectId(), startTime: {$gte: new Date()}})
+
+		Maintenance.find({garden: req.params.id, startTime: {$gte: new Date()}})
 			.sort({'startTime': 1})
 			.limit(parseInt(req.params.n))
 			.exec( function(err, maint) {
@@ -92,37 +90,36 @@ exports.next_on_garden = function(req, res) {
 				res.json(maint);
 			}
 		});
-	}
+
 };
 
 exports.calendar_of_garden = function(req, res) {
-	if (req.params.id != "undefined") {
-		Maintenance.find({garden: req.params.id.toObjectId()}, function (err, maint) {
+
+		Maintenance.find({garden: req.params.id}, function (err, maint) {
 			if (err || maint == null)
 				res.send(err);
 			res.json(maint);
 		});
-	}
+
 };
 
 exports.calendar_of_gardener = function(req, res) {
-	if (req.params.id != "undefined"){
-		Maintenance.find({gardener: req.params.id.toObjectId()}, function(err, maints) {
+
+		Maintenance.find({gardener: req.params.id}, function(err, maints) {
 			if (err || maints == null)
 				res.send(err);
 			res.json(maints);
 		});
-	}
+
 };
 
 exports.calendar_of_garden_and_gardener = function(req, res) {
-	if (req.params.gardenerid != "undefined" && req.params.gardenid != "undefined"){
-		Maintenance.find({gardener: req.params.gardenerid.toObjectId(), garden: req.params.gardenid.toObjectId()}, function(err, maints) {
+
+		Maintenance.find({gardener: req.params.gardenerid, garden: req.params.gardenid}, function(err, maints) {
 			if (err || maints == null)
 				res.send(err);
 			res.json(maints);
 		});
-	}
 };
 
 exports.garden_info = function(req, res) {
@@ -178,35 +175,46 @@ exports.create_maintenance = function(req, res) {
 
 
 exports.delete_maintenance = function(req, res) {
-	if (req.params.id != "undefined") {
-		Maintenance.deleteOne({_id: req.params.id.toObjectId()}, function(err, r) {
+		Maintenance.deleteOne({_id: req.params.id}, function(err, r) {
 			if (err)
 				res.send(err);
 			res.send(r);
 		})
-	}
 };
 
 exports.update_sensor = function(req, res) {
 	Sensor.findOneAndUpdate(
-		{API: req.params.API, APIfield: req.params.APIfield},
-		{value:req.params.value},
+		{API: req.body.API, APIfield: req.body.APIfield},
+		{value: req.body.value, flagOn: req.body.flagOn},
 		{new: true},
-		function(err, sensor) {
+		function(err, r) {
 			if (err)
 				res.send(err);
-			else{
-				if(sensor==null){
-					res.status(404).send({
-						description: 'Sensor not found'
-					});
-				}
-				else{
-					res.send(sensor);
-				}
-			}
+			res.status(201).json(r);
 		});
 };
+
+exports.garden_add_flag = function (req, res) {
+	Garden.findOneAndUpdate(
+		{_id: req.params.id},
+		{done:true},
+		{new: true}, function(err, garden) {
+				if (err)
+					res.send(err);
+				res.json(garden);
+	});
+}
+
+exports.garden_remove_flag = function (req, res) {
+	Garden.findOneAndUpdate(
+		{_id: req.params.id},
+		{done:true},
+		{new: true}, function(err, garden) {
+			if (err)
+				res.send(err);
+			res.json(garden);
+		});
+}
 
 exports.gardener_info = function(req, res) {
 	let userId = req.params.id;

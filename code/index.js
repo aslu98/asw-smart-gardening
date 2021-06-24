@@ -10,11 +10,6 @@ global.appRoot = path.resolve(__dirname);
 const PORT = 3000;
 mongoose.connect('mongodb://localhost/smart-gardening', { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true });
 
-String.prototype.toObjectId = function() {
-  const ObjectId = mongoose.Types.ObjectId;
-  return new ObjectId(this.toString());
-};
-
 app.use(cors())
 
 app.use(express.json());
