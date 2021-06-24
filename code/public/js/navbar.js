@@ -2,9 +2,7 @@ const Navbar = {
     template: `
         <nav class="navbar px-2">
             <div id="logo-container" class="col-xxl-7 col-lg-4 col-sm-12 col-12 ps-2">
-                <a href="/" id="main-title">
-                    <img src="/static/img/GardenCareSmall.png" alt="GardenCare Logo">
-                </a>
+                <img src="/static/img/GardenCareSmall.png" alt="GardenCare Logo" @click="openMap" style="cursor: pointer;">
             </div>
             <form v-if="!token" id="form-login" method="post" @submit.prevent="login" class="col-xxl-5 col-lg-8 col-sm-12 col-12">
                 <div class="row mx-0 align-items-center">
@@ -92,6 +90,9 @@ const Navbar = {
         },
         openRegistrationForm() {
             this.$router.replace('/registration-form').catch(err => {});
+        },
+        openMap() {
+            this.$router.replace('/').catch(err => {});
         }
     },
     mounted() {
