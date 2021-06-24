@@ -5,6 +5,7 @@ module.exports = function(mongoose) {
         value: Number,
 		flagOn: Boolean,
         API: Number,
+        APIfield: String,
         where: String,
         garden: { type : mongoose.Types.ObjectId, ref: 'Garden' },
     });

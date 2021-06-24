@@ -189,8 +189,8 @@ exports.delete_maintenance = function(req, res) {
 };
 
 exports.update_sensor = function(req, res) {
-	Sensors.findOneAndUpdate(
-		{API: req.params.API, fieldname: req.params.fieldname},
+	Sensor.findOneAndUpdate(
+		{API: req.params.API, APIfield: req.params.APIfield},
 		{value:req.params.value},
 		{new: true},
 		function(err, sensor) {
@@ -203,7 +203,7 @@ exports.update_sensor = function(req, res) {
 					});
 				}
 				else{
-					res.json(sensor);
+					res.send(sensor);
 				}
 			}
 		});

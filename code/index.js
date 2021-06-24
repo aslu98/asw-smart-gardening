@@ -1,5 +1,6 @@
 var express = require('express');
 const app = express();
+const { fork } = require("child_process");
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
@@ -16,7 +17,6 @@ String.prototype.toObjectId = function() {
 
 app.use(cors())
 
-//Per gestire i parametri passati nel corpo della richiesta http.
 app.use(express.json());
 
 app.use('/static', express.static(__dirname + '/public'));
@@ -31,3 +31,10 @@ app.use(function(req, res) {
 app.listen(PORT, function () {
   console.log('Node API server started on port '+PORT);
 });
+
+//processo esterno per l'aggiornamento dei sensori sul db
+const forked = fork('update_sensors.js');
+forked.on('message', (msg) => {
+  console.log('Message from child: ', msg);
+});
+

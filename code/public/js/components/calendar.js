@@ -42,7 +42,7 @@ const Calendar = {
                         </div>
                         <div v-if="isLastMaint(timeslot, date)" class="col-6 px-0 calendar-done-btn" @click="changeMaintState(timeslot,date)">
                           <button type="button" class="btn btn-success p-1 py-0 mt-1"
-                                               :class="{'active': !isMaintDone(timeslot,date)}"> ✓ </button>
+                                               :class="{'done-active': !isMaintDone(timeslot,date)}"> ✓ </button>
                         </div>
                         <div v-else class="col-6 px-0"></div>
                       </div>

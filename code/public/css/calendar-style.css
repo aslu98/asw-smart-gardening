@@ -87,7 +87,7 @@
     font-size: 0.5em;
 }
 
-.active{
+.done-active{
     color: black !important;
     background-color: #c5f4d6 !important;
 }

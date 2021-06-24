@@ -20,9 +20,6 @@ module.exports = function(app) {
 		.get(controller.list_maintenances)
 		.post(controller.create_maintenance)
 
-	app.route('/api/sensors/:API/:fieldname/:value')
-		.post(controller.update_sensor)
-
 	app.route('/api/sensors/garden/:id')
 		.get(controller.sensors_of_garden)
 
@@ -62,10 +59,3 @@ module.exports = function(app) {
 
 	app.use(controller.show_index);
 };
-
-/*
-EXAMPLE from LAB
-app.route('/api/movies/:id')
-.get(controller.read_movie)
-.put(controller.update_movie)
-.delete(controller.delete_movie);*/
