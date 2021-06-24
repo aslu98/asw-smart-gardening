@@ -261,10 +261,9 @@ exports.checkUsername = function(req, res) {
 	});
 }
 
-function auth(req, user) {
+function auth(req, id) {
 	const token = req.headers['authorization'];
 	let res;
-
 	if(token == null) {
 		res = {
 			isValidToken: false
@@ -273,7 +272,7 @@ function auth(req, user) {
 
 	try {
 		const decodedToken = jwt.verify(token, PRIVATE_SECRET_KEY);
-		if(decodedToken.user === user) {
+		if(decodedToken.id === id) {
 			res = {
 				isValidToken: true,
 				token: decodedToken
