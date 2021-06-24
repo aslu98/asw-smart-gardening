@@ -49,6 +49,4 @@ function update_sensors(){
 }
 
 update_sensors()
-setInterval(update_sensors, 10); //update ogni 5 minuti
-
-//300000
+setInterval(update_sensors, 300000); //update ogni 5 minuti
