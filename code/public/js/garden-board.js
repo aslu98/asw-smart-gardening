@@ -54,7 +54,7 @@ const GardenBoard = {
 			this.emptyMaint = false
 		},
 		goBack: function (){
-			this.$router.go(-1)
+			this.$router.replace('/').catch(err => {});
 		},
 		sendToCalendar: function (maint){
 			this.emptyMaint = true
@@ -62,6 +62,11 @@ const GardenBoard = {
 		}
 	},
 	mounted() {
-		this.getGarden()
+		if (localStorage.user && localStorage.idGardener) {
+			this.token = localStorage.user;
+			this.getGarden();
+		} else {
+			this.$router.replace('/').catch(err => {});
+		}
 	}
 }

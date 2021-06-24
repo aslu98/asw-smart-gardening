@@ -53,7 +53,10 @@ const GardenerBoard = {
 				.then(response => {
 					this.gardenerName = response.data.name + " " + response.data.surname
 				})
-				.catch(error => (console.log(error)));
+				.catch(error => {
+					/*(console.log(error));*/
+					this.$router.replace('/401').catch(err => {});
+				});
 		},
 		getGarden: function () {
 			axios.get(DBURL + "/gardens/" + this.maintenance.garden)
