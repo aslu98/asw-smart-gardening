@@ -88,6 +88,9 @@ const CreateMaintenance = {
         garden(n, o){
             this.setSelectedGarden()
         },
+        datestr(n,o){
+            this.setDateAndHour()
+        }
     },
     data() {
         return {

@@ -17,8 +17,7 @@ const Calendar = {
                 <thead>
                 <tr>
                   <th class='day-heading' scope="column" v-for="date in weekDates">
-                    <p class="weekday">
-                      {{ date.toLocaleDateString("it-IT", weekday_options).toString().capitalize() }}</p>
+                    <p class="weekday"> {{ date.toLocaleDateString("it-IT", weekday_options).toString().capitalize() }}</p>
                     <p>{{ date.toLocaleDateString("it-IT", day_options).toString().capitalizeMonth() }}</p>
                   </th>
                 </tr>
@@ -134,7 +133,7 @@ const Calendar = {
             let startingDate = new Date(d.setDate(diff));
             Vue.set(this.weekDates, 0, new Date(startingDate))
             for (let i = 1; i<7; i++) {
-                this.weekDates[i] =  new Date(startingDate.setDate(startingDate.getDate() + 1));
+                Vue.set(this.weekDates, i, new Date(startingDate.setDate(startingDate.getDate() + 1)));
             }
         },
         getGardener: function () {
