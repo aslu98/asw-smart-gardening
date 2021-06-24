@@ -1,47 +1,109 @@
 /* 1 */
 {
-    "_id" : ObjectId("60d4b50be749c6a7f6ef34f6"),
-    "fieldname" : "Temperature",
-    "value" : 52.6,
-    "flagOn" : false,
-    "API" : 162,
-    "where" : "Basilico",
-    "APIfield" : "field1",
-    "garden" : ObjectId("60acc49290d92f702b8e4390")
+    "_id" : ObjectId("609412d316b7f0346c54a093"),
+    "name" : "Parco Nenni",
+    "city" : "Savignano sul Rubicone",
+    "position" : "49450533",
+    "lat" : 44.0861769,
+    "lon" : 12.3985859,
+    "sensors" : [ 
+        ObjectId("6094182f16b7f0346c54a12f"), 
+        ObjectId("60abb90916b7f0346c557602"), 
+        ObjectId("6094184016b7f0346c54a135"), 
+        ObjectId("60d4506ee749c6a7f6eef49a"), 
+        ObjectId("60d4abffe749c6a7f6ef31f0"), 
+        ObjectId("60d4acffe749c6a7f6ef3255"), 
+        ObjectId("60d4ae56e749c6a7f6ef32fe")
+    ],
+    "flagsOn" : 1
 }
 
 /* 2 */
 {
-    "_id" : ObjectId("60d4b51fe749c6a7f6ef34fb"),
-    "fieldname" : "Humidity",
-    "value" : 52.6,
-    "flagOn" : false,
-    "API" : 162,
-    "where" : "Basilico",
-    "APIfield" : "field2",
-    "garden" : ObjectId("60acc49290d92f702b8e4390")
+    "_id" : ObjectId("60acc49290d92f702b8e438e"),
+    "name" : "Parco Via 11 Settembre",
+    "city" : "Crocetta di Longiano",
+    "position" : "49450533",
+    "lat" : 44.08923,
+    "lon" : 12.3576,
+    "sensors" : [ 
+        ObjectId("60abb8c216b7f0346c5575f7"), 
+        ObjectId("61acc49290d92f702b8e438e")
+    ],
+    "flagsOn" : 1
 }
 
 /* 3 */
 {
-    "_id" : ObjectId("60d4b5e1e749c6a7f6ef351c"),
-    "fieldname" : "Humidity",
-    "value" : 52.6,
-    "flagOn" : false,
-    "API" : 935349,
-    "where" : "Menta",
-    "APIfield" : "field2",
-    "garden" : ObjectId("60acc49290d92f702b8e4390")
+    "_id" : ObjectId("60acc49290d92f702b8e438d"),
+    "name" : "Parco Via Padre Ceccarelli",
+    "city" : "Crocetta di Longiano",
+    "position" : "49450533",
+    "lat" : 44.08582,
+    "lon" : 12.35239,
+    "sensors" : [ 
+        ObjectId("60d4aacae749c6a7f6ef3172"), 
+        ObjectId("60d4ab06e749c6a7f6ef318a"), 
+        ObjectId("60d4b2ace749c6a7f6ef347d"), 
+        ObjectId("60d4b2d1e749c6a7f6ef3487"), 
+        ObjectId("60d4b349e749c6a7f6ef34a0"), 
+        ObjectId("60d4b360e749c6a7f6ef34a4")
+    ],
+    "flagsOn" : 0
 }
 
 /* 4 */
 {
-    "_id" : ObjectId("60d4b5f7e749c6a7f6ef3524"),
-    "fieldname" : "Temperature",
-    "value" : 52.6,
-    "flagOn" : false,
-    "API" : 935349,
-    "where" : "Menta",
-    "APIfield" : "field1",
-    "garden" : ObjectId("60acc49290d92f702b8e4390")
+    "_id" : ObjectId("60acc49290d92f702b8e438c"),
+    "name" : "Parco Via Mistadella",
+    "city" : "Crocetta di Longiano",
+    "position" : "",
+    "lat" : 44.08779,
+    "lon" : 12.34981,
+    "sensors" : [ 
+        ObjectId("60d4b40de749c6a7f6ef34c5"), 
+        ObjectId("60d4b42ce749c6a7f6ef34cd")
+    ],
+    "flagsOn" : 0
+}
+
+/* 5 */
+{
+    "_id" : ObjectId("60acc49290d92f702b8e438f"),
+    "name" : "Parco Villa Conte Marchesi di Bagno",
+    "city" : "Savignano sul Rubicone",
+    "position" : "49450533",
+    "lat" : 44.08992,
+    "lon" : 12.39549,
+    "sensors" : [],
+    "flagsOn" : 0.0
+}
+
+/* 6 */
+{
+    "_id" : ObjectId("60acc49290d92f702b8e4390"),
+    "name" : "Parco Mons Riccardo Cesari",
+    "city" : "Savignano sul Rubicone",
+    "position" : "49450533",
+    "lat" : 44.0918,
+    "lon" : 12.39155,
+    "sensors" : [ 
+        ObjectId("60d4b50be749c6a7f6ef34f6"), 
+        ObjectId("60d4b51fe749c6a7f6ef34fb"), 
+        ObjectId("60d4b5e1e749c6a7f6ef351c"), 
+        ObjectId("60d4b5f7e749c6a7f6ef3524")
+    ],
+    "flagsOn" : 0
+}
+
+/* 7 */
+{
+    "_id" : ObjectId("60acc49290d92f702b8e4392"),
+    "name" : "Parco XXV Aprile",
+    "city" : "Gatteo",
+    "position" : "49450533",
+    "lat" : 44.10804,
+    "lon" : 12.38466,
+    "sensors" : [],
+    "flagsOn" : 0.0
 }
