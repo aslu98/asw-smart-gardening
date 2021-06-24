@@ -57,6 +57,7 @@ const GardenBoard = {
 			this.$router.go(-1)
 		},
 		sendToCalendar: function (maint){
+			this.emptyMaint = true
 			this.deleted_maintenance = maint
 		}
 	},

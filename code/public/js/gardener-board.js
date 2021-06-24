@@ -72,6 +72,7 @@ const GardenerBoard = {
 			this.new_maint = maint;
 		},
 		sendToCalendarDeleted: function (maint){
+			this.emptyMaint = true
 			this.deleted_maintenance = maint
 		}
 	},

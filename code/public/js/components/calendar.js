@@ -35,10 +35,10 @@ const Calendar = {
                     <div v-if="checkMaintInTimeslot(timeslot,date)"
                          @click="clickedSlot(timeslot, date)"
                          class="maint-timeslot clickable"
-                         :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date)}">
+                         :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date), 'clicked-maint': isClicked(timeslot, date)}">
                       <div class="row">
                         <div class="col-6 mr-3">
-                          <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
+                          <p :class="{'clicked-maint-p': isClicked(timeslot, date)}">{{timeslot.toLocaleTimeString("it-IT", time_options).toString()}}</p>
                         </div>
                         <div v-if="isLastMaint(timeslot, date)" class="col-6 px-0 calendar-done-btn" @click="changeMaintState(timeslot,date)">
                           <button type="button" class="btn btn-success p-1 py-0 mt-1"
@@ -80,7 +80,8 @@ const Calendar = {
             day_options: {day: 'numeric', month: 'short'},
             time_options: {hour: '2-digit'},
             gardener: "",
-            garden: ""
+            garden: "",
+            clicked: []
         }
     },
     props: {
@@ -182,7 +183,34 @@ const Calendar = {
             if (this.checkMaintInTimeslot(timeslot, date)){
                 let maint = this.getMaintsInTimeslot(timeslot, date)[0]
                 this.$emit('clicked-maint', maint)
+                this.clicked = []
+                this.clicked.push({timeslot: timeslot, date: date})
+                this.checkNext(timeslot, date)
+                this.checkPrev(timeslot, date)
             }
+        },
+        checkNext: function (timeslot, date){
+            if (!this.isLastMaint(timeslot, date)){
+                let nextTs = new Date(new Date(timeslot).setHours(timeslot.getHours()+1))
+                if (this.checkMaintInTimeslot(nextTs, date)){
+                    this.clicked.push({timeslot: nextTs, date: date})
+                    this.checkNext(nextTs, date)
+                }
+            }
+        },
+        checkPrev: function (timeslot, date){
+            if (!this.isFirstMaint(timeslot, date)){
+                let prevTs = new Date(new Date(timeslot).setHours(timeslot.getHours()-1))
+                if (this.checkMaintInTimeslot(prevTs, date)){
+                    this.clicked.push({timeslot: prevTs, date: date})
+                    this.checkPrev(prevTs, date)
+                }
+            }
+        },
+        isClicked: function (timeslot, date){
+            return  this.clicked.filter(c => c.timeslot.getHours() == timeslot.getHours()
+                && new Date(new Date(c.date).startOfDay()).getTime() == new Date(date.startOfDay()).getTime())
+                .length > 0
         },
         addToMaintenances: function (m){
             m.startTime = new Date(m.startTime)
