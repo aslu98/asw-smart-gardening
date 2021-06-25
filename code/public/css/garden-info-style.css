@@ -58,10 +58,11 @@
 
 .p-weather-date{
     margin-top: 0.4em;
-    font-size: 1em;
+    font-size: 1.1em;
     margin-bottom: 0;
     text-align: center;
-
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .weather-cell{
@@ -95,6 +96,16 @@
 
 .weather-info p {
     margin-bottom: 0.3em;
+    font-size: 1em;
+}
+
+.weather-info div{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.weather-info p{
+    text-align: center;
 }
 
 /*TO-DO*/
@@ -113,10 +124,6 @@
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     font-size: 1.1em;
-}
-
-.to-do-hr{
-    margin:0.5em
 }
 
 /*OPEN-CALENDAR-BTN*/
@@ -189,5 +196,19 @@
         border-bottom: 0;
         border-radius: 5px;
         font-size: 0.8em;
+    }
+}
+
+@media screen and (max-width: 376px){
+    .weather-card{
+        font-size: 0.8em;
+    }
+
+    weather-info{
+        font-size: 1.2em;
+    }
+
+    .today-weather-info{
+        font-size: 1.2em;
     }
 }

@@ -58,6 +58,11 @@ p{
     width:100%
 }
 
+.row-in-containter{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 
 /*BOOTSTRAP INPUT HEIGHT BUG FIX*/
 input[type="date"]{

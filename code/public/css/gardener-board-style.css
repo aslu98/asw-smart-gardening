@@ -46,10 +46,6 @@
     margin: 0.2em 0em !important;
 }
 
-label.control-label, label.check-label, .form-check-input{
-    font-size: 14px !important;
-}
-
 .in-need-info{
     padding-left: 5%;
 }
@@ -109,5 +105,15 @@ label.control-label, label.check-label, .form-check-input{
     }
     .grey-label{
         font-size: 0.8em;
+    }
+}
+
+@media screen and (max-width: 376px){
+    .in-need-info{
+        font-size:0.7em !important;
+    }
+
+    .gardener-info{
+        font-size:0.8em !important;
     }
 }

@@ -5,12 +5,11 @@ const MaintenanceCard = {
     template: `
       <div class="mb-3">
         <div class="row">
-          
+          <delete-maintenance :maint="$props.maintenance" @delete-maint="sendToCalendar"/>
           <div class="col-8">
             <h6> Manutenzione selezionata </h6>
           </div>
           <div class="col-4">
-              <delete-maintenance :maint="$props.maintenance" @delete-maint="sendToCalendar"/>
               <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" class="center btn btn-danger btn-delete-maint py-0"> Elimina </button>
           </div>
         </div>

@@ -18,11 +18,6 @@ const GardenInfo = {
 							<meteo :garden="garden"/>
 							<hr class="green-hr"/>
 							<to-do :gardenid="$props.gardenid"/>
-							<div class="row">
-								<div class="mx-auto open-calendar-btn">
-									<button type="button" class="center btn btn-success" @click="openCalendar($props.gardenid)"> Apri il calendario </button>
-								</div>
-							</div>
 							<div v-if="showNotLogged" class="row">
 								<div class="col-1"></div>
 								<div class="col-10 not-logged mt-3">
@@ -30,6 +25,11 @@ const GardenInfo = {
 									<p class="mb-1">Devi effettuare il login per poter accedere al calendario.</p>
 								</div>
 								<div class="col-1"></div>
+							</div>
+							<div class="row">
+								<div class="mx-auto open-calendar-btn">
+									<button type="button" class="center btn btn-success" @click="openCalendar($props.gardenid)"> Apri il calendario </button>
+								</div>
 							</div>
 						</div>
 					</div>

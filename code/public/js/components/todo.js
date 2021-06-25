@@ -4,11 +4,11 @@ const Todo = {
       <h6>TO DO</h6>
       <div class="to-do-card green-border">
         <div v-if="nothing"> <p class="empty-card"> Nessuna manutenzione presente! </p> </div>
-        <div v-else v-for="maint in maints" class="to-do-maint text-center">
-          <div class="row to-do-date">
-            <div class="col-4"> {{maint.weekday}} </div>
-            <div class="col-4"> {{maint.date}} </div>
-            <div class="col-4"> {{maint.from_to}} </div>
+        <div v-else v-for="maint in maints" class="to-do-maint container text-center px-1">
+          <div class="row row-in-containter to-do-date">
+            <div class="col-4 px-1"> {{maint.weekday}} </div>
+            <div class="col-4 px-1"> {{maint.date}} </div>
+            <div class="col-4 px-1"> {{maint.from_to}} </div>
           </div>
           <div class="row">
             <div class="col-12">{{maint.description}}</div>

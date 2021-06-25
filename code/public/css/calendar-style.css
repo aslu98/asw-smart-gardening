@@ -48,7 +48,7 @@
 }
 
 .calendar-timeslot p{
-    font-size: 0.7em;
+    font-size: 0.8em;
     color: darkgrey;
     padding-bottom: 2em;
     padding-left:0.3em;
@@ -59,6 +59,7 @@
     background-color: #c5f4d6;
     border-left: thin solid black;
     border-right: thin solid black;
+    height: 100%;
 }
 
 .first-maint{
@@ -87,14 +88,13 @@
     font-size: 0.5em;
 }
 
+label.control-label, label.check-label, .form-check-input{
+    font-size: 14px !important;
+}
+
 .done-active{
     color: black !important;
     background-color: #c5f4d6 !important;
-}
-
-.ts-row {
-    margin-left: 0px;
-    margin-right: 0px;
 }
 
 /* FORM CREATE MAINT */
@@ -221,5 +221,15 @@
     .calendar-done-btn button{
         margin-left: 0em;
         font-size: 0.5em;
+    }
+}
+
+@media screen and (max-width: 376px){
+    .weekday{
+        display: none;
+    }
+
+    label.control-label, label.check-label, .form-check-input{
+        font-size: 10px;
     }
 }

@@ -40,7 +40,7 @@ const GardensInNeed = {
                       <div class="col-5 ml-5 gardener-info">
                         <p>{{sensor.fieldname}} ({{sensor.where}})</p>
                       </div>
-                      <div class="col-2 grey-state grey-label">
+                      <div class="col-2 grey-state in-need-info grey-label">
                         IS
                       </div>
                       <div class="col-2 gardener-info">

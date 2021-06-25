@@ -25,13 +25,15 @@ const Navbar = {
                     </div>
                 </div>
             </form>
-            <div v-else class="row col-xxl-5 col-lg-8 col-sm-12 col-12 d-flex justify-content-end mx-0">
-                <div class="col-3 text-center">
+            <div v-else class="col-xxl-5 col-lg-8 col-sm-12 col-12 d-flex justify-content-sm-end justify-content-center mx-0">
+              <div class="row">
+              <div class="col-6 text-center">
                     <input type="button" @click="openGardenerBoard" value="Manutenzioni" class="btn btn-success rounded-pill">
                 </div>
-                <div class="col-3 text-center">
+                <div class="col-6 text-center">
                     <input type="button" value="Logout" @click="logout" class="btn btn-danger rounded-pill">
                 </div>
+            </div>
             </div>
         </nav>
     `,
