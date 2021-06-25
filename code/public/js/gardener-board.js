@@ -14,6 +14,7 @@ const GardenerBoard = {
 				<gardener-calendar :from="'gardener'"
 								   :gardener="this.$route.params.id"
 								   :new_maint="this.new_maint"
+								   :deleted_maint="this.deleted_maintenance"
 								   @clicked-maint="showMaint"/>
 			</div>
 			<div class="col-12 col-md-5">
@@ -75,6 +76,7 @@ const GardenerBoard = {
 			this.new_maint = maint;
 		},
 		sendToCalendarDeleted: function (maint){
+			console.log('in gardener-board')
 			this.emptyMaint = true
 			this.deleted_maintenance = maint
 		}

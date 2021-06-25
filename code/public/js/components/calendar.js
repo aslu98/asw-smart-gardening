@@ -31,12 +31,12 @@ const Calendar = {
                                        :garden="getGarden()"
                                        :modalid="getModalId(slotindex, dateindex)"
                                        @new-maint="addToMaintenances"/>
-                    <div v-if="checkMaintInTimeslot(timeslot,date)"
+                    <div v-if="checkMaintInTimeslot(timeslot,date)" 
                          @click="clickedSlot(timeslot, date)"
                          class="maint-timeslot clickable"
                          :class="{'first-maint': isFirstMaint(timeslot, date), 'last-maint': isLastMaint(timeslot, date), 'clicked-maint': isClicked(timeslot, date)}">
-                      <div class="row">
-                        <div class="col-6 mr-3">
+                      <div class="row ts-row">
+                        <div class="col-6 px-0 mr-2 mr-md-3">
                           <p :class="{'clicked-maint-p': isClicked(timeslot, date)}">{{timeslot.toLocaleTimeString("it-IT", time_options).toString()}}</p>
                         </div>
                         <div v-if="isLastMaint(timeslot, date)" class="col-6 px-0 calendar-done-btn" @click="changeMaintState(timeslot,date)">
@@ -46,8 +46,9 @@ const Calendar = {
                         <div v-else class="col-6 px-0"></div>
                       </div>
                     </div>
-                    <div v-else class="no-maint-timeslot row">
-                      <div class="col-6">
+                    <div v-else class="no-maint-timeslot px-0">
+                      <div class="row ts-row">
+                      <div class="col-6 px-0">
                         <p>{{ timeslot.toLocaleTimeString("it-IT", time_options).toString() }}</p>
                       </div>
                       <div class="col-6 pt-2 calendar-add-btn"
@@ -55,6 +56,7 @@ const Calendar = {
                            @mouseleave="switchActiveAddOff(slotindex, dateindex)">
                         <add-button v-if="activeAdd[slotindex][dateindex]" 
                                     :modalid="getModalId(slotindex, dateindex)"/>
+                      </div>
                       </div>
                     </div>
                   </td>
@@ -218,6 +220,7 @@ const Calendar = {
             this.maintenances.push(m)
         },
         removeFromMaintenances: function (m){
+            console.log('in calendar')
             this.maintenances.remove(m)
         },
         switchActiveAddOn: function (ti, di){

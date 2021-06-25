@@ -27,7 +27,7 @@ const flag_options = [
 
 function update_sensors(){
     let updated_sensors = 0;
-
+    let new_flags = 0;
     axios.get(DBURL + "/sensors")
         .then(sensors_response => {
             let sensors = sensors_response.data
@@ -44,16 +44,8 @@ function update_sensors(){
                             value: value,
                             flagOn: (value > opt.max_value || value < opt.min_value)
                         }
-                        axios.post(DBURL +'/sensors', body)
-                            .then(_ => {
-                                updated_sensors++
-                                if (updated_sensors == sensors.length){
-                                    console.log("All sensors updated")
-                                }
-                            })
-                            .catch(error => console.log("thingspeak API error"));
                         if (body.flagOn != sensors[i].flagOn){
-                            console.log("new flag")
+                            new_flags++
                             if (body.flagOn){
                                 axios.get(DBURL + "/gardens/"+ sensors[i].garden +"/addFlag")
                                     .catch(error => (console.log(error)));
@@ -62,12 +54,19 @@ function update_sensors(){
                                     .catch(error => (console.log(error)));
                             }
                         }
+                        axios.post(DBURL +'/sensors', body)
+                            .then(_ => {
+                                updated_sensors++
+                                if (updated_sensors == sensors.length){
+                                    console.log("All sensors updated ("+ new_flags +" new flags).")
+                                }
+                            })
+                            .catch(error => console.log("thingspeak API error"));
                     })
                     .catch(error => (console.log(error)));
             }
         })
         .catch(error => (console.log(error)));
-    process.send({news: "sensors updating"});
 }
 
 update_sensors()

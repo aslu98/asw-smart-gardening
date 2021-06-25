@@ -92,6 +92,11 @@
     background-color: #c5f4d6 !important;
 }
 
+.ts-row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 /* FORM CREATE MAINT */
 
 .form-error{
