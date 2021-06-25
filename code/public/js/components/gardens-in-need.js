@@ -9,7 +9,7 @@ const GardensInNeed = {
             <h6>Giardini</h6>
             <div v-if="nothing"> <p class="empty-card"> No gardens in need! </p> </div>
             <div v-else class="card gardens-scrollbar">
-              <div v-for="(garden, gindex) in gardens" class="row">
+              <div v-for="(garden, gindex) in gardens" class="row mx-0">
                 <div class="col-10">
                   <div class="row">
                     <div class="col-3 grey-state in-need-info grey-label">
