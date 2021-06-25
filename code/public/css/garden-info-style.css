@@ -204,11 +204,7 @@
         font-size: 0.8em;
     }
 
-    weather-info{
-        font-size: 1.2em;
-    }
-
-    .today-weather-info{
-        font-size: 1.2em;
+    .weather-info, .p-weather-date, .today-weather-info{
+        font-size: 1em;
     }
 }
