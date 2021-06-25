@@ -43,7 +43,7 @@
 }
 
 .gardens-in-need-card hr{
-    margin: 0.2em !important;
+    margin: 0.2em 0em !important;
 }
 
 label.control-label, label.check-label, .form-check-input{

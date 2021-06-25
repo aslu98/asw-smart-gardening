@@ -7,7 +7,7 @@ const GardenInfo = {
 	},
 	template: `
 		<div class="garden-info">
-			<div class="row">
+			<div class="row mx-0">
 				<div class="col-md-12">
 					<div class="card-body">
 						<garden-card :garden="garden" @hide-info="hideInfo"/>
@@ -54,7 +54,8 @@ const GardenInfo = {
 			if(this.$props.gardenid !== "") {
 				axios.get(DBURL + "/gardens/" + this.$props.gardenid)
 					.then(response => {
-						this.garden = response.data
+						this.garden = response.data;
+						this.showNotLogged = false;
 					})
 					.catch(error => (console.log(error)));
 			}
