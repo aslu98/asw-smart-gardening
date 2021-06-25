@@ -7,7 +7,7 @@ const GardenInfo = {
 	},
 	template: `
 		<div class="garden-info">
-			<div class="row">
+			<div class="row mx-0">
 				<div class="col-md-12">
 					<div class="card-body">
 						<garden-card :garden="garden" @hide-info="hideInfo"/>
