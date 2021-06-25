@@ -54,7 +54,8 @@ const GardenInfo = {
 			if(this.$props.gardenid !== "") {
 				axios.get(DBURL + "/gardens/" + this.$props.gardenid)
 					.then(response => {
-						this.garden = response.data
+						this.garden = response.data;
+						this.showNotLogged = false;
 					})
 					.catch(error => (console.log(error)));
 			}
