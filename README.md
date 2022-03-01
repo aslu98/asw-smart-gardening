@@ -1,6 +1,6 @@
-# GardenCare
+# Setup
 
-1. Scaricare questo repository in locale.
+1. Scaricare il repository in locale.
 2. Importare le collections presenti all'interno della cartella ./mongodb-collections su mongodb attraverso usando il seguente comando.
 ```
 mongoimport --collection gardens --db smart-gardening ./path/to/gardens.json
